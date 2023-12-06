@@ -1,0 +1,14 @@
+\begin{table}
+\caption{Comparison of AFR Models on the CIFAR dataset.}
+\label{tab:cifar}
+\begin{tabular}{llrlrr}
+\toprule
+ & AIC & Concordance & BIC & Mean $S(t;\theta)$ & Median $S(t;\theta)$ \\
+\midrule
+weibull & -2992.60 & 0.91 & -2992.60 & 0.09 & 0.08 \\
+cox & -- & 0.92 & -- & 0.03 & 0.08 \\
+log_logistic & -3173.60 & 0.92 & -3173.60 & 0.09 & 0.08 \\
+log_normal & -3072.67 & 0.92 & -3072.67 & 0.09 & 0.08 \\
+\bottomrule
+\end{tabular}
+\end{table}
