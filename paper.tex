@@ -366,18 +366,56 @@ Memory Bandwidth (GB/s) & 900    & 732    & 300   &  \\ \hline
 \end{table}
 
 \section{Results}
-\cm{These are a brief overview of the results as I work on the plots and wait for the power data from Mohammad. Will add plots tonight, but you can see preliminary results in the plots folder. I'm still playing with how to squeeze all the data into a single page. I apologize for the delay.}
+\cm{Here are most of the results. I'm still playing with how to 1. combine the hardware into a single model per dataset or 2. visualize 9 different combinations in a tiny space. I'd very much like to show the partial effects plots as I did before with the layers in the NEURIPS paper.}
 
 \subsection{Accuracy and Robustness}
 Marginal gains in accuracy for faster hardware, but no significant change in survival time.
-\subsection{Training Time}
+\begin{figure*}
+    \centering
+    \includegraphics[width=\textwidth]{plots/combined/acc.pdf}
+    \caption{Ben. and Adv. Accuracy Across Datasets and Hardware}
+    \label{fig:acc}
+\end{figure*}
+
+\subsection{Time}
 Corresponds roughly to what we would expect from the peak GPU bandwidth numbers in Tab.~\ref{tab:hardware}.
-\subsection{Latency}
+
 Slower hardware is marginally slower. Results would be undetectable for a user with a reasonably small query.
+
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\textwidth]{plots/combined/time.pdf}
+    \caption{Training, Prediction, and Attack times across datasets and hardware.}
+    \label{fig:time}
+\end{figure*}
+
+
+
+
+
 \subsection{Monetary Cost}
+
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\textwidth]{plots/combined/cost.pdf}
+    \caption{Training, Prediction, and Attack Power Consumption Across Datasets and Hardware}
+    \label{fig:time}
+\end{figure*}
 Smaller hardware is significantly cheaper (roughly half the cost to train vs. the best hardware).
+
 \subsection{Power}
+\begin{figure*}
+    \centering
+    \includegraphics[width=\textwidth]{plots/combined/power.pdf}
+    \caption{Training, Prediction, and Attack Power Consumption Across Datasets and Hardware}
+    \label{fig:time}
+\end{figure*}
 Power tracks monetary cost closely, probably because that's the predominant cost for the datacenter itself~\cite{}.
+
+\subsection{}
+
 
 \section{Considerations}
  We have taken much care to conduct these measurements as carefully as possible. Primarily, to minimize timing jitter and account for GPU parallelization, we assumed that the time-to-failure during the benign and adversarial accuracy measurements was uniform across the samples, but independent and identically distributed data is already a pre-condition for neural networks \cite{}. Given the strong concordance results and uniformity across hardware shown in Table~\ref{}, this assumption appears to insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexaplained variance. Additionally, we chose a model and set of datasets small enough to fit entirely in GPU memory to minimize the confounding factors around parallelized, distributed, and/or federated learning. In general, distributed/federated models are out of scope, but architectural choices regarding the configuration of such methods could be evaluated using the cost and survival analysis techniques outlined above. Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth. However, we would like to note that the `inference-optimized' Nvidia 4 series GPUs are perfectly capable and affordable training machines. We restricted our search to only a single evasion attack (see: Eq.~\ref{eq:fgm}) in the interest of time (and therefore deployment cost), though this analysis would generalize to other evasion, extraction, inversion, or poisoning attacks, examples of which are outlined in Section~\ref{attacks}. 
@@ -385,7 +423,7 @@ Power tracks monetary cost closely, probably because that's the predominant cost
  In general, we chose to use a PVC rather than externally linked databases to minimize the differences between a single-machine implementation and the cloud deployment and allow our results to be generally reproducible on a developer's local machine, though this comes with the downside of having to interact with critical experiment data manually. Proper permissions management on the attached volume store can prevent any critical errors during downstream analysis, though version control software like \texttt{dvc}~\cite{dvc} or the addition of some kind of searchable log store like \texttt{elasticsearch}\cite{} in combination with artifact storage\cite{} for the datasets, models, and attacks would be a welcome and obvious improvement.
 \section{Conclusion}
 
-\newpage
+% \newpage
 \bibliographystyle{IEEEtran}
 \bibliography{bibliography}
 \vspace{12pt}
