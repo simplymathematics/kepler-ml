@@ -20,25 +20,25 @@
 \title{Towards Reliable Machine Learning Deployments in the Cloud}
 % \thanks{Identify applicable funding agency here. If none, delete this.}
 \author{\IEEEauthorblockN{1\textsuperscript{st} Charles Meyers}
-\IEEEauthorblockA{\textit{dept. of Computing Science} \\
+\IEEEauthorblockA{\textit{Dept. of Computing Science} \\
 \textit{Umeå University}\\
 Umeå, Sweden \\
 cmeyers@cs.umu.se}
 \and
 \IEEEauthorblockN{2\textsuperscript{nd} Mohammad Reza}
-\IEEEauthorblockA{\textit{dept. of Computing Science} \\
+\IEEEauthorblockA{\textit{Dept. of Computing Science} \\
 \textit{Umeå University}\\
 Umeå, Sweden \\
 fake@fake.se}
 \and
 \IEEEauthorblockN{3\textsuperscript{rd} Tommy Löfstedt}
-\IEEEauthorblockA{\textit{dept. of Computing Science} \\
+\IEEEauthorblockA{\textit{Dept. of Computing Science} \\
 \textit{Umeå University}\\
 Umeå, Sweden \\
-tommmy@cs.umu.se}
+tommy@cs.umu.se}
 \and
 \IEEEauthorblockN{4\textsuperscript{th} Erik Elmroth}
-\IEEEauthorblockA{\textit{dept. of Computing Science} \\
+\IEEEauthorblockA{\textit{Dept. of Computing Science} \\
 \textit{Umeå University}\\
 Umeå, Sweden \\
 elmroth@cs.umu.se}
@@ -47,7 +47,7 @@ elmroth@cs.umu.se}
 \maketitle
 
 \begin{abstract}
-Considering the growing prominence of production-level AI and the threat of adversarial attacks that can poison a machine learning model against a certain label, evade classification, or reveal sensitive data about the model and training data to an attacker, adversaries pose fundamental problems to machine learning systems. Prior research has noted the need to extend beyond the normal train-test split paradigm for evaluating models due of the ease with which one can generally find adversarial counterexamples. Additionally, testing model changes likely means deploying the models to a car, medical imaging device, or drone to see how it affects performance, making un-tested changes a public problem. Furthermore, the relationship between model learning rate, batch size, training time, convergence time, and deployment cost is highly complex. So, instead of this train-test split methodology, we propose using accelerated failure time models to measure the effect of hardware choice, batch size, number of epochs, and learning rate by using adversarial attacks to induce failures on a reference model architecture. We evaluate several GPU types and use Tree Parzen Estimator to maximize model robustness and minimize model run-time simultaneously. In this way, we can evaluate our model and optimize it in a single step, which provides a precise way to not only measure the effect of different hardware deployments but also of the model parameters. Using this technique, we demonstrate that newer, more-powerful hardware does decrease the training time, but with a monetary and power cost that far outpaces the marginal gains in accuracy.
+Considering the growing prominence of production-level AI and the threat of adversarial attacks that can poison a machine learning model against a certain label, evade classification, or reveal sensitive data about the model and training data to an attacker, adversaries pose fundamental problems to machine learning systems. Prior research has noted the need to extend beyond the normal train-test split paradigm for evaluating models due of the ease with which one can generally find adversarial counterexamples. Additionally, testing model changes likely means deploying the models to a car, medical imaging device, or drone to see how it affects performance, making un-tested changes a public problem. Furthermore, the relationship between model learning rate, batch size, training time, convergence time, and deployment cost is highly complex. So, instead of this train-test split methodology, we propose using accelerated failure time models to measure the effect of hardware choice, batch size, number of epochs, and learning rate by using adversarial attacks to induce failures on a reference model architecture. We evaluate several GPU types and use the Tree Parzen Estimator to maximize model robustness and minimize model run-time simultaneously. In this way, we can evaluate the model and optimize it in a single step, which provides a precise way to not only measure the effect of different hardware deployments but also of the model parameters. Using this technique, we demonstrate that newer, more-powerful hardware does decrease the training time, but with a monetary and power cost that far outpaces the marginal gains in accuracy.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -57,30 +57,30 @@ artificial intelligence, machine learning, adversarial AI, optimization, complia
 
 \section{Introduction}
 \subsection{Motivations}
-\begin{itemize}
-    % \item \textbf{BIG} Data is the trend
-    % \item Costs are astronomical
-    \item Prevailing regulatory framework is clear about the robustness requirements, documented software changes, and explainable processes.
-    \item Other work relies on unreliable test/train split methodology
-    \item Which means that cars, medical equipment is tested in the wild
-\end{itemize}
+% \begin{itemize}
+%     % \item \textbf{BIG} Data is the trend
+%     % \item Costs are astronomical
+%     \item Prevailing regulatory framework is clear about the robustness requirements, documented software changes, and explainable processes.
+%     \item Other work relies on unreliable test/train split methodology
+%     \item Which means that cars, medical equipment is tested in the wild
+% \end{itemize}
 
-Recently, artificial intelligence using neural networks has become a popular way to classify large amounts of data-- with applications ranging from medical imaging~\cite{ai_medical_imaging} to aviation~\cite{ai_aviation} and from security~\cite{ai_security,ai_luggage,ai_prison} to self-driving cars~\cite{ai_automotive}. However, neural networks need huge amounts of data\cite{desislavov2021compute,bailly2022effects} to train ever-larger model~\cite{desislavov2021compute}, yielding increasingly marginal gains on test-set accuracy~\cite{sun2017revisiting}. Furthermore, popular models like general purpose transformer (GPT)\cite{floridi2020gpt} or ResNet~\cite{resnet} have hundreds of millions or billions of parameters, requiring equally large training datasets. Media reports place the cost of training a large language model somewhere between 4 and 63 million dollars~\cite{}, meaning only a few entities in the whole world have the requisite hardware and/or cloud budget to build a competing system. Luckily, Facebook's large language model, dubbed LLaMA, was placed on the codesharing website, GitHub~\cite{llama}. Immediately, an open-sourced clone was created, which itself spawned hundreds of offshoot projects~\cite{openllama}. The newest version of this open-source LLM is able to outperform the commercially available GPT-3.5 model with a fraction of the parameters (13 Billion), small enough to run on a laptop without a graphics processing unit (GPU)~\cite{liu2023goat}. Given the immense cost of deploying modern neural networks, this raises serious questions about the efficacy of the typical train/test split methodology for evaluating the ability of a model to generalize beyond a training set~\cite{meyers} since regulatory standards around safety-critical software applications~\cite{IEC61508,iso26262,aviation_software,safetyframework} clearly define the maximum failure rate to be one in trillions~\cite{iso26262}. Collecting, labelling, and testing a new set of data for every software change-as required by law- would be prohibitively expensive. Therefore, a new evaluation methodology is required. As such, we propose an evaluation metholodgy, centered on the statistical field of survival analysis, which tests a model against `worst-case' input to verify the efficacy of one software or hardware decision over another. Then, we use this method to examine and minimize the deployment cost for a singular model architecture, measuring this in terms of both power and monetary cost. In short, our goal is to answer three questions.
+Recently, machine learning using neural networks has become a popular way to classify large amounts of data---with applications ranging from medical imaging~\cite{ai_medical_imaging} to aviation~\cite{ai_aviation} and from security~\cite{ai_security,ai_luggage,ai_prison} to self-driving cars~\cite{ai_automotive}. However, neural networks need large amounts of data\cite{desislavov2021compute,bailly2022effects} to train ever-larger model~\cite{desislavov2021compute}, yielding increasingly marginal gains on test-set accuracy~\cite{sun2017revisiting}. Furthermore, popular models like Generative Pre-trained Transformer (GPT)\cite{floridi2020gpt} or ResNet~\cite{resnet} have many millions of parameters, requiring equally large training datasets. Media reports place the cost of training a large language model somewhere between 4 and 63 million dollars~\cite{}, meaning only a few entities in the whole world have the requisite hardware and/or cloud budget to build a competing system. Facebook's large language model, dubbed LLaMA, was placed on the codesharing website, GitHub~\cite{llama}. Immediately, an open-sourced clone was created, which itself spawned hundreds of offshoot projects~\cite{openllama}. The newest version of this open-source large language model (LLM) is able to outperform the commercially available GPT-3.5 model with a fraction of the parameters (13 Billion), small enough to run on a laptop without a graphics processing unit (GPU)~\cite{liu2023goat}. Given the immense cost of deploying modern neural networks, the required number of test samples creates serious questions about the efficacy of the typical train/test split methodology for evaluating the ability of a model to generalize beyond a training set~\cite{meyers} since regulatory standards around safety-critical software applications~\cite{IEC61508,iso26262,aviation_software,safetyframework} clearly define the maximum failure rate to be between $[1e-12, 1e-15]$ depending on the number of lives at risk ~\cite{iso26262}. Collecting, labelling, and testing a new set of data for every software change-as required by law would be prohibitively expensive. Therefore, a new evaluation methodology is required. As such, we propose an evaluation metholodgy, centered around survival analysis, which tests a model against `worst-case' input to verify the efficacy of one of modelling deployment decision over another. Then, we use this method to examine and minimize the deployment cost for a singule model architecture, measuring this in terms of both power and monetary cost. In short, our goal is to answer three questions, 
 
 
 \subsection{Research Questions}
-Our goal is to answer three questions.
+Our goal is to answer the following three questions:
 \begin{itemize}
-    \item What is relationship between latency, robustness, and deployment cost?
+    \item What is the relationship between latency, robustness, and deployment cost?
     \item What is the cheapest way to guarantee a certain response time and accuracy?
-    \item Does better hardware make better models?
+    \item Does better hardware lead to better models?
 \end{itemize}
 
 However, before we can answer these questions, we need to model the asymptotic behavior of various architectural choices, develop a method for precisely measuring model performance without resorting to trillions of test samples, and find a metric (or metrics) that will set one model apart from the others with respect to both failure rate and deployment cost. 
 
 \subsection{Contributions}
 \begin{itemize}
-    \item We confirm previous work about the efficacy adversarial analysis for model selection
+    \item We confirm previous work about the efficacy of adversarial analysis for model selection.
     \item We measure the power and monetary cost of deploying a model across three different hardware architectures.
     \item We combine survival analysis with adversarial analysis to build accelerated failure models to compare the effect of model parameter choices.
     \item We use a Tree Parzen Estimator to minimize deployment cost while maximizing accuracy.
@@ -89,17 +89,17 @@ However, before we can answer these questions, we need to model the asymptotic b
 
 
 \section{Background}
-Machine learning pipelines play a crucial role in the development and deployment of robust and accurate models. However, managing complex pipelines across diverse CPU and GPU architectures, ensuring robustness against adversarial attacks, and understanding the relationship between computational cost, model loss, and prediction accuracy remain ongoing challenges. In this paper, we present a comprehensive study on leveraging Kubernetes ~\cite{k8s} for managing a complex machine learning pipeline. We explore the robustness of the pipeline under adversarial attacks and examine the impact of computational cost on model performance in both benign and adversarial contexts.
+Machine learning pipelines play a crucial role in the development and deployment of robust and accurate models. However, managing complex pipelines across diverse CPU and GPU architectures, ensuring robustness against adversarial attacks, and understanding the relationship between computational cost, model loss, and prediction accuracy remain ongoing challenges. In this paper, we present a comprehensive study on leveraging Kubernetes~\cite{k8s} to manage a complex machine learning pipeline. We explore the robustness of the pipeline under adversarial attacks and examine the impact of computational cost on model performance in both benign and adversarial contexts.
 
 Machine learning applications have witnessed tremendous growth in recent years, addressing a wide range of domains and providing significant advancements in various fields \cite{li_general_2016, croce_reliable_2020, athalye_obfuscated_2018}. As these applications become more sophisticated, the need to efficiently manage the underlying machine learning pipeline arises. The pipeline involves a series of interconnected steps, including data preprocessing, model training, post-processing, and inference. Efficiently orchestrating these steps across diverse CPU and GPU architectures poses significant challenges in terms of scalability, resource allocation, and workload distribution.
 
 To address these challenges, containerization and orchestration technologies have gained prominence in managing complex machine learning pipelines. Kubernetes, a widely adopted container orchestration platform, provides a scalable and flexible environment for deploying, scaling, and managing microservices-based applications. Its ability to handle heterogeneous hardware architectures and workload distribution across clusters makes it an ideal choice for managing the complex computational requirements of machine learning pipelines.
 
-Furthermore, ensuring the robustness of machine learning (ML) models against adversarial attacks has become a critical concern \cite{adversarialpatch, carlini_towards_2017, croce_reliable_2020, hopskipjump, chakraborty2018adversarial, art2018}. Adversarial attacks aim to exploit vulnerabilities in models by introducing subtle modifications to data submitted to various stages of the ML pipeline, leading to misclassification or otherwise erroneous outputs. Evaluating the robustness of machine learning models against adversarial attacks is crucial to assess their reliability and performance in real-world scenarios. By subjecting the machine learning pipeline to carefully crafted adversarial inputs, we can measure its resilience and identify potential vulnerabilities.
+Furthermore, ensuring the robustness of machine learning  models against adversarial attacks has become a critical concern~\cite{adversarialpatch, carlini_towards_2017, croce_reliable_2020, hopskipjump, chakraborty2018adversarial, art2018}. Adversarial attacks aim to exploit vulnerabilities in models by introducing subtle modifications to data submitted to various stages of the ML pipeline, leading to misclassification or otherwise erroneous outputs. Evaluating the robustness of ML models against adversarial attacks is crucial to assess their reliability and performance in real-world scenarios. By subjecting the ML pipeline to carefully crafted adversarial inputs, we can measure its resilience and identify potential vulnerabilities.
 
 Additionally, understanding the relationship between computational cost, model loss, and prediction accuracy is vital for optimizing the pipeline's performance. Balancing computational resources, time constraints, and accuracy requirements is a fundamental consideration in deploying machine learning models in production environments. By analyzing the impact of computational cost on model loss and accuracy metrics, we can gain insights into the trade-offs involved and make informed decisions to optimize the pipeline's efficiency.
 
-In this paper, we present a comprehensive study that combines Kubernetes as the underlying infrastructure for managing a complex machine learning pipeline across a variety of CPU and GPU architectures. We can investigate the robustness of the pipeline against adversarial attacks and explore the relationship between computational cost, model loss, and  prediction accuracy in both benign and adversarial contexts. Our experiments and analysis provide valuable insights into the trade-offs and considerations when deploying machine learning models under varying computational constraints and adversarial conditions.
+In this paper, we present a comprehensive study that combines Kubernetes as the underlying infrastructure for managing a complex ML pipeline across a variety of CPU and GPU architectures. We can investigate the robustness of the pipeline against adversarial attacks and explore the relationship between computational cost, model loss, and  prediction accuracy in both benign and adversarial contexts. Our experiments and analysis provide valuable insights into the trade-offs and considerations when deploying machine learning models under varying computational constraints and adversarial conditions.
 
 
 For the sake of the reader, we provide a section for definitions and requisite background information below.
@@ -182,14 +182,14 @@ where $\| \cdot \|$ represents some norm or pseudo-norm and $\varepsilon$ is som
 \[
 h(t; \theta) :=  \frac{\mathbb{P}(\textrm{False~Classification})}{\Delta t}
 \]
-where $\mathbb{P}$ is a probability and $\Delta t$ is a time interval. To get a more precise and reliable estimate of a model's failure characteristics, we can use accelerated failure time models~\cite{meyers_aft} that model the \textbf{survival time}, $S(t)$, as a function of the samples, $x$, the labels, $y$, and some set of covariates, $\theta$ such that:
+where $\mathbb{P}$ is a probability and $\Delta t$ is a time interval. To get a more precise and reliable estimate of a model's failure characteristics, we can use accelerated failure time models that model the \textbf{survival time}, $S(t)$, as a function of the samples, $x$, the labels, $y$, and some set of covariates, $\theta$ such that:
 \[
 S(t; x,y, \theta) := 1 - \int_{t=0}^{\infty} h(t;\theta) d \theta
 \]
 
 \subsection{AFR models}
 \label{afr}
-Accelerated failure rate models are statistical models used to analyze multivariate effects on the observed failure rate to predict the expected survival time ($\mathbb{E}[S(t; x,y, \theta)]$) across a wide variety of circumstances~\cite{aft_models,meyers_aft}. However, this requires a choice in modelling distribution for $S$. We tested Log-Logistic, Log-Normal, and Weibull distributions, relying on AIC, BIC, and Concordance to choose the best-fit, following the best-practices of other research~\cite{aft_models,meyers_aft}.  This analysis allows us to test the model under extreme perturbations, revealing not only the accuracy under ideal test scenarios, but to see the model's performance in the presence of noise that's designed to be adversarial. However, we still have to find optimal configurations for both the attack and defence, which often rely on parameters drawn from continuous or infinite spaces. In order to minimize the cost of evaluationm, we must be clever about how we search.
+Accelerated failure rate models are statistical models used to analyze multivariate effects on the observed failure rate to predict the expected survival time ($\mathbb{E}[S(t; x,y, \theta)]$) across a wide variety of circumstances~\cite{aft_models,kleinbaum1996survival}. However, this requires a choice in modelling distribution for $S$. We tested Log-Logistic, Log-Normal, and Weibull distributions, relying on Akaike Information Criterion (AIC), Bayesian Information Criteria (BIC), and Concordance to choose the best-fit, following the best-practices of other research~\cite{aft_models}.  This analysis allows us to test the model under extreme perturbations, revealing not only the accuracy under ideal test scenarios, but to see the model's performance in the presence of noise that's designed to be adversarial. However, we still have to find optimal configurations for both the attack and defence, which often rely on parameters drawn from continuous or infinite spaces. In order to minimize the cost of evaluation, we must be clever about how we search.
 
 \subsection{Pareto Set}
 \cm{This section could probably be cut without too much lost.}
@@ -415,8 +415,7 @@ Smaller hardware is significantly cheaper (roughly half the cost to train vs. th
 Power tracks monetary cost closely, probably because that's the predominant cost for the datacenter itself~\cite{}.
 
 \subsection{Survival Time}
-
-
+\input{plots/combined/aft_comparison}
 
 \section{Considerations}
  We have taken much care to conduct these measurements as carefully as possible. Primarily, to minimize timing jitter and account for GPU parallelization, we assumed that the time-to-failure during the benign and adversarial accuracy measurements was uniform across the samples, but independent and identically distributed data is already a pre-condition for neural networks \cite{}. Given the strong concordance results and uniformity across hardware shown in Table~\ref{}, this assumption appears to insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexaplained variance. Additionally, we chose a model and set of datasets small enough to fit entirely in GPU memory to minimize the confounding factors around parallelized, distributed, and/or federated learning. In general, distributed/federated models are out of scope, but architectural choices regarding the configuration of such methods could be evaluated using the cost and survival analysis techniques outlined above. Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth. However, we would like to note that the `inference-optimized' Nvidia 4 series GPUs are perfectly capable and affordable training machines. We restricted our search to only a single evasion attack (see: Eq.~\ref{eq:fgm}) in the interest of time (and therefore deployment cost), though this analysis would generalize to other evasion, extraction, inversion, or poisoning attacks, examples of which are outlined in Section~\ref{attacks}. 
