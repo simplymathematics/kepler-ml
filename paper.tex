@@ -9,6 +9,8 @@
 \usepackage{xcolor}
 \usepackage{multirow}
 \usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{multirow}
 
 \newcommand{\cm}[1]{\textit{{\color{blue}#1}}}
 \newcommand{\mr}[1]{\textit{{\color{red}#1}}}
@@ -58,172 +60,165 @@ artificial intelligence, machine learning, adversarial AI, optimization, complia
 \section{Introduction}
 \subsection{Motivations}
 % \begin{itemize}
-%     % \item \textbf{BIG} Data is the trend
+%     % \item \textit{BIG} Data is the trend
 %     % \item Costs are astronomical
 %     \item Prevailing regulatory framework is clear about the robustness requirements, documented software changes, and explainable processes.
 %     \item Other work relies on unreliable test/train split methodology
 %     \item Which means that cars, medical equipment is tested in the wild
 % \end{itemize}
 
-Recently, machine learning using neural networks has become a popular way to classify large amounts of data---with applications ranging from medical imaging~\cite{ai_medical_imaging} to aviation~\cite{ai_aviation} and from security~\cite{ai_security,ai_luggage,ai_prison} to self-driving cars~\cite{ai_automotive}. However, neural networks need large amounts of data\cite{desislavov2021compute,bailly2022effects} to train ever-larger model~\cite{desislavov2021compute}, yielding increasingly marginal gains on test-set accuracy~\cite{sun2017revisiting}. Furthermore, popular models like Generative Pre-trained Transformer (GPT)\cite{floridi2020gpt} or ResNet~\cite{resnet} have many millions of parameters, requiring equally large training datasets. Media reports place the cost of training a large language model somewhere between 4 and 63 million dollars~\cite{}, meaning only a few entities in the whole world have the requisite hardware and/or cloud budget to build a competing system. Facebook's large language model, dubbed LLaMA, was placed on the codesharing website, GitHub~\cite{llama}. Immediately, an open-sourced clone was created, which itself spawned hundreds of offshoot projects~\cite{openllama}. The newest version of this open-source large language model (LLM) is able to outperform the commercially available GPT-3.5 model with a fraction of the parameters (13 Billion), small enough to run on a laptop without a graphics processing unit (GPU)~\cite{liu2023goat}. Given the immense cost of deploying modern neural networks, the required number of test samples creates serious questions about the efficacy of the typical train/test split methodology for evaluating the ability of a model to generalize beyond a training set~\cite{meyers} since regulatory standards around safety-critical software applications~\cite{IEC61508,iso26262,aviation_software,safetyframework} clearly define the maximum failure rate to be between $[1e-12, 1e-15]$ depending on the number of lives at risk ~\cite{iso26262}. Collecting, labelling, and testing a new set of data for every software change-as required by law would be prohibitively expensive. Therefore, a new evaluation methodology is required. As such, we propose an evaluation metholodgy, centered around survival analysis, which tests a model against `worst-case' input to verify the efficacy of one of modelling deployment decision over another. Then, we use this method to examine and minimize the deployment cost for a singule model architecture, measuring this in terms of both power and monetary cost. In short, our goal is to answer three questions, 
+Recently, machine learning (ML) using neural networks has become a popular way to classify large amounts of data---with applications ranging from medical imaging~\cite{ai_medical_imaging} to aviation~\cite{ai_aviation} and from security~\cite{ai_security,ai_luggage,ai_prison} to self-driving cars~\cite{ai_automotive}. However, neural networks need large amounts of data\cite{desislavov2021compute,bailly2022effects} to train ever-larger model~\cite{desislavov2021compute}, yielding increasingly marginal gains on test-set accuracy~\cite{sun2017revisiting}. Furthermore, popular models like Generative Pre-trained Transformer (GPT)\cite{floridi2020gpt} or ResNet~\cite{resnet} have many millions of parameters, requiring equally large training datasets. Media reports place the cost of training a large language model somewhere between 4 and 63 million dollars~\cite{Patel_Ahmad_2023,Feswing_2023}, meaning only a few entities in the whole world have the requisite hardware and/or cloud budget to build a competing system. Facebook's large language model, dubbed LLaMA, was placed on the codesharing website, GitHub~\cite{llama}. Immediately, an open-sourced clone was created, which itself spawned hundreds of offshoot projects~\cite{openllama}. The newest version of this open-source large language model (LLM) is able to outperform the commercially available GPT-3.5 model with a fraction of the parameters (13 Billion), small enough to run on a laptop without a graphics processing unit (GPU)~\cite{liu2023goat}. Given the immense cost of deploying modern neural networks, the required number of test samples creates serious questions about the efficacy of the typical train/test split methodology for evaluating the ability of a model to generalize beyond a training set~\cite{meyers} since regulatory standards around safety-critical software applications~\cite{IEC61508,iso26262,aviation_software,safetyframework} clearly define the maximum failure rate to be between $[1e-12, 1e-15]$ depending on the number of lives at risk ~\cite{iso26262}. Collecting, labelling, and testing a new set of data for every software change-as required by law would be prohibitively expensive. Therefore, a new evaluation methodology is required. As such, we propose an evaluation metholodgy, centered around survival analysis, which tests a model against `worst-case' (e.g. adversarial) input to verify the efficacy of one of modelling deployment decision over another. Then, we use this method to examine and minimize the deployment cost for a single model architecture, measuring this in terms of both power and monetary cost. Furthermore, ensuring the robustness of ML models against adversarial noise has become a critical concern~\cite{adversarialpatch, carlini_towards_2017, croce_reliable_2020, hopskipjump, chakraborty2018adversarial, art2018}.  
 
+% \subsection{Research Questions}
+% Our goal is to answer the following three questions:
+% \begin{itemize}
+%     \item What is the relationship between latency, robustness, and deployment cost?
+%     \item What is the cheapest way to guarantee a certain response time and accuracy?
+%     \item Does better hardware lead to better models?
+% \end{itemize}
 
-\subsection{Research Questions}
-Our goal is to answer the following three questions:
-\begin{itemize}
-    \item What is the relationship between latency, robustness, and deployment cost?
-    \item What is the cheapest way to guarantee a certain response time and accuracy?
-    \item Does better hardware lead to better models?
-\end{itemize}
-
-However, before we can answer these questions, we need to model the asymptotic behavior of various architectural choices, develop a method for precisely measuring model performance without resorting to trillions of test samples, and find a metric (or metrics) that will set one model apart from the others with respect to both failure rate and deployment cost. 
+% However, before we can answer these questions, we need to model the asymptotic behavior of various architectural choices, develop a method for precisely measuring model performance without resorting to trillions of test samples, and find a metric (or metrics) that will set one model apart from the others with respect to both failure rate and deployment cost. 
 
 \subsection{Contributions}
+So, in order to tackle the problems of minimizing deployment cost while maximizing the model performance on both the test set and in the presence of adversarial noise we present a scalable and effective technique and source code that:
 \begin{itemize}
-    \item We confirm previous work about the efficacy of adversarial analysis for model selection.
-    \item We measure the power and monetary cost of deploying a model across three different hardware architectures.
-    \item We combine survival analysis with adversarial analysis to build accelerated failure models to compare the effect of model parameter choices.
-    \item We use a Tree Parzen Estimator to minimize deployment cost while maximizing accuracy.
-    \item Show that smaller models running on smaller hardware is far more cost effective, especially in the context of adversarial robustness.
+    \item confirm previous work about the efficacy of adversarial analysis for model selection,
+    \item extend survival analysis to the realm of neural networks, 
+    \item demonstrate a scalable and effective method that allows us to tune a model and model the effect of the model parameters asymptotically,
+    \item and measure the power and monetary cost of deploying a model across three different hardware architectures to model the trade-offs between deployment hardware and robustness,
+to show that, despite a decrease in training time, that faster hardware or hardware with more memory does not aid models in the adversarial context.
+    
 \end{itemize}
 
 
 \section{Background}
-Machine learning pipelines play a crucial role in the development and deployment of robust and accurate models. However, managing complex pipelines across diverse CPU and GPU architectures, ensuring robustness against adversarial attacks, and understanding the relationship between computational cost, model loss, and prediction accuracy remain ongoing challenges. In this paper, we present a comprehensive study on leveraging Kubernetes~\cite{k8s} to manage a complex machine learning pipeline. We explore the robustness of the pipeline under adversarial attacks and examine the impact of computational cost on model performance in both benign and adversarial contexts.
+ML pipelines play a crucial role in the development and deployment of robust and accurate models. However, managing complex pipelines across diverse CPU and GPU architectures, ensuring robustness against adversarial attacks, and understanding the relationship between computational cost, model loss, and prediction accuracy remain ongoing challenges. In this paper, we present a comprehensive study on leveraging Kubernetes~\cite{k8s} to manage a complex ML pipeline. We explore the robustness of the pipeline under adversarial attacks and examine the impact of computational cost on model performance in both benign and adversarial contexts.
 
-Machine learning applications have witnessed tremendous growth in recent years, addressing a wide range of domains and providing significant advancements in various fields \cite{li_general_2016, croce_reliable_2020, athalye_obfuscated_2018}. As these applications become more sophisticated, the need to efficiently manage the underlying machine learning pipeline arises. The pipeline involves a series of interconnected steps, including data preprocessing, model training, post-processing, and inference. Efficiently orchestrating these steps across diverse CPU and GPU architectures poses significant challenges in terms of scalability, resource allocation, and workload distribution.
+ML applications have witnessed tremendous growth in recent years, addressing a wide range of domains and providing significant advancements in various fields \cite{li_general_2016, croce_reliable_2020, athalye_obfuscated_2018}. As these applications become more sophisticated, the need to efficiently manage the underlying ML pipeline arises. The pipeline involves a series of interconnected steps, including data preprocessing, model training, post-processing, and inference. Efficiently orchestrating these steps across diverse CPU and GPU architectures poses significant challenges in terms of scalability, resource allocation, and workload distribution.
 
-To address these challenges, containerization and orchestration technologies have gained prominence in managing complex machine learning pipelines. Kubernetes, a widely adopted container orchestration platform, provides a scalable and flexible environment for deploying, scaling, and managing microservices-based applications. Its ability to handle heterogeneous hardware architectures and workload distribution across clusters makes it an ideal choice for managing the complex computational requirements of machine learning pipelines.
+To address these challenges, containerization and orchestration technologies have gained prominence in managing complex ML pipelines. Kubernetes, a widely adopted container orchestration platform, provides a scalable and flexible environment for deploying, scaling, and managing microservices-based applications. Its ability to handle heterogeneous hardware architectures and workload distribution across clusters makes it an ideal choice for managing the complex computational requirements of ML pipelines.
 
-Furthermore, ensuring the robustness of machine learning  models against adversarial attacks has become a critical concern~\cite{adversarialpatch, carlini_towards_2017, croce_reliable_2020, hopskipjump, chakraborty2018adversarial, art2018}. Adversarial attacks aim to exploit vulnerabilities in models by introducing subtle modifications to data submitted to various stages of the ML pipeline, leading to misclassification or otherwise erroneous outputs. Evaluating the robustness of ML models against adversarial attacks is crucial to assess their reliability and performance in real-world scenarios. By subjecting the ML pipeline to carefully crafted adversarial inputs, we can measure its resilience and identify potential vulnerabilities.
 
-Additionally, understanding the relationship between computational cost, model loss, and prediction accuracy is vital for optimizing the pipeline's performance. Balancing computational resources, time constraints, and accuracy requirements is a fundamental consideration in deploying machine learning models in production environments. By analyzing the impact of computational cost on model loss and accuracy metrics, we can gain insights into the trade-offs involved and make informed decisions to optimize the pipeline's efficiency.
 
-In this paper, we present a comprehensive study that combines Kubernetes as the underlying infrastructure for managing a complex ML pipeline across a variety of CPU and GPU architectures. We can investigate the robustness of the pipeline against adversarial attacks and explore the relationship between computational cost, model loss, and  prediction accuracy in both benign and adversarial contexts. Our experiments and analysis provide valuable insights into the trade-offs and considerations when deploying machine learning models under varying computational constraints and adversarial conditions.
+% Additionally, understanding the relationship between computational cost, model loss, and prediction accuracy is vital for optimizing the pipeline's performance. Balancing computational resources, time constraints, and accuracy requirements is a fundamental consideration in deploying ML models in production environments. By analyzing the impact of computational cost on model loss and accuracy metrics, we can gain insights into the trade-offs involved and make informed decisions to optimize the pipeline's efficiency.
+
+In this paper, we present a comprehensive study that combines Kubernetes as the underlying infrastructure for managing a complex ML pipeline across a variety of GPU architectures. We can investigate the robustness of the pipeline against adversarial attacks and explore the relationship between computational cost, model loss, and  prediction accuracy in both benign and adversarial contexts. Our experiments and analysis provide valuable insights into the trade-offs and considerations when deploying ML models under varying computational constraints and adversarial conditions.
 
 
 For the sake of the reader, we provide a section for definitions and requisite background information below.
 
 \subsection{Cloud Architectures}
-A \textbf{microservice} is the smallest component of a `cloud-native' software stack. In the context of machine learning, that might be a tool for either training, inference, pre-processing, sampling, or any other arbitrarily small part of the data pipeline. A microservice \textbf{mesh} is a network infrastructure or architectural pattern that provides a unified and scalable approach to managing communication between microservices in a distributed system. It serves as a dedicated layer that abstracts away the complexity of service-to-service communication, enabling efficient and reliable interactions among these services. A microservice mesh typically consists of a set of interconnected components or proxies deployed alongside the microservices within the system. These components facilitate various capabilities and functionalities essential for managing the communication between microservices. Kubernetes has become one of the largest open source projects on the code-sharing website Github \cite{k8s-size}, which provides a framework for managing, monitoring, and networking a self-scaling set of tools across arbitrary software and hardware architectures.
+A \textit{microservice} is the smallest component of a `cloud-native' software stack. In the context of ML, that might be a tool for either training, inference, pre-processing, sampling, or any other arbitrarily small part of the data pipeline. A microservice \textit{mesh} is a network infrastructure or architectural pattern that provides a unified and scalable approach to managing communication between microservices in a distributed system. It serves as a dedicated layer that abstracts away the complexity of service-to-service communication, enabling efficient and reliable interactions among these services. A microservice mesh typically consists of a set of interconnected components or proxies deployed alongside the microservices within the system. These components facilitate various capabilities and functionalities essential for managing the communication between microservices. Kubernetes has become one of the largest open source projects on the code-sharing website Github \cite{k8s-size}, which provides a framework for managing, monitoring, and networking a self-scaling set of tools across arbitrary software and hardware architectures.
 
-\subsection{Machine Learning Pipelines}
-Machine Learning pipelines are often long-running and complex software tool-chains with many tunable hyperparameters. Managing, tracking, and controlling for various parameters is non trivial, but many management tools are available~\cite{dvc, hydra, k8s}. In general, a dataset is split into \textbf{training} and \textbf{test} sets. The training set is then used to determine the best configuration of a given model architecture on a given hardware architecture with the expectation that it will generalize both on the withheld test set and on new data generated by users via application programming interface (API) calls. To verify the training process, the test set validated against the \textit{inference} configuration of a model which may run on different hardware than the \textbf{training} configuration to reduce cost, latency, or power consumption. 
+\subsection{ML Pipelines}
+ML pipelines are often long-running and complex software tool-chains with many tunable hyperparameters. Managing, tracking, and controlling for various parameters is non trivial, but many management tools are available~\cite{dvc,hydra,k8s}. In general, a dataset is split into \textit{training} and \textit{test} sets. The training set is then used to determine the best configuration of a given model architecture on a given hardware architecture with the expectation that it will generalize both on the withheld test set and on new data generated and submitted by users. To verify the training process, the test set is validated against the \textit{inference} configuration of a model which may run on different hardware than the \textit{training} configuration to reduce cost, latency, or power consumption. 
 
 \subsection{Classifiers}
 
-A classifier with model parameters, $\theta$, $K(x; \theta)$, drawn from a set of all possible hyper-parameters, $\Theta$, seeks to minimize\footnote{This can also be formulated as a maximization function without loss of generality.} an \textbf{objective} (or \textbf{loss}) \textbf{function} $L(y, \hat{y})$ for some samples, $x$, some true labels $y$, and some model output, $K(x)$, such that the optimal loss value, $L^*$ is:
+A classifier, $K(x; \theta)$, with model parameters, $\theta$, drawn from a set of all possible hyper-parameters, $\Theta$, seeks to minimize\footnote{This can also be formulated as a maximization without loss of generality.} an \textit{objective} (or \textit{loss}) \textit{function} $L(y, \hat{y})$ for some samples, $x$, some true labels $y$, and some model output, $K(x)$, such that the optimal loss value, $L^*$ is:
 \[
 L^*(y, K(x, \theta)) = \mathrm{argmin}_{\theta \in \Theta} y - K(x, \theta).
 \]
-From here, we can find the optimal configuration of the classifier by selecting the one that minimizes loss. In the case of neural-networks, however, this is non-trivial as the number of tunable parameters is often measured in the millions. Instead of finding an analytical solution to this equation, we often rely on \textbf{stochastic gradient descent}, which iteratively shuffles the data before adjusting the model parameters, $\theta$, in the direction that minimizes the loss, $-\nabla L(y, K(x, \theta))$, after some number of \textbf{epochs} (iterative random sampling of the data), $m$, such that:
+ In the case of neural networks, however, this is non-trivial as the number of tunable parameters is often measured in the millions and the loss function is non-convex. Instead of finding an analytical solution to this equation, we often rely on numerical optimisation, and one choice is \textit{stochastic gradient descent}, which samples the data before adjusting the model parameters, $\theta$, in the direction that minimizes the loss. This is in the direction of the negative gradient of the loss, $-\nabla L(y, K(x, \theta))$. This procedure is repeated for some number of \textit{epochs} (iteration through the entire training set), $m$, and every iteration thus performs the step,
 \begin{equation}
-\theta_{m+1} := \theta_{m} - \eta \nabla_x L(y, K(x, \theta_m))
+    \theta_{m+1} = \theta_{m} - \eta \nabla_x L\big(y, K(x, \theta_m)\big),
 \label{eq:sgd}
 \end{equation}
-where $\eta$ is a \textbf{learning rate} that is tuned to the particular model. 
+where $\eta$ is a \textit{learning rate} that is tuned to the particular model.
 
 \subsection{Learning Rate Selection}
 \label{learning_rate}
-\cm{TODO}
-\begin{itemize}
-    \item Much work has gone into this~\cite{}.
-    \item A good learning rate will give us training times that are linear w.r.t sample size ~\cite{}
-    \item Will depend on the batch size and number of epochs (define epochs) ~\cite{}
-    \item The best batch size will depend on the memory bandwidth of the GPU~\cite{}
-    \item That bandwidth is not guaranteed in on-demand cloud environments~\cite{}
-    \item Hardware is charged by the hour, so minimizing training/inference times will reduce the costs of deployment.
-\end{itemize}
+Choosing the correct learning rate is critical for model performance---greatly effecting both the accuracy and the run-time requirements. A small learning rate will have a smaller error bound~cite{}, but will converge slower, all other things being equal. Of course `small` is arbitrarily defined, but the scale of the optimal learning rate will vary with \textit{e.g.}, the batch size, number of epochs, bit depth/size/scale of the input data. Graphics cards with larger amounts of RAM will be able to hold more data in memory at a time, increasing the effective batch size, and reducing the number of model-tuning steps per epoch. In theory, a `good' learning rate can converge quickly ~\cite{smith2019super} and the ideal batch size will be determined by the memory bandwidth of the GPU and the size, shape, and bit depth of the data. However, since cloud infrastructure is virutalized and shared with other users, the available bandwidth will not necessarily match the peak available bandwidth specified by the manufacturer~\cite{sajid2013cloud}. Furthermore, since hardware is billed by the hour, optimizing the training and inference times allows us to minimize the cost of deployment. 
+
 
 \subsection{Adversarial Attacks}
 \label{attacks}
-In the context of machine learning, an adversarial attack refers to deliberate and malicious attempts to manipulate or exploit machine learning models. Adversarial attacks are designed to deceive or mislead the model's behavior by introducing carefully crafted input data that can cause the model to make incorrect predictions or produce undesired outputs. That is, a successful attack is one in which the model outputs on unperturbed data $\hat{y}$ are not the same as the model outputs on perturbed data, $x'$. That is \textbf{adversarial success} or \textbf{accelerated failure} is one in which:
+In the context of ML, an adversarial attack refers to deliberate and malicious attempts to manipulate or exploit ML models. Adversarial attacks are designed to deceive or change the model's behavior by introducing carefully crafted input data that can cause the model to make incorrect predictions or otherwise produce undesired outputs. That is, a successful attack is one in which the model outputs on the original, unperturbed data, $\hat{y}$, are not the same as the model outputs on perturbed data, $y'$. That is \textit{adversarial success} or \textit{accelerated failure} is one in which
 \begin{equation}
-\hat{y} \neq y^* = K(x', \theta)
+    \hat{y} \neq y' = K(x + \varepsilon; \theta).
 \label{eq:adv_success}
 \end{equation}
-Additionally, we can measure the accuracy of the model when tasked with these adversarial samples, giving us a metric called \textbf{adversarial accurracy}. The goal of an adversarial attack is often to exploit vulnerabilities in the model's decision-making process or to probe its weaknesses. These attacks can occur during various stages of the machine learning pipeline, including during training, inference, or deployment. 
+Additionally, we can measure the accuracy of the model when tasked with these adversarial samples, giving us a metric called \textit{adversarial accurracy}. The goal of an adversarial attack is often to exploit vulnerabilities in the model's decision-making process or to probe its weaknesses. These attacks can occur during various stages of the ML pipeline, including during training, inference, or deployment, examples of which are outlined below.
 
-\cm{This itemize section could be cut and reduced to a couple sentences.}
 \begin{itemize}
-    \item Evasion Attacks: These attacks aim to manipulate input data during the inference phase to deceive the model into misclassifying or ignoring certain inputs. Attackers carefully craft perturbations or modify the input features to mislead the model while still appearing similar to the original input \cite{biggio_evasion_2013, carlini_towards_2017, adversarialpatch, pixelattack, hopskipjump}.
-    \item Poisoning Attacks: In poisoning attacks, the attacker intentionally injects malicious or manipulated training samples into the training dataset. The goal is to influence the model's behavior during training so that it learns to make incorrect predictions or exhibit unwanted behaviors when presented with specific inputs \cite{biggio_poisoning_2013, saha2020hidden}.
-    \item Inference Attacks: These attacks exploit the model's output or responses to obtain sensitive information about the training data or other confidential details. By observing the model's predictions or confidence scores for carefully crafted inputs, attackers can extract information that should ideally be kept private \cite{chakraborty_adversarial_2018, orekondy2019knockoff}.
-    \item Model Inversion Attacks: Model inversion attacks aim to infer sensitive information about the training data or proprietary model by exploiting the model's outputs. Attackers utilize the model's responses to iteratively reconstruct or approximate training examples that are similar to the ones used during training \cite{chakraborty_adversarial_2018, choquette2021label, li2021membership}.
+    \item Evasion Attacks: These attacks aim to manipulate input data during the inference phase to deceive the model into misclassifying certain inputs or otherwise change the behavior of a modelt~\cite{biggio_evasion_2013, carlini_towards_2017, adversarialpatch, pixelattack, hopskipjump}.
+    % Attackers carefully craft perturbations or modify the input features to mislead the model while still appearing similar to the original input~\cite{biggio_evasion_2013, carlini_towards_2017, adversarialpatch, pixelattack, hopskipjump}.
+    \item Poisoning Attacks: In poisoning attacks, the attacker intentionally injects malicious or manipulated training samples into the training dataset to influence the model's behaviour at run-time~\cite{biggio_poisoning_2013, saha2020hidden}. 
+    % The goal is to influence the model's behavior during training so that it learns to make incorrect predictions or exhibit unwanted behaviors when presented with specific inputs \cite{biggio_poisoning_2013, saha2020hidden}.
+    \item Inference Attacks: These attacks exploit the model's output or responses to obtain sensitive information about the training data or other confidential details~\cite{chakraborty_adversarial_2018, orekondy2019knockoff}.
+    % By observing the model's predictions or confidence scores for carefully crafted inputs, attackers can extract information that should ideally be kept private \cite{chakraborty_adversarial_2018, orekondy2019knockoff}.
+    \item Model Inversion Attacks: Model inversion attacks aim to infer sensitive information about the training data or proprietary model by exploiting the model's outputs~\cite{chakraborty_adversarial_2018, choquette2021label, li2021membership}. 
+    % Attackers utilize the model's responses to iteratively reconstruct or approximate training examples that are similar to the ones used during training \cite{chakraborty_adversarial_2018, choquette2021label, li2021membership}.
 \end{itemize}
-One attack designed to induce failures as quickly as possible~\cite{fgm} works by applying noise to a set of samples, $x$, to generate adversarial examples, $x'$, such that:
-
+One of many possible attacks is designed to induce failures as quickly as possible, and is  conveniently called the \textit{fast gradient method}~\cite{fgm}. It works by applying noise to a set of samples, $x$, to generate adversarial examples, $x'$, such that,
 \begin{equation}
-x' = x + \eta \mathrm{~sgn~}(\nabla_x L(y, K(x, \theta))).
+x' = x + \eta \cdot \mathrm{sign}(\nabla_x L(y, K(x, \theta))).
 \label{eq:fgm}
 \end{equation}
-In essence, this is stochastic gradient \textit{ascent}, the opposite process from model training (stochastic gradient \textit{descent}).
+In essence, this is process seeks to maximize loss in contrast to model training which seeks to minimize it.
 
 \subsection{Adversarial Analysis}
 
-In the case of safety- or security-critical domains, considering the worst-case scenario is routine~\cite{}. Whether we discuss automotive safety~\cite{}, crytographic systems~\cite{}, or healthcare malpractice~\cite{}, a component, algorithm, or system is considered broken if the \textbf{failure rate} exceeds certain statistical thresholds. An order of magnitude more automotive accidents, security breaches, or deaths due to medical negligence would be unacceptable and, as such, these standards are non-negotiable. However, this would mean testing somewhere around $(10^6, 10^9)$ samples to justify every model change. This is just not computationally feasible. Instead, we can use adversarial failure analysis to improve the precision of our measurements while only using a small set of test-data.
+In the case of safety- or security-critical domains, considering the worst-case scenario is routine~\cite{sajid2013cloud}. Whether we discuss automotive safety~\cite{ai_automotive}, crytographic systems~\cite{leurent2020sha,kamal2017study}, or healthcare malpractice~\cite{ai_medical_imaging}, a component, algorithm, or system is considered broken if the \textit{failure rate} exceeds a certain amount, depending the risk to human life~\cite{iso26262}. An order of magnitude more automotive accidents, security breaches, or deaths due to negligence would be unacceptable and, as such, these standards are non-negotiable. However, this would mean testing a million samples for every model change that has the potential to injure a human, with orders of magnitude more stringent requirement in the case of potentially fatal systems. This is just not computationally feasible. Instead, we can use adversarial failure analysis to improve the precision of our measurements while only using a small set of test-data.
 
 \subsubsection{Accuracy}
-The failure rate, denoted by $h$, refers to the percentage or proportion of examples that cause the targeted machine learning model to misclassify or produce incorrect outputs \cite{meyers}. It measures the vulnerability or susceptibility of the model to noise-induced failures. A higher failure rate indicates a higher rate of misclassifications or incorrect predictions, signifying a weaker model in terms of \textbf{robustness} against noise-induced failures. Throughout, we use the terminology \textbf{benign accuracy} to refer to the performance on the test set using unperturbed data. The benign accuracy is defined as
+The failure rate, denoted by $h$, refers to the percentage or proportion of examples that cause the targeted ML model to misclassify or produce incorrect outputs \cite{meyers}. It measures the vulnerability or susceptibility of the model to noise-induced failures. A higher failure rate indicates a higher rate of misclassifications or incorrect predictions, signifying a weaker model in terms of \textit{robustness} against noise-induced failures. Throughout, we use the terminology \textit{benign accuracy} to refer to the performance on the test set using unperturbed data. The benign accuracy is defined as
 \begin{equation}
  \mathrm{Accuracy} = 1 - \frac{\mathrm{False~Classifications}}{\mathrm{Total~Classifciations}}
 \label{eq:acc}
 \end{equation}
-which is generally assumed to indicate the rate of failures in real-world data drawn from the same distribution as the test data \cite{}. However, the normal test/train split methodology consistently overestimates the model's performance in the presence of adversarial noise~\cite{croce_reliable_2020}. Additionally, it has been shown that generating adversarial counter examples that dispute this train/test split analysis is trivial~\cite{biggio_evasion_2013,carlini_towards_2017,adversarialpatch,pixelattack,hopskipjump,biggio_poisoning_2013,chakraborty_adversarial_2018,dohmatob_generalized_2019,meyers}. In addition, this method ignores the run-time cost of a given architectural decision, caring only for marginal accuracy gains on benchmark data~\cite{}. Instead, we can measure the computational feasibility of finding noisy counterexamples close to the original samples, such that 
+which is generally assumed to indicate the rate of failures in real-world data drawn from the same distribution as the test data~\cite{tan2021critical}. However, the normal test/train split methodology consistently overestimates the model's performance in the presence of adversarial noise~\cite{croce_reliable_2020}. Additionally, it has been shown that generating adversarial counter examples that dispute this train/test split analysis is trivial~\cite{biggio_evasion_2013,carlini_towards_2017,adversarialpatch,pixelattack,hopskipjump,biggio_poisoning_2013,chakraborty_adversarial_2018,dohmatob_generalized_2019,meyers}. In addition,  ignores the run-time cost of a given architectural decision, caring only for marginal accuracy gains on benchmark data~\cite{desislavov2021compute,bailly2022effects}. Instead, we can measure the computational feasibility of finding noisy counterexamples close to the original samples, such that 
 $$
-y\neq\hat{y}\mathrm{~s.t.~}\| x' - x \| \leq \varepsilon \leq \varepsilon_{max}
+    y\neq\hat{y}\text{~~while~~}\| x' - x \| \leq \varepsilon \leq \varepsilon_{max},
 $$ 
-
-where $\| \cdot \|$ represents some norm or pseudo-norm and $\varepsilon$ is some specified distance threshold bound by some distance, $\varepsilon_{max}$.
+where $\| \cdot \|$ represents some norm or pseudo-norm and $\varepsilon$ is some specified  perturbation distance threshold bound by a maximum distance, $\varepsilon_{max}$.
 
 
 \subsubsection{Failure Rate}
- To encompass the cost of a particular model or attack, we can think of the failure rate as a function of time (\textit{e.g.} training time, inference time, attack generation time, etc.) and some covariates (\textit{e.g.} noise distance, model size, hardware resources) such that:
+ To encompass the cost of a particular model or attack, we can think of the failure rate as a function of time (\textit{e.g.}, training time, inference time, attack generation time, \textit{etc.}) and some covariates (\textit{e.g.}, noise distance, model size, hardware resources) such that,
 \[
-h(t; \theta) :=  \frac{\mathbb{P}(\textrm{False~Classification})}{\Delta t}
+    h_{ \theta}(t) :=  \frac{P(\textrm{False~Classification})}{\Delta t} t
 \]
-where $\mathbb{P}$ is a probability and $\Delta t$ is a time interval. To get a more precise and reliable estimate of a model's failure characteristics, we can use accelerated failure time models that model the \textbf{survival time}, $S(t)$, as a function of the samples, $x$, the labels, $y$, and some set of covariates, $\theta$ such that:
+where $P(\textrm{False~Classification})$ is the probability of a false classification and $\Delta t$ is a time interval. To get a more precise and reliable estimate of a model's failure characteristics, we can use accelerated failure time models that model the \textit{survival time}, $S(t)$, as a function of the time, $t$,  and some set of model parameters, $\theta$ such that,
 \[
-S(t; x,y, \theta) := 1 - \int_{t=0}^{\infty} h(t;\theta) d \theta
+    S_{\theta}(t) := 1 - \int_{t=0}^{\infty} h_{\theta}(t) \,d\theta.
 \]
 
 \subsection{AFR models}
 \label{afr}
-Accelerated failure rate models are statistical models used to analyze multivariate effects on the observed failure rate to predict the expected survival time ($\mathbb{E}[S(t; x,y, \theta)]$) across a wide variety of circumstances~\cite{aft_models,kleinbaum1996survival}. However, this requires a choice in modelling distribution for $S$. We tested Log-Logistic, Log-Normal, and Weibull distributions, relying on Akaike Information Criterion (AIC), Bayesian Information Criteria (BIC), and Concordance to choose the best-fit, following the best-practices of other research~\cite{aft_models}.  This analysis allows us to test the model under extreme perturbations, revealing not only the accuracy under ideal test scenarios, but to see the model's performance in the presence of noise that's designed to be adversarial. However, we still have to find optimal configurations for both the attack and defence, which often rely on parameters drawn from continuous or infinite spaces. In order to minimize the cost of evaluation, we must be clever about how we search.
+Accelerated failure rate models are statistical models used to analyze multivariate effects on the observed failure rate to predict the expected survival time ($\mathbb{E}[S(t)]$) across a wide variety of circumstances~\cite{aft_models,kleinbaum1996survival}. However, this requires a choice in modelling distribution for $S$. We tested Log-Logistic, Log-Normal, and Weibull distributions, relying on Akaike Information Criterion (AIC), Bayesian Information Criteria (BIC), and Concordance to choose the best-fit, following the best-practices of this method~\cite{aft_models,kleinbaum1996survival}.  This analysis allows us to test the model under extreme perturbations, revealing not only the accuracy under ideal test scenarios, but to see the model's performance in the presence of noise that's designed to be adversarial. However, we still have to find optimal configurations for both the attack and defence, which often rely on parameters drawn from continuous or infinite spaces. In order to minimize the cost of evaluation, we must be clever about how we search.
 
-\subsection{Pareto Set}
-\cm{This section could probably be cut without too much lost.}
-In security analysis, it is customary in security analysis to imagine a best-case scenario for both the defender and the attacker~\cite{}. A subset of examples that maximize one or more objective criteria is called the \textbf{pareto front}~\cite{zitzler2008quality}. It has been shown that we can find an $\varepsilon$-approximation of this front $\mathcal{P}$ in $d$ dimensions using $(1/ \varepsilon)^d$ queries ~\cite{legriel2010approximating}. Table~\ref{tab:pareto} shows the required number of queries to get estimates within the $\varepsilon$-sphere of the true Pareto front. As we can see, it is critical to minimize the dimensionality of our search. So instead of optimizing for latency, training time, cost, accuracy, and adversarial success rate independently, we introduce several metrics in the next section.
+% \subsection{Pareto Set}
+
+% In security analysis, it is customary in security analysis to imagine a best-case scenario for both the defender and the attacker~\cite{kamal2017study,leurent2020sha}. A subset of examples that maximize one or more objective criteria is called the \textit{pareto front}~\cite{zitzler2008quality}. It has been shown that we can find an $\varepsilon$-approximation of this front $\mathcal{P}$ in $d$ dimensions using $(1/ \varepsilon)^d$ queries ~\cite{legriel2010approximating}. Table~\ref{tab:pareto} shows the required number of queries to get estimates within the $\varepsilon$-sphere of the true Pareto front. As we can see, it is critical to minimize the dimensionality of our search. So instead of optimizing for latency, training time, cost, accuracy, and adversarial success rate independently, we introduce several metrics in the next section.
 
 
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
-% Please add the following required packages to your document preamble:
-% 
-\begin{table}[h!]
-\begin{tabular}{cl|llll|}
-\cline{3-6}
-                                           &   & \multicolumn{4}{c|}{$\varepsilon$}            \\ \cline{3-6} 
-                                           &   & .1     & .05          & .01    & .001      \\ \hline
-\multicolumn{1}{|c|}{\multirow{3}{*}{$d$}} & 1 & 10     & 20           & 100    & 1000      \\
-\multicolumn{1}{|c|}{}                     & 2 & 100    & 400          & $10^4$ & $10^6$    \\
-\multicolumn{1}{|c|}{}                     & 4 & $10^4$ & $1.6 * 10^5$ & $10^9$ & $10^{12}$ \\ \hline
-\end{tabular}
-\caption{This table shows the number of queries required to $\varepsilon-$ approximate the Pareto front, $\mathcal{P}$, in $d$ dimensions.}
-\label{tab:pareto}
-\end{table}
+% % Please add the following required packages to your document preamble:
+% % \usepackage{multirow}
+% % Please add the following required packages to your document preamble:
+% % 
+% \begin{table}[h!]
+% \begin{tabular}{cl|llll|}
+% \cline{3-6}
+%                                            &   & \multicolumn{4}{c|}{$\varepsilon$}            \\ \cline{3-6} 
+%                                            &   & .1     & .05          & .01    & .001      \\ \hline
+% \multicolumn{1}{|c|}{\multirow{3}{*}{$d$}} & 1 & 10     & 20           & 100    & 1000      \\
+% \multicolumn{1}{|c|}{}                     & 2 & 100    & 400          & $10^4$ & $10^6$    \\
+% \multicolumn{1}{|c|}{}                     & 4 & $10^4$ & $1.6 * 10^5$ & $10^9$ & $10^{12}$ \\ \hline
+% \end{tabular}
+% \caption{This table shows the number of queries required to $\varepsilon-$ approximate the Pareto front, $\mathcal{P}$, in $d$ dimensions.}
+% \label{tab:pareto}
+% \end{table}
 
 
 \subsection{Optimization}
 
-Because of the relatively small run-time requirements of this approach (when compared to testing against massive in-distribution test sets), this method could, for example, act as a unit test in machine learning applications rather than relying on full-system integration tests to evaluate changes to a single model, signal processing technique, data storage format, or API access mechanism. It could also be used to highlight error-prone classes or other subsets of data to reduce error or create synthetic samples. Furthermore, by isolating changes and testing them as quickly as possible, it's much easier to parse cause and effect when compared to full-system integration tests that could include many changes from many different development teams and require live and potentially dangerous systems (like cars or MRI machines) to effectively test. To further increase development velocity, we can use these models to quantify the marginal risk associated with each change, as dictated by the ISO 26262 standard \cite{iso26262}. However, hyper-parameters are often drawn from continuous and infinite spaces, so it's impossible to exhaustively evaluate the search space. Additionally, the goals of test-set accuracy and adversarial accuracy are often at odds, meaning that a proper search would keep this dual-objective in mind. Luckily, the field of multi-objective search is well researched and analyze the run-time requirements for several popular choices below, each of which will be useful for different types of search spaces. We chose the Tree-structure Parzen Estimator (TPE) because of it's ability to work on mini-batches~\cite{}, in distributed settings~\cite{}, and while optimizing multiple objectives~\cite{} in a feasible number of trials ~\cite{}. 
-
-
+Because of the relatively small run-time requirements of this approach (when compared to testing against massive in-distribution test sets), this method could, for example, act as a unit test in machine learning applications rather than relying on full-system integration tests to evaluate changes to a single model, signal processing technique, data storage format, or API access mechanism. It could also be used to highlight error-prone classes or other subsets of data to reduce error or create synthetic samples. Furthermore, by isolating changes and testing them as quickly as possible, it's much easier to parse cause and effect when compared to full-system integration tests that could include many changes from many different development teams and require live and potentially dangerous systems (like cars or MRI machines) to effectively test. To further increase development velocity, we can use these models to quantify the marginal risk associated with each change, as dictated by the ISO 26262 standard \cite{iso26262}. However, hyper-parameters are often drawn from continuous and infinite spaces, so it's impossible to exhaustively evaluate the search space. Additionally, the goals of test-set accuracy and adversarial accuracy are often at odds, meaning that a proper search would keep this dual-objective in mind. Luckily, the field of multi-objective search is well researched. We chose the Tree-structure Parzen Estimator (TPE) because of it's ability to work on mini-batches, in distributed settings, and while optimizing multiple objectives in a feasible number of trials ~\cite{ozaki2020multiobjective}, though research in this field is very much ongoing~\cite{ozaki2022multiobjective}.
 
 
 \section{Metrics}
 
-We withheld 100 examples from both the test and train sets as the initial values for adversarial examples, which gives us two significant figures for this measurement. In addition, we measured the model training time ($t_{t}$), the model inference time or latency ($t_{i}$), the cost per hour for a particular hardware ($C$), and the power consumption ($P$) of each tested model and attack, as well as the benign and adversarial accuracies (see: Secs.~\ref{eq:acc} and ~\ref{eq:adv_success}).
+ In addition, we measured the model training time ($t_{t}$), the model inference time or latency ($t_{i}$), the cost per hour for a particular hardware ($C$), and the power consumption ($P$) of each tested model and attack, as well as the benign and adversarial accuracies (see: Secs.~\ref{eq:acc} and ~\ref{eq:adv_success}). Eighty percent of the data for each dataset was used for training and the remaining twenty percent was used for evaluation. We withheld 100 examples from the test set as the initial values for adversarial examples, which gives us two significant figures for this measurement, while benign accuracy was measured with 10s of thousands of samples, giving us 4 significant figures for that metric. For all reported times, we assumed that the time was distributed uniformly across the samples to minimize jitter and account for GPU-based parallelization.
 
 \subsection{Accuracy}
 We measured both the benign accuracy and the adversarial accuracy, which reflect the normal test-set accuracy and the test-set accuracy in the presence of additive noise in the direction that maximizes loss.
@@ -239,17 +234,17 @@ We measured both the benign accuracy and the adversarial accuracy, which reflect
 
 
 \subsection{Training Time}
-The training time, $T_t$, is the time it takes to evaluate $n$ samples for $m$ epochs such that the training time per sample per epoch $t_t$ is.
+The training time, $T_t$, is the time it takes to evaluate $n$ samples such that the training time per sample per epoch $t_t$ is.
 $$
-T_t := t_t\cdot n\cdot m
+T_t := t_t\cdot n
 $$
 
 \subsection{Latency}
 Latency is the time it takes to respond to a query. We assume that latency per sample is:
 $$
-T_i  := t_i \cdot n 
+T_i  := t_i \cdot n
 $$
-which will be driven by the memory bandwidth (measured in bits/second) of a given cpu- or gpu-\cite{} and the size\cite{} and complexity\cite{} of a given neural network architecture.
+which will be driven by the memory bandwidth (measured in bits/second) of a given cpu- or gpu- and the size\cite{vgg} and complexity\cite{resnet} of a given neural network architecture.
 
 \subsection{Attack Generation Time}
 A successful attack is one that induces failure in a model. That is, the expected survival time, $\mathbb{E}[S(t;x,y,\theta)]$, can be thought of as the time it takes for an attacker to induce a change in the model output. We approximate this for each attack/defence configuration by taking the total attack time, $T_a$, for $n$ samples, $i$ iterations, and attack time per sample, $t_a$:
@@ -257,14 +252,13 @@ A successful attack is one that induces failure in a model. That is, the expecte
 $$
 T_a := t_i \cdot n \cdot i 
 $$
-
-
+In the interest of attack speed, we restricted this to a single iteration.
 
 \subsection{Cost}
 Furthermore, we can think of cost of deployment at two scales. Firstly, we consider the cloud-rental scale, where a small-business might test and deploy a model, using GCP compute costs as a measure of total cost. However, at a certain scale, (\textit{e.g.} for deploying a self-driving car) it's more appropriate to talk about cost in terms of power. Finally, we define best-case and worst-case success metrics that give us an efficient way to minimize the latency, cost of deployment, and 
 
 \subsubsection{Hardware}
-This value, measured in United States Dollars per hour, will indicate the operating cost of a given model. To calculate this, we used the price per hour from each of cloud service pricing page~\footnote{ Google Cloud prices for P100 and V100 obtained \href{https://cloud.google.com/compute/gpus-pricing}{here.} } ~\footnote{Google Cloud prices for L4 obtained  \href{https://cloud.google.com/compute/vm-instance-pricing#accelerator-optimized}{here.}} and calculated the cost of training ($C_{t}$) and the ($C_{i}$) from the cost of hardware ($C_{h}$), the training time ($T_{t}$) and the inference time ($T_{i}$) such that the cost of training a model is
+This value, measured in United States Dollars per hour, will indicate the operating cost of a given model. To calculate this, we used the price per hour from each of cloud service pricing page~\footnote{ Google Cloud prices for P100 and V100 obtained \href{https://cloud.google.com/compute/gpus-pricing}{here.} } ~\footnote{Google Cloud prices for L4 obtained  \href{https://cloud.google.com/compute/vm-instance-pricing\#accelerator-optimized}{here.}} and calculated the cost of training ($C_{t}$) and the ($C_{i}$) from the cost of hardware ($C_{h}$), the training time ($T_{t}$) and the inference time ($T_{i}$) such that the cost of training a model is
 $$
     C_t = C_h \cdot T_t
     \label{eq:cost_training}
@@ -316,8 +310,8 @@ In security analysis, it's routine to think in optimistic terms for both the att
 
 \section{Methods}
 \subsection{Cloud Platform and Hardware}
-To conduct the experiments and have access to different types of hard, we utilized Google Cloud Platform (GCP). Six virtual machines running Container Optimized Operating System provided by GCP constitute our testbed. Using Google Kubernetes Engine 1.27.3 and Containerd 1.7.0,  we created a cluster that comprises of six worker nodes. Three worker nodes were responsible for running the monitoring platform such as Prometheus 2.47.2 and Grafana 10.2.0. These nodes were of the 'e2-medium' instance type provided by Google Cloud Platform. In total, we used three different GPU based on their availability. For both, P100 and V100 GPUs, we used 'n1-standard-2' type for the nodes and for L4  we used 'g2-standard-4' node.
-To assess the energy consumption of the experiments deployed on a GKE, we employed Kubernetes Efficient Power Level Exporter (KEPLER) as our measurement tool~\cite{amaral2023kepler}. This approach enables us to gather energy consumption data on granular level as it runs in Kubernetes cluster and capable of collecting energy consumption of Kubernetes components. In essence, KEPLER uses extended Berkley Packet Filter (eBPF) to probe energy-related system stats and exports them as Prometheus metrics. eBPF can be described as a lightweight and sandboxed virtual machine (VM) in kernel space. eBPF programs are invoked by the kernel when certain events, called hooks, occur. Examples of such hooks include system calls or network events. These processes enable deep analysis and full control over different events with low overhead~\cite{sedghpour@ebpf}. A diagram of the cloud architecture can be found in Fig.~\ref{fig:architecture}. Finally, to meet our goal of developing a cost-effective model evaluation technique, we restricted all of our experiments to a single one-thousand United States dollar research grant from Google. 
+To conduct the experiments and have access to different types of hardware, we utilized Google Cloud Platform (GCP). Six virtual machines running Container Optimized Operating System provided by GCP constitute our testbed. Using Google Kubernetes Engine 1.27.3 and Containerd 1.7.0,  we created a cluster consisting of six worker nodes. Three worker nodes were responsible for running the monitoring platform such as Prometheus 2.47.2 and Grafana 10.2.0. These nodes were of the 'e2-medium' instance type provided by Google Cloud Platform. In total, we used three GPU models. For both, P100 and V100 GPUs, we used 'n1-standard-2' type for the nodes and for L4  we used 'g2-standard-4'.
+To assess the energy consumption of the experiments deployed on a GKE, we employed Kubernetes Efficient Power Level Exporter (KEPLER) as our measurement tool~\cite{amaral2023kepler}. This approach enables us to gather energy consumption data on granular level as it runs in Kubernetes cluster and capable of collecting energy consumption of Kubernetes components. In essence, KEPLER uses extended Berkley Packet Filter (eBPF) to probe energy-related system stats and exports them as Prometheus metrics. eBPF can be described as a lightweight and sandboxed virtual machine (VM) in kernel space. eBPF programs are invoked by the kernel when certain events occur. Examples of such events include system calls or network activity. These processes enable deep analysis and full control over different events with low overhead~\cite{sedghpour@ebpf}. A diagram of the cloud architecture can be found in Fig.~\ref{fig:architecture}. Finally, to meet our goal of developing a cost-effective model evaluation technique, we restricted all of our experiments to a single one-thousand United States dollar research grant from Google.
 
 \begin{figure*}
     \centering
@@ -326,7 +320,7 @@ To assess the energy consumption of the experiments deployed on a GKE, we employ
     \label{fig:architecture}
 \end{figure*}
 
-For each hardware configuration and dataset, we ran one thousand trials, a number that should converge to a pareto-optimal result~\cite{} for the TPE algorithm, within some expected error bounds (see: Tab.~\ref{tab:pareto}). We used three optimization criteria-- benign accuracy, training time, and adversarial accuracy seeking to maximize both benign and adversarial accuracy while minimizing training time (and therefore deployment cost). We selected a set of parameters as per the TPE algorithm and trained on 80\% of the samples. Of the remaining samples, 100 were withheld to be attacked and used to evaluate the adversarial accuracy. Fig.~\ref{fig:experiments} illustrates this methodology. For each dataset, we tested this on ten random splits of the data. 
+For each hardware configuration and dataset, we ran one thousand trials, a number that should converge to a pareto-optimal result~\cite{ozaki2020multiobjective,zitzler2008quality} for the TPE algorithm, within some expected error bounds ~\cite{legriel2010approximating}. We used three optimization criteria-- benign accuracy, training time, and adversarial accuracy seeking to maximize both benign and adversarial accuracy while minimizing training time (and therefore deployment cost). We selected a set of parameters as per the TPE algorithm and trained on 80\% of the samples. Of the remaining samples, 100 were withheld to be attacked and used to evaluate the adversarial accuracy. Fig.~\ref{fig:experiments} illustrates this methodology. For each dataset, we tested this on ten random splits of the data. 
 
 \begin{figure}
     \centering
@@ -338,22 +332,22 @@ For each hardware configuration and dataset, we ran one thousand trials, a numbe
 
 \subsection{Datasets}
 For our experiments, we evaluated the MNIST~\cite{mnist}, CIFAR10\cite{cifar}, and CIFAR100\cite{cifar} datasets, chosen primarily for their standardized use in adversarial analysis ~\cite{madry2017towards,croce_reliable_2020,carlini_towards_2017,deepfool} and decades of experimental results. By modern standards (billions of parameters), these models are quite small (tens of thousands of samples), but our goal is not to rival the accuracy of industy leaders, but to develop a method that is practical for everyone else to use.
-Before training, we centered and scaled the data so that the attack distance would be analogous for all tested datasets. Furthermore, to reduce the complexities of system overhead, distributed or federated training, and the effect of shared cloud environments, we restricted ourselves to datasets that are small enough to reside entirely within GPU memory with the model, since the disk read speed in cloud environments is incredibly variable.
+Before training, we centered and scaled the data so that the attack distance would be analogous for all tested datasets. Furthermore, to reduce the complexities of system overhead, distributed or federated training, and the effect of shared cloud environments, we restricted ourselves to datasets that are small enough to reside entirely within GPU memory with the model, since the disk read speed in cloud environments is incredibly variable. 
 
 \subsection{Models}
-We restricted ourselves to a single model for our evaluations. Primarily, this was done to meet the budgetary constraints since evaluating more models would mean evaluating fewer pieces of hardware. As discussed in Sec.~\ref{learning_rate}, the relationship between hardware specifications, model-size, data distribution, the optimal learning rate, the optimal batch size, and the optimal number of epochs is highly complex and hard to predict. So, we sampled learning rates $\in [1e-6, 1]$, batch sizes $\in [1, 1e5]$, and epochs $\in [1,50]$ for MNIST and CIFAR10 on the P100 and V100. For Cifar100, we increased the range of the tested epochs to be $\in [1, 100]$. To evaluate the efficacy of different bit-depths on the L4 hardware, we used the Feature Squeezing defence~\cite{feature_squeezing} provided by IBM's adversarial robustness toolbox~\cite{art2018}.
+We restricted ourselves to a single model for our evaluations. Primarily, this was done to meet the budgetary constraints since evaluating more models would mean evaluating fewer pieces of hardware. As discussed in Sec.~\ref{learning_rate}, the relationship between hardware specifications, model-size, data distribution, the optimal learning rate, the optimal batch size, and the optimal number of epochs is highly complex and hard to predict. So, we sampled learning rates $\in [1e-6, 1]$, batch sizes $\in [1, 1e5]$, and epochs $\in [1,50]$ for MNIST and CIFAR10 on the P100 and V100. For Cifar100, we increased the range of the tested epochs to be $\in [1, 100]$. To evaluate the efficacy of different bit-depths on the L4 hardware, we used the Feature Squeezing defence~\cite{feature_squeezing} provided by IBM's adversarial robustness toolbox~\cite{art2018}. Model parameters were chosen using the \texttt{optuna} optimization framework, configuration was handled by \texttt{hydra}, and \texttt{dvc} was used to ensure reproducibility and aid in collaborative development. 
 
 \subsection{Attacks}
-Since the goal in this paper is to evaluate how hardware and deployment cost affect adversarial robustness, we focused on evasion attacks since they induce failures by adding noise to the data. Prior research ~\cite{meyers} has shown that the Fast Gradient method (see: Eq.~\ref{eq:fgm}) is consistently the most effective at inducing a large number of failures in a small amount of time. To evaluate the effect of noise on our samples, we varied $\varepsilon \in [0, 1]$.
+Since the goal in this paper is to evaluate how hardware and deployment cost affect adversarial robustness, we focused on evasion attacks since they induce failures by adding noise to the data. Prior research ~\cite{meyers} has shown that the Fast Gradient method (see: Eq.~\ref{eq:fgm}) is consistently the most effective at inducing a large number of failures in a small amount of time. To evaluate the effect of adversarial noise on our samples, we varied $\varepsilon \in [0, 1]$, using the \texttt{adversarial-robustness-toolbox} package maintained by a team at IBM~\cite{art2018}.
 
 
 \subsection{GPU Configurations}
-We tested several hardware configurations, which have various hourly costs, peak power demands, and theoretical memory bandwidths. We tested three Nvidia cards-- the V100, the P100, and L4. The V100 was chosen as a baseline since it's allegedly the hardware behind large LLMs like GPT~\cite{}. The P100 architecture comes from the same line of server-grade training GPUs, but from an older generation. The L4, however, is advertised as a machine built for inference--not training, relying on a smaller number of bits per tensor core. Consequently, the number of operations per second is dependent on the bit depth of the data and the model weights, with the peak numbers outlined in Tab.~\ref{tab:hardware} referring to 8-bit inputs.
+We tested several hardware configurations, which have various hourly costs, peak power demands, and theoretical memory bandwidths. We tested three Nvidia cards-- the V100, the P100, and L4. The V100 was chosen as a baseline, since it's routinely cited in the literature~\cite{svedin2021benchmarking,xu2018deep}. The P100 architecture comes from the same line of server-grade training GPUs, but from an older generation. The L4, however, is advertised as a machine built for inference--not training, relying on a smaller number of bits per tensor core. Consequently, the number of operations per second is dependent on the bit depth of the data and the model weights, with the peak numbers outlined in Tab.~\ref{tab:hardware} referring to 8-bit inputs.
 \begin{table}[h]
 \begin{tabular}{lllll}
 \hline
                         & V100   & P100   & L4    &  \\ \hline
-Cost (USD/hour)          & 2.55 & 1.60 & .81 &  \\
+Cost (USD/hour)         & 2.55   & 1.60   & .81   &  \\
 Power (Watts)           & 250    & 250    & 72    &  \\
 Memory Bandwidth (GB/s) & 900    & 732    & 300   &  \\ \hline
 \label{tab:hardware}
@@ -365,24 +359,19 @@ Memory Bandwidth (GB/s) & 900    & 732    & 300   &  \\ \hline
 }
 \end{table}
 
-\section{Results}
-\cm{Here are most of the results. I'm still playing with how to 1. combine the hardware into a single model per dataset or 2. visualize 9 different combinations in a tiny space. I'd very much like to show the partial effects plots as I did before with the layers in the NEURIPS paper.}
+\subsection{Survival Analysis}
+In addition to the optimization criteria of benign/adversarial accuracy and training time, we collected prediction times, attack times, power consumption, batch size and number of epochs to be used as covariates of the distribution, $S(t)$. We attempted adding dummy variables for hardware (\textit{e.g.}~peak power and peak bandwidth) as well as the datasets (\textit{e.g~}resolution, bit depth, and number of color channels), but each of these were strongly colinear with training time and hindered modelling of the distribution. As such, they were not included. To find the distribution of the measured data and to plot the effect of covariates, we used the \texttt{lifelines} Python package~\cite{lifelines}. We also compare the chosen distributions (see: Section ~\ref{afr}).  These results can be found in the next section.
 
-\subsection{Accuracy and Robustness}
-Marginal gains in accuracy for faster hardware, but no significant change in survival time.
+\section{Results}
+Below, we examine the effect of hardware and dataset on the distribution of the benign/adversarial accuracy (Fig.~\ref{fig:acc}), training/inference/attack time (Fig.~\ref{fig:time}), and both monetary (Fig.~\ref{fig:cost}) and power (Fig.~\ref{fig:power}) costs for training/inference/attacks. We also compare all three survival time distributions outlined in Sec.~\ref{afr} using the criteria outlined in the same section. Using the best-fit distribution (again, see:~\ref{afr}), we plotted the effect of several covariates on the survival time of the model (Fig.~\ref{partial_effect}).Fig.~\ref{fig:acc} reveals little to no improvement in accuracy or adversarial accuracy, regardless of hardware though we see that the Cifar10 has worse benign performance and Cifar100 has significantly adversarial performance. Fig.~\ref{fig:time} reveals the training time proportional to the GPU bandwidth numbers in Tab.~\ref{tab:hardware}. Slower hardware is only a few milliseconds slower, so this is unlikely to be noticeable to an end-user during inference. This should be no surprise since the less-capable hardware is meant to be used exclusively for inference. Additionally, we see that the attack time is colinear with both the training and prediction times across hardware and datasets.
+The power consumption (Fig.~\ref{fig:power})  tracks monetary cost  (Fig.~\ref{fig:cost}) closely, probably because that's the predominant cost for the datacenter itself~\cite{dayarathna2015data}, so it's unsurprising that cloud billing is colinear with this metric. Furthermore, we see that the largest dataset (CIFAR100) and smallest GPU (L4) require the least amount of power (Fig.~\ref{fig:power}). 
+
 \begin{figure*}
     \centering
-    \includegraphics[width=\textwidth]{plots/combined/acc.pdf}
+    \includegraphics[width=.5\textwidth]{plots/combined/acc.pdf}
     \caption{Ben. and Adv. Accuracy Across Datasets and Hardware}
     \label{fig:acc}
 \end{figure*}
-
-\subsection{Time}
-Corresponds roughly to what we would expect from the peak GPU bandwidth numbers in Tab.~\ref{tab:hardware}.
-
-Slower hardware is marginally slower. Results would be undetectable for a user with a reasonably small query.
-
-
 \begin{figure*}
     \centering
     \includegraphics[width=\textwidth]{plots/combined/time.pdf}
@@ -390,39 +379,36 @@ Slower hardware is marginally slower. Results would be undetectable for a user w
     \label{fig:time}
 \end{figure*}
 
-
-
-
-
-\subsection{Monetary Cost}
-
-
 \begin{figure*}
     \centering
     \includegraphics[width=\textwidth]{plots/combined/cost.pdf}
-    \caption{Training, Prediction, and Attack Power Consumption Across Datasets and Hardware}
-    \label{fig:time}
+    \caption{Training, Prediction, and Attack Monetary Cost Across Datasets and Hardware}
+    \label{fig:cost}
 \end{figure*}
-Smaller hardware is significantly cheaper (roughly half the cost to train vs. the best hardware).
 
-\subsection{Power}
 \begin{figure*}
     \centering
     \includegraphics[width=\textwidth]{plots/combined/power.pdf}
     \caption{Training, Prediction, and Attack Power Consumption Across Datasets and Hardware}
-    \label{fig:time}
+    \label{fig:power}
 \end{figure*}
-Power tracks monetary cost closely, probably because that's the predominant cost for the datacenter itself~\cite{}.
 
-\subsection{Survival Time}
+\cm{TODO}
 \input{plots/combined/aft_comparison}
+\begin{figure*}
+    \centering
+    \includegraphics[width=.45\textwidth]{plots/combined/log_logistic_epochs_partial_effect.pdf}
+    \caption{Training, Prediction, and Attack Monetary Cost Across Datasets and Hardware}
+    \label{fig:cost}
+\end{figure*}
 
 \section{Considerations}
- We have taken much care to conduct these measurements as carefully as possible. Primarily, to minimize timing jitter and account for GPU parallelization, we assumed that the time-to-failure during the benign and adversarial accuracy measurements was uniform across the samples, but independent and identically distributed data is already a pre-condition for neural networks \cite{}. Given the strong concordance results and uniformity across hardware shown in Table~\ref{}, this assumption appears to insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexaplained variance. Additionally, we chose a model and set of datasets small enough to fit entirely in GPU memory to minimize the confounding factors around parallelized, distributed, and/or federated learning. In general, distributed/federated models are out of scope, but architectural choices regarding the configuration of such methods could be evaluated using the cost and survival analysis techniques outlined above. Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth. However, we would like to note that the `inference-optimized' Nvidia 4 series GPUs are perfectly capable and affordable training machines. We restricted our search to only a single evasion attack (see: Eq.~\ref{eq:fgm}) in the interest of time (and therefore deployment cost), though this analysis would generalize to other evasion, extraction, inversion, or poisoning attacks, examples of which are outlined in Section~\ref{attacks}. 
+ We have taken much care to conduct these measurements as carefully as possible. Primarily, to minimize timing jitter and account for GPU parallelization, we assumed that the time-to-failure during the benign and adversarial accuracy measurements was uniform across the samples, but independent and identically distributed data is already a pre-condition for neural networks \cite{ma2022state}. Given the strong ( $>.5$) concordance results and uniformity across ditributions in Table~\ref{tab:Combined}, this assumption appears to be insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexaplained variance. Additionally, we chose a model and set of datasets small enough to fit entirely in GPU memory to minimize the confounding factors around parallelized, distributed, and/or federated learning. In general, distributed/federated models are out of scope, but architectural choices regarding the configuration of such methods could be evaluated using the cost and survival analysis techniques outlined above. Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth. However, we would like to note that the `inference-optimized' Nvidia 4 series GPUs are perfectly capable and affordable training machines. We restricted our search to only a single evasion attack (see: Eq.~\ref{eq:fgm}) in the interest of time (and therefore deployment cost), though this analysis would generalize to other evasion, extraction, inversion, or poisoning attacks, examples of which are outlined in Section~\ref{attacks}. 
  % As an additional note, we forgot to store the Prometheus database on the PVC and the data only existed in an ephemeral Docker container, and we recommend against this design flaw in future deployments. Instead the Prometheus database should be mounted to the PVC or linked to an external database via the provided web interface. 
- In general, we chose to use a PVC rather than externally linked databases to minimize the differences between a single-machine implementation and the cloud deployment and allow our results to be generally reproducible on a developer's local machine, though this comes with the downside of having to interact with critical experiment data manually. Proper permissions management on the attached volume store can prevent any critical errors during downstream analysis, though version control software like \texttt{dvc}~\cite{dvc} or the addition of some kind of searchable log store like \texttt{elasticsearch}\cite{} in combination with artifact storage\cite{} for the datasets, models, and attacks would be a welcome and obvious improvement.
+ % In general, we chose to use a PVC rather than externally linked databases to minimize the differences between a single-machine implementation and the cloud deployment and allow our results to be generally reproducible on a developer's local machine, though this comes with the downside of having to interact with critical experiment data manually. Proper permissions management on the attached volume store can prevent any critical errors during downstream analysis, though the addition of some kind of searchable log store like \texttt{elasticsearch}\cite{gormley2015elasticsearch} in combination with artifact storage\cite{daher2018cloud} for the datasets, models, and attacks would be a welcome and obvious improvement.
+ 
 \section{Conclusion}
-
+\cm{TODO}
 % \newpage
 \bibliographystyle{IEEEtran}
 \bibliography{bibliography}
