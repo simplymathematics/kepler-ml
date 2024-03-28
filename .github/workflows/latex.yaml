@@ -10,3 +10,5 @@ jobs:
         uses: xu-cheng/latex-action@master
         with:
           root_file: paper.tex
+          pre_compile: "pdflatex paper.tex && bibtex paper.tex"
+           
