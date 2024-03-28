@@ -1,0 +1,5 @@
+,AIC,Concordance for $x_t$,Concordance for $x_i$,BIC,Mean $S(t;\theta|x_{t})$,Mean $S(t;\theta|x_{i})$
+weibull,-1292.89,0.79,0.8,-1292.89,0.2,0.67
+cox,,0.8,0.8,,0.12,0.11
+log_logistic,-1474.32,0.79,0.79,-1474.32,0.17,0.2
+log_normal,-1459.29,0.79,0.79,-1459.29,0.18,0.21
