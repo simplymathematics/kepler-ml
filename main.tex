@@ -867,13 +867,13 @@ Table~\ref{tab:Combined} shows that the aft models using log-logistic and log-no
 
 Figure~\ref{fig:partial_effect_train_time} shows that training time, by itself, does little to influence the model's survival time. However, as we see in Fig.~\ref{fig:partial_effect_attack_eps}, that and increase the attack distance by an order of magnitude reduces the survival time marginally. Additionally, we see that the benign accuracy, Fig.~\ref{fig:partial_effect_accuracy}, is an equally poor indicator of adversarial robustness, raising further concerns about the efficacy of the train/test split methodology.
 
-\begin{figure}
-  \centering
-  % include first image
-  \includegraphics[width=0.8\linewidth,trim={20pt 20pt 20pt 20pt},clip]{plots/combined/log_logistic_train_time_partial_effect.pdf}  
-  \caption{The partial effect of the training time on the survival time across all datasets and models according to the function $S(t)$ as outlined in Section~\ref{survival_time}. The dotted line represents the baseline survival function $S_{ben}$.}
-  \label{fig:partial_effect_train_time}
-\end{figure}
+% \begin{figure}
+%   \centering
+%   % include first image
+%   \includegraphics[width=0.8\linewidth,trim={20pt 20pt 20pt 20pt},clip]{plots/combined/log_logistic_train_time_partial_effect.pdf}  
+%   \caption{The partial effect of the training time on the survival time across all datasets and models according to the function $S(t)$ as outlined in Section~\ref{survival_time}. The dotted line represents the baseline survival function $S_{ben}$.}
+%   \label{fig:partial_effect_train_time}
+% \end{figure}
 
 \begin{figure}
   \centering
@@ -886,17 +886,17 @@ Figure~\ref{fig:partial_effect_train_time} shows that training time, by itself, 
 \begin{figure}
   \centering
   % include second image
-  \includegraphics[width=0.8\linewidth,trim={20pt 20pt 20pt 20pt},clip]{plots/combined/log_logistic_accuracy_partial_effect.pdf} 
+  \includegraphics[width=0.8\linewidth,trim={20pt 20pt 20pt 20pt},clip]{plots/combined/log_logistic_epochs_partial_effect.pdf} 
   \caption{The partial effect of the accuracy on the survival time across all datasets and models according to the function $S(t)$ as outlined in Section~\ref{survival_time}. The dotted line represents the baseline survival function $S_{ben}$.}
-  \label{fig:partial_effect_accuracy}
+  \label{fig:partial_effect_epochs}
 \end{figure}
 
 \begin{figure}
   \centering
   % include second image
-  \includegraphics[width=0.8\linewidth,trim={20pt 20pt 20pt 20pt},clip]{plots/combined/log_logistic_adv_failure_rate_partial_effect.pdf} 
+  \includegraphics[width=0.8\linewidth,trim={20pt 20pt 20pt 20pt},clip]{plots/combined/log_logistic_batch_size_partial_effect.pdf} 
   \caption{TODO: replace this with epochs and batch size}
-  \label{fig:partial_effect_adv_failure_rate}
+  \label{fig:partial_effect_batch_size}
 \end{figure}
 
 

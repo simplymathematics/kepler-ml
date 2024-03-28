@@ -10,5 +10,5 @@ jobs:
         uses: xu-cheng/latex-action@master
         with:
           root_file: main.tex
-          pre_compile: "pdflatex main.tex && bibtex main.tex"
+          pre_compile: "pdflatex main.tex && bibtex main"
            
