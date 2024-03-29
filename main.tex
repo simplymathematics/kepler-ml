@@ -861,31 +861,29 @@ The monetary cost for each dataset and each piece of hardware is shown in Fig.~\
 
 \subsection{AFR Models}
 \label{res:afr}
-Table~\ref{tab:Combined} shows the performance metrics for all three AFR models, as outlined in Sec.~\ref{survival_time}. It shows that the aft models using Weibull, log-logistic and log-normal functions have similar predictive abilities, but we used the log-logistic model to render partial effect due to its marginally improved AIC.
+Table~\ref{tab:combined} shows the performance metrics for all three AFR models, as outlined in Sec.~\ref{survival_time}. It shows that the aft models using Weibull, log-logistic and log-normal functions have similar predictive abilities, but we used the log-logistic model to render partial effect due to its marginally improved AIC.
 \input{plots/combined/aft_comparison}
 
 
 \begin{figure}[h!]
     \centering
     \begin{subfigure}[b]{\linewidth}
-        \includegraphics[width=.8\linewidth,clip]{plots/combined/log_logistic_qq.pdf}
-        \caption{Batch Size Partial Effect}
+        \centering
+        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_qq.pdf}
+        \caption{Plot depicting the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis).}
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
-        \includegraphics[width=.8\linewidth,clip]{plots/combined/log_logistic_aft.pdf}
-        \caption{Coefficients of the Covariates}
+        \centering
+        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_aft.pdf}
+        \caption{Coefficients of the Covariates for the Log Logistic AFR model}
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
-        \includegraphics[width=.8\linewidth,clip]{plots/combined/log_logistic_attack_eps_partial_effect.pdf}
+        \centering
+        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_attack_eps_partial_effect.pdf}
         \caption{Partial Effect  of $\varepsilon$ of $S(t)$ }
     \end{subfigure}
     \caption{This shows the partial effects plots for}
 \end{figure}
-
-
-\subsection{Comparative Risk}
-\cm{TODO}
-Call back to the comparative risk and the fast rejection mechanism. 
 
 
 
