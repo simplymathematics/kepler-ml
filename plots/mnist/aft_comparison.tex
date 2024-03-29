@@ -2,14 +2,14 @@
 \centering
 \caption{Comparison of AFR Models on the MNIST dataset.}
 \label{tab:mnist}
-\begin{tabular}{llrlrr}
+\begin{tabular}{lllrrrr}
 \toprule
- & AIC & Concordance & BIC & Mean $S(t;\theta)$ & Median $S(t; \theta)$ \\
+ & AIC & BIC & Concordance & Test Concordance & ICI & E50 \\
 \midrule
-Weibull & -1631.26 & 0.90 & -1631.26 & 0.15 & 0.09 \\
-Cox & -- & 0.90 & -- & 0.11 & 0.05 \\
-Log Logistic & -1842.71 & 0.90 & -1842.71 & 0.14 & 0.08 \\
-Log Normal & -1799.93 & 0.90 & -1799.93 & 0.14 & 0.08 \\
+Weibull & -1559.16 & -1559.16 & 0.90 & 0.90 & 0.00 & 0.00 \\
+Cox & -- & -- & 0.90 & 0.89 & 0.00 & 0.00 \\
+Log Logistic & -1672.54 & -1672.54 & 0.90 & 0.90 & 0.00 & 0.00 \\
+Log Normal & -1711.45 & -1711.45 & 0.90 & 0.90 & 0.00 & 0.00 \\
 \bottomrule
 \end{tabular}
 \end{table*}

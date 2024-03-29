@@ -1,5 +1,5 @@
-,AIC,Concordance,BIC,Mean $S(t;\theta)$,Median $S(t; \theta)$
-Weibull,-1631.26,0.9,-1631.26,0.15,0.09
-Cox,,0.9,,0.11,0.05
-Log Logistic,-1842.71,0.9,-1842.71,0.14,0.08
-Log Normal,-1799.93,0.9,-1799.93,0.14,0.08
+,AIC,BIC,Concordance,Test Concordance,ICI,E50
+Weibull,-1559.16,-1559.16,0.9,0.9,0.0,0.0
+Cox,,,0.9,0.89,0.0,0.0
+Log Logistic,-1672.54,-1672.54,0.9,0.9,0.0,0.0
+Log Normal,-1711.45,-1711.45,0.9,0.9,0.0,0.0
