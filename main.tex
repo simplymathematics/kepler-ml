@@ -810,9 +810,8 @@ The rental cost of the hardware, measured in United States Dollars per hour, wil
 
 Below, we demonstrate the effect of hardware and dataset on the benign/adversarial accuracy (Fig.~\ref{fig:acc}), training/inference/attack time (Fig.~\ref{fig:time}), and both monetary (Fig.~\ref{fig:cost}) and power (Fig.~\ref{fig:power}) costs for training/inference/attacks. We also compared all three survival times outlined in Sec.~\ref{afr} using the criteria outlined in the same section. Using the best-fit function (again, see Sec.~\ref{afr}), we examined the effect of the covariates on the survival time of the model (Figs.~\ref{fig:partial_effect_train_time}-\ref{fig:partial_effect_attack_eps}).
 
-\cm{I will cut this accuracy subsection. In exchange, I will conduct a log-rank test}
 \subsection{Accuracy}
-Fig.~\ref{fig:acc} shows the advernsarial and benign accuracies for all datasets and hardware. It demonstrates little to no change in accuracy or adversarial accuracy, regardless of hardware though CIFAR10 has worse benign performance and CIFAR100 has substantially worse adversarial performance. For all three datasets, the adversarial accuracy becomes the reciprocal of the number of classes (e.g. the accuracy we would expect on random noise), demonstrating the efficacy of the attack outlined in Sec.~\ref{optimisation}.
+Fig.~\ref{fig:acc} shows the adversarial (right) and benign (left) accuracies for all datasets and hardware. It demonstrates little to no change in accuracy or adversarial accuracy, regardless of hardware though CIFAR10 has worse benign performance and CIFAR100 has substantially worse adversarial performance. For all three datasets, the adversarial accuracy becomes the reciprocal of the number of classes (e.g. the accuracy we would expect on random noise), demonstrating the efficacy of the attack outlined in Sec.~\ref{optimisation}.
 
 \begin{figure}[h!]
     \centering
@@ -823,11 +822,11 @@ Fig.~\ref{fig:acc} shows the advernsarial and benign accuracies for all datasets
 
 
 \subsection{Time}
-Fig.~\ref{fig:time} reveals the training time. Slower hardware (see Memory Bandwidth in Tab.~\ref{tab:hardware}) is only a few milliseconds slower, so this is unlikely to be noticeable to an end-user during inference. This should be no surprise since the less-capable hardware is meant to be used exclusively for inference. Additionally, the attack time increases with both the training and prediction times across hardware and datasets --- an expected result since this is driven by the number of samples and the inference time (see Eq.~\ref{attack_time}).
+Fig.~\ref{fig:time} reveals the training time, inference time, and attack generation time across all datasets and models. Slower hardware (see Memory Bandwidth in Tab.~\ref{tab:hardware}) is only a few milliseconds slower, so this is unlikely to be noticeable to an end-user during inference. This should be no surprise since the less-capable hardware is meant to be used exclusively for inference. Additionally, the attack time (right sub-figure) increases with both the training (left) and prediction times (center) across hardware and datasets --- an expected result since this is driven by the number of samples and the inference time (see Eq.~\ref{attack_time}).
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth,trim={100pt 0 100pt 0},clip]{plots/combined/time.pdf}
+    \includegraphics[width=0.5\textwidth,clip]{plots/combined/time.pdf}
     \caption{Training, Prediction, and Attack times across datasets and hardware.}
     \label{fig:time}
 \end{figure}
@@ -838,7 +837,7 @@ The power consumption, illustrated in Fig.~\ref{fig:power}, tracks monetary cost
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth,trim={100pt 0 100pt 0},clip]{plots/combined/power.pdf}
+    \includegraphics[width=0.5\textwidth,clip]{plots/combined/power.pdf}
     \caption{Training, Prediction, and Attack Power Consumption Across Datasets and Hardware}
     \label{fig:power}
 \end{figure}
@@ -849,7 +848,7 @@ The monetary cost for each dataset and each piece of hardware is shown in Fig.~\
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth,trim={100pt 0 100pt 0},clip]{plots/combined/cost.pdf}
+    \includegraphics[width=0.5\textwidth,clip]{plots/combined/cost.pdf}
     \caption{Training, Prediction, and Attack Monetary Cost Across Datasets and Hardware}
     \label{fig:cost}
 \end{figure}
