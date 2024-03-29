@@ -545,8 +545,8 @@ AFR models are statistical models used to analyze multivariate effects on the ob
 \cm{In the subsections below, we define accuracy (Sec.~\ref{acc}) and failure rate (Sec.~\ref{failure_rate})  in the context of survival analysis to provide a pedagogical definition of survival time (Sec.~\ref{survival_time}). We then discuss the importance of the ``acceleration assumption" (Sec.~\ref{accelerated}), the optimization algorithm (Sec.~\ref{optimisation}), and the advantages of this approach (Sec.~\ref{advantages}).}
 
 
-\begin{figure}
-    \caption{Survival Analysis for ML}
+\begin{figure}[h!]
+    \caption{\textbf{Algorithm: }Survival Analysis for ML}
     \label{fig:alg}
 \begin{algorithmic}
     \Require Samples $x $ of size $N$, Parameters $\theta$, Loss function $L(y, \hat{y})$, classifier $K(x)$, and a number of trials, $n$, where the subscripts $t,i$ refer to the respective value for either the train and test sets.
@@ -574,7 +574,7 @@ AFR models are statistical models used to analyze multivariate effects on the ob
 
 \begin{figure}
     \centering
-    \includegraphics[width=.45\textwidth]{plots/experiment.pdf}
+    \includegraphics[width=.35\textwidth]{plots/experiment.pdf}
     \caption{Experimental Pipeline Diagram}
     \label{fig:experiments}
 \end{figure}
@@ -721,12 +721,12 @@ $$
 $$
 where $P_h$ is the cost per unit time for the hardware, $T_t$ is the training time, $T_i$ is the inference time, and $T_a$ is the attack generation time.
 
-\subsection{Comparative Risk}
+\subsection{Marginal Risk}
 \cm{One advantage of this survival analysis is that we can directly compare the marginal risk and reward for a particular model choice. The \textit{marginal risk} is the change in survival time divided by change in attack compared to some control model such that:
 \[
-    \textrm{Comparative~Risk} := \frac{\% \Delta S(t)}{\% \Delta C_a},
+    \textrm{Comparative~Risk} := \frac{ \Delta S(t)}{\Delta C_a},
 \]
-where $\% \Delta$ reflects the percent change from the control model.}
+where $\Delta$ reflects the change from the control model.}
 
 \cm{Another advantage is that we can quickly discard ineffective model choices with this method.} In security analysis, it is  routine to think in optimistic terms for both the attacker and defender. \cm{In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken"). For our purposes, by assuming the best-case scenario for both attacker and defender, we can model the Pareto front --- the best-case asymptotic behavior --- of either party~\cite{zitzler2008quality}.}
 As such, we center our analysis on the Fast Gradient Method~\cite{fgm} (see: Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}. If the cost to a model builder is much larger than the cost to an attacker ($C_t \gg C_a$), then it is  clear that the model is ``broken" in this cryptographic sense and can be discarded as ineffective. 
@@ -756,7 +756,7 @@ To assess the energy consumption of the experiments deployed on a Google Kuberne
 
 \subsection{AFR Models}
 
-For each hardware configuration and dataset, we ran one thousand trials, a number that should converge to a Pareto-optimal result~\cite{ozaki2020multiobjective,zitzler2008quality} for the TPE algorithm, within some expected error bounds ~\cite{legriel2010approximating}. We used three optimisation criteria-- benign accuracy, training time, and adversarial accuracy seeking to maximize both benign and adversarial accuracy while minimizing training time (and therefore deployment cost). We selected a set of parameters as per the TPE algorithm and trained on 80\% of the samples. Of the remaining samples, 100 were withheld to be attacked and used to evaluate the adversarial accuracy. Fig.~\ref{fig:experiments} illustrates this methodology. For each dataset, we tested this on ten random splits of the data. For each trial, we recorded attack generation time, model training time, model inference time, benign accuracy and adversarial accuracy, and the size of the training set, test set, and attack. Using these values, we fit an AFR model to the number of failures (indicated by accuracy and sample size) and the attack generation time. The inference time and training time were used to conduct the cost analysis outlined in the next section (Sec.~\ref{cost})
+For each hardware configuration and dataset, we ran one thousand trials, a number that should converge to a Pareto-optimal result~\cite{ozaki2020multiobjective,zitzler2008quality} for the TPE algorithm, within some expected error bounds ~\cite{legriel2010approximating}. We used three optimisation criteria-- benign accuracy, training time, and adversarial accuracy seeking to maximize both benign and adversarial accuracy while minimizing training time (and therefore deployment cost). We selected a set of parameters as per the TPE algorithm and trained on 80\% of the samples. Of the remaining samples, 100 were withheld to be attacked and used to evaluate the adversarial accuracy. Fig.~\ref{fig:experiments} illustrates this methodology. For each dataset, we tested this on ten random splits of the data. For each trial, we recorded attack generation time, model training time, model inference time, benign accuracy and adversarial accuracy, and the size of the training set, test set, and attack. Using these values, we fit an AFR model to the number of failures (indicated by accuracy and sample size) and the attack generation time after adding dummy variables for the dataset and hardware device. The inference time and training time were used to conduct the cost analysis outlined in the next section (Sec.~\ref{cost}). 
 
 \subsection{Datasets}
 The AFR models were evaluated using the MNIST~\cite{mnist}, CIFAR10\cite{cifar}, and CIFAR100\cite{cifar} datasets, chosen primarily for their standardized use in adversarial analysis~\cite{madry2017towards,croce_reliable_2020,carlini_towards_2017,deepfool} and decades of experimental results.
@@ -794,7 +794,7 @@ We tested several hardware configurations, which have various hourly costs, peak
 \end{table}
 
 \subsection{Survival Analysis}
-In addition to the optimisation criteria of benign/adversarial accuracy and training time, we collected prediction times, attack times, power consumption, batch size and number of epochs to be used as covariates of the funciton, $S(t)$. We attempted adding dummy variables for hardware (\textit{e.g.}, peak power and peak bandwidth) as well as the datasets (\textit{e.g.}, resolution, bit depth, and number of color channels), but each of these were strongly co-linear with training time and hindered modelling. As such, they were not included. To fit the AFR model and to plot the effect of covariates, we used the \texttt{lifelines} Python package~\cite{lifelines}. We also compared the chosen modelling functions (see Section~\ref{afr}).  These results can be found in Section~\ref{results}.
+In addition to the optimisation criteria of benign/adversarial accuracy and training time, we collected prediction times, attack times, power consumption, batch size and number of epochs to be used as covariates of the function, $S(t)$. To fit the AFR model and to plot the effect of covariates, we used the \texttt{lifelines} Python package~\cite{lifelines}. We also compared the chosen modelling functions (see Section~\ref{afr}).  These results can be found in Section~\ref{results}.
 
 
 
@@ -820,16 +820,30 @@ Fig.~\ref{fig:acc} shows the adversarial (right) and benign (left) accuracies fo
     \label{fig:acc}
 \end{figure}
 
+\begin{figure*}[h]
+    \centering
+    \begin{subfigure}[b]{.8\textwidth}
+        \includegraphics[width=\linewidth,clip]{plots/combined/time.pdf}
+        \caption{Training, Prediction, and Attack times}
+        \label{fig:time}
+    \end{subfigure}
+    \begin{subfigure}[b]{.8\textwidth}
+        \includegraphics[width=\linewidth,clip]{plots/combined/power.pdf}
+        \caption{Training, Prediction, and Attack Power Consumption}
+        \label{fig:power}
+    \end{subfigure}
+    \begin{subfigure}[b]{.8\textwidth}
+        \includegraphics[width=\linewidth,clip]{plots/combined/cost.pdf}
+        \caption{Training, Prediction, and Attack Monetary Cost}
+        \label{fig:cost}
+    \end{subfigure}
+    \caption{Combined Figures}
+\end{figure*}
+
 
 \subsection{Time}
 Fig.~\ref{fig:time} reveals the training time, inference time, and attack generation time across all datasets and models. Slower hardware (see Memory Bandwidth in Tab.~\ref{tab:hardware}) is only a few milliseconds slower, so this is unlikely to be noticeable to an end-user during inference. This should be no surprise since the less-capable hardware is meant to be used exclusively for inference. Additionally, the attack time (right sub-figure) increases with both the training (left) and prediction times (center) across hardware and datasets --- an expected result since this is driven by the number of samples and the inference time (see Eq.~\ref{attack_time}).
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.5\textwidth,clip]{plots/combined/time.pdf}
-    \caption{Training, Prediction, and Attack times across datasets and hardware.}
-    \label{fig:time}
-\end{figure}
 
 
 \subsection{Power}
@@ -837,67 +851,68 @@ The power consumption during training, inference, and attack generation for all 
 
 It tracks monetary cost (Fig.~\ref{fig:cost}) closely, probably because that's the predominant cost for the datacenter itself~\cite{dayarathna2015data}, so it is unsurprising that cloud billing is colinear with this metric. Furthermore, we see that the largest dataset (CIFAR100) and smallest GPU (L4) require the least amount of power (Fig.~\ref{fig:power}). 
 
-\begin{figure}[h]
-    \centering
-    \caption{Training, Prediction, and Attack Power Consumption Across Datasets and Hardware}
-    \label{fig:power}
-\end{figure}
-
 
 \subsection{Cost}
 The monetary cost for each dataset and each piece of hardware is shown in Fig.~\ref{fig:cost}. \cm{For all three datasets across all three pieces of hardware, the cost of training on a single sample often exceeds the cost of attacking a single sample. In the best case scenario, they are comparable. However, we note that the attacker only needs to be lucky once, whereas the the model builder must be lucky always. This reveals an essential advantage for the attacker on the reference model and hardware architecture --- attacks consistently succeed with 100s of samples while model training requires orders of magnitude more.}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth,clip]{plots/combined/cost.pdf}
-    \caption{Training, Prediction, and Attack Monetary Cost Across Datasets and Hardware}
-    \label{fig:cost}
-\end{figure}
+
 
 
 
 \subsection{AFR Models}
-\cm{TODO: add 1. fitted parameters and 2. their statistical significance here. Discuss what that means. Move table here. Discuss why we chose Log-Logistic. Discuss accelerated failure assumption again.}
 
-Table~\ref{tab:Combined} shows that the aft models using log-logistic and log-normal functions have similar predictive abilities, but we used the log-logistic model to render the plots due to its marginally improved AIC.
-
+Table~\ref{tab:Combined} shows the performance metrics for all three AFR models, as outlined in Sec.~\ref{survival_time}. It shows that the aft models using Weibull, log-logistic and log-normal functions have similar predictive abilities, but we used the log-logistic model to render partial effect due to its marginally improved AIC.
 \input{plots/combined/aft_comparison}
 
-\cm{Figure TODO shows the p-values for each of the covariates}
 
-Figure~\ref{fig:partial_effect_train_time} shows that training time, by itself, does little to influence the model's survival time. However, as we see in Fig.~\ref{fig:partial_effect_attack_eps}, that and increasing the attack distance ($\varepsilon$) by an order of magnitude only marginally reduces the survival time. Additionally, that the benign accuracy, Fig.~\ref{fig:partial_effect_accuracy}, is an equally poor indicator of adversarial robustness, raising further concerns about the efficacy of the train/test split methodology.
+Figure~\ref{fig:partial_effect_train_time} shows that training time, by itself, does little to influence the model's survival time. However, as we see in Fig.~\ref{fig:partial_effect_attack_eps}, increasing the attack distance ($\varepsilon$) by an order of magnitude only marginally reduces the survival time (y-axis). Additionally, that the benign accuracy, Fig.~\ref{fig:partial_effect_accuracy}, is an equally poor indicator of adversarial robustness, raising further concerns about the efficacy of the train/test split methodology.
 
 % \begin{figure}
 %   \centering
 %   % include first image
-%   \includegraphics[width=0.8\linewidth,trim={20pt 20pt 20pt 20pt},clip]{plots/combined/log_logistic_train_time_partial_effect.pdf}  
+%   \includegraphics[width=0.8\linewidth,clip]{plots/combined/log_logistic_train_time_partial_effect.pdf}  
 %   \caption{The partial effect of the training time on the survival time across all datasets and models according to the function $S(t)$ as outlined in Section~\ref{survival_time}. The dotted line represents the baseline survival function $S_{ben}$.}
 %   \label{fig:partial_effect_train_time}
 % \end{figure}
 
-\begin{figure}
-  \centering
-  % include second image
-  \includegraphics[width=0.8\linewidth,trim={20pt 20pt 20pt 20pt},clip]{plots/combined/log_logistic_attack_eps_partial_effect.pdf}  
-  \caption{The partial effect of the attack distance on the survival time across all datasets and models according to the function $S(t)$ as outlined in Section~\ref{survival_time}. The dotted line represents the baseline survival function $S_{ben}$.}
-  \label{fig:partial_effect_attack_eps}
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{\linewidth}
+        \includegraphics[width=.8\linewidth,clip]{plots/combined/log_logistic_attack_eps_partial_effect.pdf}
+        \caption{Partial Effect  of $\varepsilon$ of $S(t)$ }
+    \end{subfigure}
+    \begin{subfigure}[b]{\linewidth}
+        \includegraphics[width=.8\linewidth,clip]{plots/combined/log_logistic_aft.pdf}
+        \caption{Coefficients of the Covariates}
+    \end{subfigure}
+    \begin{subfigure}[b]{\linewidth}
+        \includegraphics[width=.8\linewidth,clip]{plots/combined/log_logistic_batch_size_partial_effect.pdf}
+        \caption{Batch Size Partial Effect}
+    \end{subfigure}
+    \caption{This shows the partial effects plots for}
 \end{figure}
 
-\begin{figure}
-  \centering
-  % include second image
-  \includegraphics[width=0.8\linewidth,trim={20pt 20pt 20pt 20pt},clip]{plots/combined/log_logistic_epochs_partial_effect.pdf} 
-  \caption{The partial effect of the accuracy on the survival time across all datasets and models according to the function $S(t)$ as outlined in Section~\ref{survival_time}. The dotted line represents the baseline survival function $S_{ben}$.}
-  \label{fig:partial_effect_epochs}
-\end{figure}
+%   \caption{The partial effect of the attack distance on the survival time across all datasets and models according to the function $S(t)$ as outlined in Section~\ref{survival_time}. The dotted line represents the baseline survival function $S_{ben}$.}
+%   \label{fig:partial_effect_attack_eps}
+% \end{figure}
 
-\begin{figure}
-  \centering
-  % include second image
-  \includegraphics[width=0.8\linewidth,trim={20pt 20pt 20pt 20pt},clip]{plots/combined/log_logistic_batch_size_partial_effect.pdf} 
-  \caption{TODO: replace this with epochs and batch size}
-  \label{fig:partial_effect_batch_size}
-\end{figure}
+% \begin{figure}
+%   \centering
+%   % include second image
+%   \begin{subfigure}
+
+%   \end{subfigure}
+%   \caption{The partial effect of the accuracy on the survival time across all datasets and models according to the function $S(t)$ as outlined in Section~\ref{survival_time}. The dotted line represents the baseline survival function $S_{ben}$.}
+%   \label{fig:partial_effect_epochs}
+% \end{figure}
+
+% \begin{figure}
+%   \centering
+%   % include second image
+   
+%   \caption{TODO: replace this with epochs and batch size}
+%   \label{fig:partial_effect_batch_size}
+% \end{figure}
 
 
 
