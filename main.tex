@@ -808,9 +808,10 @@ The rental cost of the hardware, measured in United States Dollars per hour, wil
 \section{Results and Discussion}
 \label{results}
 
-Below, we demonstrate the effect of hardware and dataset on the benign/adversarial accuracy (Fig.~\ref{fig:acc}), training/inference/attack time (Fig.~\ref{fig:time}), and both monetary (Fig.~\ref{fig:cost}) and power (Fig.~\ref{fig:power}) costs for training/inference/attacks. We also compared all three survival times outlined in Sec.~\ref{afr} using the criteria outlined in the same section. Using the best-fit function (again, see Sec.~\ref{afr}), we examined the effect of the covariates on the survival time of the model (Figs.~\ref{fig:partial_effect_train_time}-\ref{fig:partial_effect_attack_eps}).
+In this section, we display and discuss the results for all of the experiments across all datasets and hardware. First, we discuss the measured data in Secs.~\ref{res:acc}-\ref{res:cost}. 
 
 \subsection{Accuracy}
+\label{res:acc}
 Fig.~\ref{fig:acc} shows the adversarial (right) and benign (left) accuracies for all datasets and hardware. It demonstrates little to no change in accuracy or adversarial accuracy, regardless of hardware though CIFAR10 has worse benign performance and CIFAR100 has substantially worse adversarial performance. For all three datasets, the adversarial accuracy becomes the reciprocal of the number of classes (e.g. the accuracy we would expect on random noise), demonstrating the efficacy of the attack outlined in Sec.~\ref{optimisation}.
 
 \begin{figure}[h!]
@@ -837,22 +838,21 @@ Fig.~\ref{fig:acc} shows the adversarial (right) and benign (left) accuracies fo
         \caption{Training, Prediction, and Attack Monetary Cost}
         \label{fig:cost}
     \end{subfigure}
-    \caption{Combined Figures}
+    \caption{The run-times, power consumption, and monetary cost of training, prediction, and attack generation across all hardwware and datasets.}
 \end{figure*}
 
 
 \subsection{Time}
-Fig.~\ref{fig:time} reveals the training time, inference time, and attack generation time across all datasets and models. Slower hardware (see Memory Bandwidth in Tab.~\ref{tab:hardware}) is only a few milliseconds slower, so this is unlikely to be noticeable to an end-user during inference. This should be no surprise since the less-capable hardware is meant to be used exclusively for inference. Additionally, the attack time (right sub-figure) increases with both the training (left) and prediction times (center) across hardware and datasets --- an expected result since this is driven by the number of samples and the inference time (see Eq.~\ref{attack_time}).
+Fig.~\ref{fig:time} reveals the training time, inference time, and attack generation time across all datasets and models. Slower hardware (see Memory Bandwidth in Tab.~\ref{tab:hardware}) is only a few milliseconds slower, so this is unlikely to be noticeable to an end-user during inference. This should be no surprise since the less-capable hardware is meant to be used exclusively for inference. Additionally, the attack time (right sub-figure) increases with both the training (left) and prediction times (center) across hardware and datasets --- an expected result since this is driven by the number of samples and the inference time (see Eq.~\ref{attack_time}). We can also see that training takes slightly more than than attack generation, when we normalize by the number of samples.
 
 
 
 \subsection{Power}
-The power consumption during training, inference, and attack generation for all hardware and datasets is illustrated in Fig.~\ref{fig:power}. It is clearly obvious that training is several orders of m
-
-It tracks monetary cost (Fig.~\ref{fig:cost}) closely, probably because that's the predominant cost for the datacenter itself~\cite{dayarathna2015data}, so it is unsurprising that cloud billing is colinear with this metric. Furthermore, we see that the largest dataset (CIFAR100) and smallest GPU (L4) require the least amount of power (Fig.~\ref{fig:power}). 
+The power consumption during training, inference, and attack generation for all hardware and datasets is illustrated in Fig.~\ref{fig:power}. It tracks monetary cost (Fig.~\ref{fig:cost}) closely, probably because that's the predominant cost for the datacenter itself~\cite{dayarathna2015data}, so it is unsurprising that cloud billing is colinear with this metric. Furthermore, we see that the largest dataset (CIFAR100) and smallest GPU (L4) require the least amount of power (Fig.~\ref{fig:power}). 
 
 
 \subsection{Cost}
+\label{res:cost}
 The monetary cost for each dataset and each piece of hardware is shown in Fig.~\ref{fig:cost}. \cm{For all three datasets across all three pieces of hardware, the cost of training on a single sample often exceeds the cost of attacking a single sample. In the best case scenario, they are comparable. However, we note that the attacker only needs to be lucky once, whereas the the model builder must be lucky always. This reveals an essential advantage for the attacker on the reference model and hardware architecture --- attacks consistently succeed with 100s of samples while model training requires orders of magnitude more.}
 
 
@@ -860,60 +860,27 @@ The monetary cost for each dataset and each piece of hardware is shown in Fig.~\
 
 
 \subsection{AFR Models}
-
+\label{res:afr}
 Table~\ref{tab:Combined} shows the performance metrics for all three AFR models, as outlined in Sec.~\ref{survival_time}. It shows that the aft models using Weibull, log-logistic and log-normal functions have similar predictive abilities, but we used the log-logistic model to render partial effect due to its marginally improved AIC.
 \input{plots/combined/aft_comparison}
 
 
-Figure~\ref{fig:partial_effect_train_time} shows that training time, by itself, does little to influence the model's survival time. However, as we see in Fig.~\ref{fig:partial_effect_attack_eps}, increasing the attack distance ($\varepsilon$) by an order of magnitude only marginally reduces the survival time (y-axis). Additionally, that the benign accuracy, Fig.~\ref{fig:partial_effect_accuracy}, is an equally poor indicator of adversarial robustness, raising further concerns about the efficacy of the train/test split methodology.
-
-% \begin{figure}
-%   \centering
-%   % include first image
-%   \includegraphics[width=0.8\linewidth,clip]{plots/combined/log_logistic_train_time_partial_effect.pdf}  
-%   \caption{The partial effect of the training time on the survival time across all datasets and models according to the function $S(t)$ as outlined in Section~\ref{survival_time}. The dotted line represents the baseline survival function $S_{ben}$.}
-%   \label{fig:partial_effect_train_time}
-% \end{figure}
-
 \begin{figure}[h!]
     \centering
     \begin{subfigure}[b]{\linewidth}
-        \includegraphics[width=.8\linewidth,clip]{plots/combined/log_logistic_attack_eps_partial_effect.pdf}
-        \caption{Partial Effect  of $\varepsilon$ of $S(t)$ }
+        \includegraphics[width=.8\linewidth,clip]{plots/combined/log_logistic_qq.pdf}
+        \caption{Batch Size Partial Effect}
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
         \includegraphics[width=.8\linewidth,clip]{plots/combined/log_logistic_aft.pdf}
         \caption{Coefficients of the Covariates}
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
-        \includegraphics[width=.8\linewidth,clip]{plots/combined/log_logistic_batch_size_partial_effect.pdf}
-        \caption{Batch Size Partial Effect}
+        \includegraphics[width=.8\linewidth,clip]{plots/combined/log_logistic_attack_eps_partial_effect.pdf}
+        \caption{Partial Effect  of $\varepsilon$ of $S(t)$ }
     \end{subfigure}
     \caption{This shows the partial effects plots for}
 \end{figure}
-
-%   \caption{The partial effect of the attack distance on the survival time across all datasets and models according to the function $S(t)$ as outlined in Section~\ref{survival_time}. The dotted line represents the baseline survival function $S_{ben}$.}
-%   \label{fig:partial_effect_attack_eps}
-% \end{figure}
-
-% \begin{figure}
-%   \centering
-%   % include second image
-%   \begin{subfigure}
-
-%   \end{subfigure}
-%   \caption{The partial effect of the accuracy on the survival time across all datasets and models according to the function $S(t)$ as outlined in Section~\ref{survival_time}. The dotted line represents the baseline survival function $S_{ben}$.}
-%   \label{fig:partial_effect_epochs}
-% \end{figure}
-
-% \begin{figure}
-%   \centering
-%   % include second image
-   
-%   \caption{TODO: replace this with epochs and batch size}
-%   \label{fig:partial_effect_batch_size}
-% \end{figure}
-
 
 
 \subsection{Comparative Risk}
