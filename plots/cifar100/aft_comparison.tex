@@ -1,14 +1,14 @@
-\begin{table}
+\begin{table*}
 \caption{Comparison of AFR Models on the CIFAR100 dataset.}
 \label{tab:cifar100}
-\begin{tabular}{llrrlrr}
+\begin{tabular}{llrlrr}
 \toprule
- & AIC & Concordance for $x_t$ & Concordance for $x_i$ & BIC & Mean $S(t;\theta|x_{t})$ & Mean $S(t;\theta|x_{i})$ \\
+ & AIC & Concordance & BIC & Mean $S(t;\theta)$ & Median $S(t; \theta)$ \\
 \midrule
-Weibull & -1159.72 & 0.79 & 0.76 & -1159.72 & 0.21 & 0.21 \\
-Cox & -- & 0.79 & 0.76 & -- & 0.13 & 0.13 \\
-Log Logistic & -1313.15 & 0.78 & 0.77 & -1313.15 & 0.20 & 0.20 \\
-Log Normal & -1299.38 & 0.79 & 0.77 & -1299.38 & 0.20 & 0.20 \\
+Weibull & -1159.72 & 0.79 & -1159.72 & 0.21 & 0.13 \\
+Cox & -- & 0.79 & -- & 0.13 & 0.07 \\
+Log Logistic & -1313.15 & 0.78 & -1313.15 & 0.20 & 0.12 \\
+Log Normal & -1299.38 & 0.79 & -1299.38 & 0.20 & 0.12 \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
