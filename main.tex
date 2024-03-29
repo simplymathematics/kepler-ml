@@ -609,12 +609,12 @@ S_{\theta}(t)= \mathbb{P}(T>t) = \exp\left(-\int_0^t h_{\theta}(u) \, du\right)
 $$
 \cm{where $\mathbb{P}(T>t)$ is the probability that a model has not failed by time $t$. Then, the expected survival time is}
 \[
-	\mathbb{E}_{S_\theta}[T] = \int_0^{\infty} t \cdot S_\theta(t) \,dt.
+	\mathbb{E}_{S_\theta}[T] = \int_0^{\infty}  S_\theta(t) \,dt.
 \]
 
 However, modelling $S_{\theta}(t)$ requires a choice in modelling function for $S_{\theta}$. The Log-Logistic, Log-Normal, and Weibull functions are widely used alternatives~\cite{kleinbaum1996survival}.  \cm{For each trial, one can measure the inference time to define the time interval and the accuracy to estimate the number of failures in that time interval. This should be measured in both the benign and adversarial contexts as a way to measure the cost of a particular model in both contexts.}
 
-To choose a best-fit from the possible AFR functions, one should compare Akaike Information Criterion (AIC), Bayesian Information Criteria (BIC), and Concordance following the best-practices of this methodology~\cite{aft_models,kleinbaum1996survival}. \cm{For AIC and BIC, that means choosing the smallest value. Concordance, however, is a number between $-1$ and $1$ that quantifies the degree to which the survival time is explained by the model, where a $1$ reflects a perfect explanation~\cite{kleinbaum1996survival}. By evaluating $\mathbb{E}_{S_\theta}[T]$ for both adversarial and benign data, we can test the model under extreme perturbations and minimize the number of evaluated samples~\cite{aft_models,kleinbaum1996survival} rather than relying on the $> 10^{12}$ samples as required by ISO26262~\cite{iso26262}}
+To choose a best-fit from the possible AFR functions, one should compare Akaike Information Criterion (AIC), Bayesian Information Criteria (BIC), and Concordance following the best-practices of this methodology~\cite{aft_models,kleinbaum1996survival}. \cm{For AIC and BIC, that means choosing the smallest value. Concordance, however, is a number between $0$ and $1$ that quantifies the degree to which the survival time is explained by the model, where a $1$ reflects a perfect explanation~\cite{kleinbaum1996survival} and .5 reflects random chance. By evaluating $\mathbb{E}_{S_\theta}[T]$ for both adversarial and benign data, we can test the model under extreme perturbations and minimize the number of evaluated samples~\cite{aft_models,kleinbaum1996survival} rather than relying on the $> 10^{12}$ samples as required by ISO26262~\cite{iso26262}}
 
 
 \subsection{Benign and Adversarial Survival Time}
@@ -640,7 +640,7 @@ where $\phi$ is some acceleration factor describing the joint effect of the cova
 \label{optimisation}
 \cm{Machine learning models are typically trained across a wide variety of hyper-parameters to determine the ``best" model by minimizing an optimisation program (minimizing a loss function associated with the machine learning problem) by measuring the loss across many configurations of a model.} However, the number of hyper-parameter combinations are often infinite or at least exponential in the number of such parameters,
 making it infeasible to exhaustively evaluate the search space. Additionally, the goals of test-set accuracy and adversarial accuracy are often at odds~\cite{carlini_towards_2017}--with several researchers noting an inverse relationship between model accuracy and model robustness ~\cite{carlini_towards_2017,meyers}. Therefore, a proper search would keep this dual-objective in mind.
-\cm{To optimize for adversarial and benign accuracy simultaneously, we propose the use of the Tree-structure Parzen Estimator (TPE) because of its ability to work in distributed settings,  while converging  over tens or hundreds of trials~\cite{ozaki2020multiobjective}}.
+\cm{To optimize for adversarial and benign accuracy simultaneously, we propose the use of the Tree-structure Parzen Estimator (TPE) while converging  over tens or hundreds of trials~\cite{ozaki2020multiobjective}}.
 
 
 
@@ -810,9 +810,8 @@ The rental cost of the hardware, measured in United States Dollars per hour, wil
 
 Below, we demonstrate the effect of hardware and dataset on the benign/adversarial accuracy (Fig.~\ref{fig:acc}), training/inference/attack time (Fig.~\ref{fig:time}), and both monetary (Fig.~\ref{fig:cost}) and power (Fig.~\ref{fig:power}) costs for training/inference/attacks. We also compared all three survival times outlined in Sec.~\ref{afr} using the criteria outlined in the same section. Using the best-fit function (again, see Sec.~\ref{afr}), we examined the effect of the covariates on the survival time of the model (Figs.~\ref{fig:partial_effect_train_time}-\ref{fig:partial_effect_attack_eps}).
 
-\cm{I will cut this accuracy subsection. In exchange, I will conduct a log-rank test}
 \subsection{Accuracy}
-Fig.~\ref{fig:acc} shows the advernsarial and benign accuracies for all datasets and hardware. It demonstrates little to no change in accuracy or adversarial accuracy, regardless of hardware though CIFAR10 has worse benign performance and CIFAR100 has substantially worse adversarial performance. For all three datasets, the adversarial accuracy becomes the reciprocal of the number of classes (e.g. the accuracy we would expect on random noise), demonstrating the efficacy of the attack outlined in Sec.~\ref{optimisation}.
+Fig.~\ref{fig:acc} shows the adversarial (right) and benign (left) accuracies for all datasets and hardware. It demonstrates little to no change in accuracy or adversarial accuracy, regardless of hardware though CIFAR10 has worse benign performance and CIFAR100 has substantially worse adversarial performance. For all three datasets, the adversarial accuracy becomes the reciprocal of the number of classes (e.g. the accuracy we would expect on random noise), demonstrating the efficacy of the attack outlined in Sec.~\ref{optimisation}.
 
 \begin{figure}[h!]
     \centering
@@ -823,11 +822,11 @@ Fig.~\ref{fig:acc} shows the advernsarial and benign accuracies for all datasets
 
 
 \subsection{Time}
-Fig.~\ref{fig:time} reveals the training time. Slower hardware (see Memory Bandwidth in Tab.~\ref{tab:hardware}) is only a few milliseconds slower, so this is unlikely to be noticeable to an end-user during inference. This should be no surprise since the less-capable hardware is meant to be used exclusively for inference. Additionally, the attack time increases with both the training and prediction times across hardware and datasets --- an expected result since this is driven by the number of samples and the inference time (see Eq.~\ref{attack_time}).
+Fig.~\ref{fig:time} reveals the training time, inference time, and attack generation time across all datasets and models. Slower hardware (see Memory Bandwidth in Tab.~\ref{tab:hardware}) is only a few milliseconds slower, so this is unlikely to be noticeable to an end-user during inference. This should be no surprise since the less-capable hardware is meant to be used exclusively for inference. Additionally, the attack time (right sub-figure) increases with both the training (left) and prediction times (center) across hardware and datasets --- an expected result since this is driven by the number of samples and the inference time (see Eq.~\ref{attack_time}).
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth,trim={100pt 0 100pt 0},clip]{plots/combined/time.pdf}
+    \includegraphics[width=0.5\textwidth,clip]{plots/combined/time.pdf}
     \caption{Training, Prediction, and Attack times across datasets and hardware.}
     \label{fig:time}
 \end{figure}
@@ -838,7 +837,7 @@ The power consumption, illustrated in Fig.~\ref{fig:power}, tracks monetary cost
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth,trim={100pt 0 100pt 0},clip]{plots/combined/power.pdf}
+    \includegraphics[width=0.5\textwidth,clip]{plots/combined/power.pdf}
     \caption{Training, Prediction, and Attack Power Consumption Across Datasets and Hardware}
     \label{fig:power}
 \end{figure}
@@ -849,7 +848,7 @@ The monetary cost for each dataset and each piece of hardware is shown in Fig.~\
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth,trim={100pt 0 100pt 0},clip]{plots/combined/cost.pdf}
+    \includegraphics[width=0.5\textwidth,clip]{plots/combined/cost.pdf}
     \caption{Training, Prediction, and Attack Monetary Cost Across Datasets and Hardware}
     \label{fig:cost}
 \end{figure}
@@ -865,7 +864,7 @@ Table~\ref{tab:Combined} shows that the aft models using log-logistic and log-no
 
 \cm{Figure TODO shows the p-values for each of the covariates}
 
-Figure~\ref{fig:partial_effect_train_time} shows that training time, by itself, does little to influence the model's survival time. However, as we see in Fig.~\ref{fig:partial_effect_attack_eps}, that and increase the attack distance by an order of magnitude reduces the survival time marginally. Additionally, we see that the benign accuracy, Fig.~\ref{fig:partial_effect_accuracy}, is an equally poor indicator of adversarial robustness, raising further concerns about the efficacy of the train/test split methodology.
+Figure~\ref{fig:partial_effect_train_time} shows that training time, by itself, does little to influence the model's survival time. However, as we see in Fig.~\ref{fig:partial_effect_attack_eps}, that and increasing the attack distance ($\varepsilon$) by an order of magnitude only marginally reduces the survival time. Additionally, that the benign accuracy, Fig.~\ref{fig:partial_effect_accuracy}, is an equally poor indicator of adversarial robustness, raising further concerns about the efficacy of the train/test split methodology.
 
 % \begin{figure}
 %   \centering
