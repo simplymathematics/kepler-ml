@@ -400,7 +400,9 @@ elmroth@cs.umu.se}
 
 \begin{abstract}
 \cm{Considering the growing prominence of production-level AI and the threat of adversarial attacks that can evade a model a run-time, evaluating the robustness of models to these evasion attacks is of critical importance.}
-Additionally, testing model changes likely means deploying the models to a car, medical imaging device, or drone to see how it affects performance, making un-tested changes a public problem that reduces development speed, increases cost of development, and makes it difficult (if not impossible) to parse cause from effect. We address the problem of neural network validation and verification --- more specifically, we address the problem of continuous integration and deployment for safety-critical models in a cloud-native environment. For neural networks in particular, the relationship between model learning rate, batch size, training time, convergence time, and deployment cost is highly complex, \cm{so researchers generally rely on benchmark datasets to assess the ability of a model to generalize beyond the training data. However, in practice, this means that each model configuration needs to be evaluated against real-world deployment samples which can be prohibitively expensive or time-consuming to collect --- especially when other parts of the software or hardware stack are developed in parallel.} To address this, we propose using accelerated failure time models to measure the effect of hardware choice, batch size, number of epochs, test-set accuracy by using adversarial attacks to induce failures on a reference model architecture before deploying the model to the real world. We evaluate several GPU types and use the Tree Parzen Estimator to maximize model robustness and minimize model run-time simultaneously. This provides a way to evaluate the model and optimize it in a single step, while simultaneously allowing us to model the effect of model parameters on training time, prediction time, and accuracy. Using this technique, we demonstrate that newer, more-powerful hardware does decrease the training time, but with a monetary and power cost that far outpaces the marginal gains in accuracy.
+Additionally, testing model changes likely means deploying the models to a car, medical imaging device, or drone to see how it affects performance, making un-tested changes a public problem that reduces development speed, increases cost of development, and makes it difficult (if not impossible) to parse cause from effect.
+\cm{In this paper, we use survival analysis to present a time-efficient and formal method for predicting model performance in the presence of adversarial noise.}
+For neural networks in particular, the relationship between model learning rate, batch size, training time, convergence time, and deployment cost is highly complex, \cm{so researchers generally rely on benchmark datasets to assess the ability of a model to generalize beyond the training data. However, in practice, this means that each model configuration needs to be evaluated against real-world deployment samples which can be prohibitively expensive or time-consuming to collect --- especially when other parts of the software or hardware stack are developed in parallel.} To address this, we propose using accelerated failure time models to measure the effect of hardware choice, batch size, number of epochs, test-set accuracy by using adversarial attacks to induce failures on a reference model architecture before deploying the model to the real world. We evaluate several GPU types and use the Tree Parzen Estimator to maximize model robustness and minimize model run-time simultaneously. This provides a way to evaluate the model and optimize it in a single step, while simultaneously allowing us to model the effect of model parameters on training time, prediction time, and accuracy. Using this technique, we demonstrate that newer, more-powerful hardware does decrease the training time, but with a monetary and power cost that far outpaces the marginal gains in accuracy.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -419,7 +421,7 @@ artificial intelligence, machine learning, adversarial AI, optimisation, complia
 % \end{itemize}
 
 Recently, machine learning (ML) using deep neural networks has become a popular way to classify large amounts of data --- with applications ranging from medical imaging~\cite{ai_medical_imaging} to aviation~\cite{ai_aviation} and from security~\cite{ai_security,ai_luggage,ai_prison} to self-driving cars~\cite{ai_automotive}. 
-\cm{Statistical learning theory \cite{} provides us no guarantees about the generalization performance of deep neural networks due to the massive number of tunable parameters. To overcome this, neural networks need large amounts of data\cite{desislavov2021compute,bailly2022effects} to train ever-larger model~\cite{desislavov2021compute}, which has  yielded increasingly marginal gains on test-set accuracy~\cite{sun2017revisiting}. We also know that  reaching safety-critical standards using test-set accuracy would require an infeasibly large test set \cite{meyers}. Therefore, we propose using AFR models to simulate edge-cases and verify models using a small number of samples.}
+\cm{Statistical learning theory \cite{vcdimension} provides us no guarantees about the generalization performance of deep neural networks due to the massive number of tunable parameters. To overcome this, neural networks need large amounts of data\cite{desislavov2021compute,bailly2022effects} to train ever-larger model~\cite{desislavov2021compute}, which has  yielded increasingly marginal gains on test-set accuracy~\cite{sun2017revisiting}. We also know that  reaching safety-critical standards using test-set accuracy would require an infeasibly large test set \cite{meyers}. Therefore, we propose using AFR models to simulate edge-cases and verify models using a small number of samples.}
 
 
 
@@ -430,30 +432,27 @@ Recently, machine learning (ML) using deep neural networks has become a popular 
  
 
 
-\cm{Modern neural networks are massive--they have have grown to be one of the largest consumers of data-center power, especially with the rise of generative AI~\cite{msft_water}}.
+\cm{Modern neural networks are massive--- they have have grown to be one of the largest consumers of data-center power, especially with the rise of generative AI~\cite{msft_water}}.
 One of Facebook's large language models, dubbed LLaMA, was placed on the codesharing website, GitHub~\cite{llama}. Immediately, an open-sourced clone was created, which itself spawned hundreds of offshoot projects~\cite{openllama}. One version of this open-source large language model (LLM) was able to outperform the commercially available GPT-3.5 model~\cite{liu2023goat} with a fraction of the parameters (13 Billion), small enough to run on a laptop without a graphics processing unit (GPU), suggesting that consumer-level hardware can be used to effectively train large models in a reasonable time. Furthermore, popular models like Generative Pre-trained Transformer (GPT)~\cite{floridi2020gpt} or ResNet~\cite{resnet} have many millions or billions of parameters, requiring infeasibly large training datasets to verify a model\cite{vcdimension}. Media reports place the cost of training a GPT3 somewhere between 4 and 63 million dollars~\cite{Patel_Ahmad_2023,Feswing_2023}, meaning only a few entities in the whole world have the requisite hardware and/or cloud budget to build a competing system. \cm{While the benefits of a more portable model are plentiful, there is not yet a method for formalizing the relationship between cost and model performance. We present training and validation methodology with a focus on compute- and time-efficiency.}
 
-Given the immense cost of deploying modern neural networks, the required number of test samples creates serious questions about the efficacy of the typical train/test split methodology for \cm{assessing model generalization}~\cite{meyers} since regulatory standards around safety-critical software applications~\cite{IEC61508,iso26262,aviation_software,safetyframework} clearly define the maximum failure rate to be in the range $[10^{-12}, 10^{-15}]$ depending on the number of lives at risk~\cite{iso26262}. Furthermore, ensuring the robustness of ML models against adversarial noise has become a critical concern \cm{since inducing a failure at run-time has consistently shown to be trivial}~\cite{adversarialpatch, carlini_towards_2017, croce_reliable_2020, hopskipjump, chakraborty2018adversarial, art2018}. Collecting, labelling, and testing a new set of data for every software change --- as required by law --- would be prohibitively expensive. Therefore, a new evaluation methodology is required.
+Given the immense cost of deploying modern neural networks, the required number of test samples creates serious questions about the efficacy of the typical train/test split methodology for \cm{assessing model generalization}~\cite{meyers} since regulatory standards around safety-critical software applications~\cite{IEC61508,iso26262,aviation_software,safetyframework} clearly define the maximum failure rate to be in the range $[10^{-12}, 10^{-15}]$ depending on the number of lives at risk~\cite{iso26262}. Furthermore, ensuring the robustness of ML models against adversarial noise has become a critical concern \cm{since inducing a failure at run-time has consistently shown to be trivial}~\cite{adversarialpatch, carlini_towards_2017, croce_reliable_2020, hopskipjump, chakraborty2018adversarial, art2018}. Collecting, labelling, and testing a new set of data for every software change --- as required by law in most of the world~\cite{IEC61508,iso26262,aviation_software,safetyframework} --- would be prohibitively expensive. Therefore, a new evaluation methodology is required.
 
 % As such, the methodology proposed in this paper, centered around survival analysis, tests a model against ``worst-case" (\textit{e.g.}, adversarial) inputs to verify the efficacy of one modelling deployment decision over another. 
 We propose to use survival analysis as a methodological framework to model the failure conditions of a machine learning model. Instead of having a test set large enough to cover all of the failure cases, we generate adversarial samples crafted specifically to make the model fail and then use survival analysis to predict these failures in general.
 
-
-\cm{The methodology outlined in Section~\ref{afr} allows the model-builder to minimize the training cost, optimize for adversarial robustness, and estimate the partial effects of covariates on model performance during routine training procedures. We then demonstrate the efficacy of this methodology in Section~\ref{results} by examining the role of hardware on model performance, the particulars of which are outlined in Section~\ref{experiments}.}
+\cm{In this paper, we use accelerated methods to predict model performance as a function of various model parameters. The methodology outlined in Sec.~\ref{afr} allows the model-builder to minimize the training cost, optimize for adversarial robustness, estimate the partial effects of covariates on model performance during routine training procedures, and perform a cost analysis (Sec.~\ref{cost}). We then demonstrate the efficacy of this methodology in Sec.~\ref{results} by examining the role of hardware on model performance, the particulars of which are outlined in Sec.~\ref{experiments}.}
 
 
 \subsection{Contributions}
 To tackle the problems of minimizing deployment cost while maximizing the model performance on both the test set and in the presence of adversarial noise we present a scalable and effective \cm{methodology and software framework for the training (see: Sec.~\ref{afr}) and evaluation (see: Sec.~\ref{cost}) of machine learning models} that:
 \begin{itemize}
-    \item optimizes for benign and adversarial accuracy simultaneously,
-    \item extends survival analysis to the realm of neural networks, 
-    \item demonstrates a scalable and effective method that trains a model while simultaneously estimating the asymptotic effect of various hyperparameters, and
-    \item measures the power and monetary cost of deploying a model across different hardware architectures to model the trade-offs between deployment hardware and robustness.
-    \item and demonstrates that, despite a decrease in training time, that faster hardware, \cm{hardware with more bit-depth}, and/or more power-hungry hardware do not lead to more adversarially robust models.
-    
+    \item Optimizes for benign and adversarial accuracy simultaneously,
+    \item Extends survival analysis to the realm of neural networks, 
+    \item Demonstrates a scalable and effective method that trains a model while simultaneously estimating the asymptotic effect of various hyperparameters, and
+    \item Measures the power and monetary cost of deploying a model across different hardware architectures to model the trade-offs between deployment hardware and robustness.   
 \end{itemize}
 
-\cm{Section~\ref{background} defines terms used throughout the paper. Section~\ref{afr} outlines the training and evaluation methodology presented in this paper.  Section ~\ref{cost} outlines the resulting cost analysis framework, arising from the methodology in the previous section. Section~\ref{experiments} outlines the software components and specific experiments that were conducted, while Section~\ref{results} contains the results and discussions of those experiments. Section~\ref{considerations} and Section~\ref{conclusion} reveal the caveats and the conclusions respectively.}
+\cm{Sec.~\ref{background} defines terms used throughout the paper. Sec.~\ref{afr} outlines the training and evaluation methodology presented in this paper.  Section ~\ref{cost} outlines the resulting cost analysis framework, arising from the methodology in the previous section. Sec.~\ref{experiments} outlines the software components and specific experiments that were conducted, while Sec.~\ref{results} contains the results and discussions of those experiments. Sec.~\ref{considerations} and Sec.~\ref{conclusion} reveal the caveats and the conclusions respectively.}
 
 
 \section{Background}
@@ -507,7 +506,7 @@ In the context of ML, an adversarial attack refers to deliberate and malicious a
     \hat{y} \neq \hat{y_a} = K(x + \varepsilon; \theta).
 \label{eq:adv_success}
 \end{equation}
-Additionally, one can measure the accuracy of the model when tasked with these adversarial samples, giving us a metric called \textit{adversarial accuracy}. The goal of an adversarial attack is often to exploit vulnerabilities in the model's decision-making process or to probe its weaknesses. These attacks can occur during various stages of the ML pipeline, including during training \cite{biggio_poisoning_2013, saha2020hidden}, inference~\cite{chakraborty_adversarial_2018, orekondy2019knockoff}, or deployment ~\cite{chakraborty_adversarial_2018, choquette2021label, li2021membership, carlini_towards_2017, adversarialpatch, pixelattack, hopskipjump}.
+Additionally, one can measure the accuracy of the model when tasked with these adversarial samples, giving us a metric called \textit{adversarial accuracy} which is Eq.~\ref{eq:acc} calculated on the perturbed samples. The goal of an adversarial attack is often to exploit vulnerabilities in the model's decision-making process or to probe its weaknesses. These attacks can occur during various stages of the ML pipeline, including during training \cite{biggio_poisoning_2013, saha2020hidden}, inference~\cite{chakraborty_adversarial_2018, orekondy2019knockoff}, or deployment ~\cite{chakraborty_adversarial_2018, choquette2021label, li2021membership, carlini_towards_2017, adversarialpatch, pixelattack, hopskipjump}.
 
 % \cm{I cut itemized list more discussion about learning rate tuning?}
 % \begin{itemize}
@@ -564,7 +563,7 @@ AFR models are statistical models used to analyze multivariate effects on the ob
     \State \textbf{Adversarial Accuracy:} Calculate $\lambda_{adv}[i]$ with Eq.~\ref{eq:acc}
     \State \textbf{Append} accuracies and times to their respective arrays.
     \EndWhile
-    \State \textbf{Fit Accelerated Model, $S_{adv}$} using $\lambda_{adv}$ and $T_a$
+    \State \textbf{Fit Accelerated Failure Rate Model, $S_{adv}$} using $\lambda_{adv}$ and $T_a$
     \State \textbf{Fit Benign Model, $S_{ben}$} using $\lambda_{ben}$ and $T_i$
     \Ensure$ S_{adv} \approx  \phi S_{ben}(\phi t)$
     \Return $S_{adv}$
@@ -663,14 +662,14 @@ making it infeasible to exhaustively evaluate the search space. Additionally, th
 \subsection{Training Time}
 The training time, $T_t$, is the time it takes to evaluate $n$ samples such that the training time per sample $t_t$ is
 $$
-    T_t := t_t * n  * m.
+    T_t := t_t \cdot n  \cdot m.
 $$
 where $m$ is the number of epochs and $*$ is normal scalar multiplication.
 
 \subsection{Latency}
 Latency is the time it takes to respond to a query. We assume that latency per sample is
 $$
-    T_i := t_i *n,
+    T_i := t_i \cdot n,
 $$
 which will be driven by the memory bandwidth (measured in bits/second) of a given CPU or GPU and the size\cite{vgg} and complexity\cite{resnet} of a given neural network architecture.
 
@@ -679,7 +678,7 @@ which will be driven by the memory bandwidth (measured in bits/second) of a give
 A successful attack is one that induces failure in a model. That is, the expected survival time, $\mathbb{E}_{S_\theta}[T]$, can be thought of as the average time it takes for an attacker to induce a change in the model output. We approximate this for each attack/defence configuration by the total attack time, $T_a$, for $n$ samples, $i$ iterations, and attack time per sample, $t_a$, as
 \begin{equation}
     \label{attack_time}
-    T_a := t_i *n *i.
+    T_a := t_i \cdot n \cdot i.
 \end{equation}
 We restricted this to a single iteration \cm{such that $i =1$} as described in FGM~\cite{fgm}.
 
@@ -688,17 +687,17 @@ We restricted this to a single iteration \cm{such that $i =1$} as described in F
 Furthermore, we approach the cost of deployment at two scales. Firstly, we consider the cloud-rental scale, where a small-business might test and deploy a model, using Google Cloud Platform\footnote{\href{https://cloud.google.com}{https://cloud.google.com}} (GCP) compute costs as a measure of total cost. However, at a certain scale, (\textit{e.g.} for deploying a self-driving car) it is  more appropriate to talk about cost in terms of power. Finally, we define best-case and worst-case success metrics that provide an efficient way to minimize the latency, cost of deployment, and 
 maximize the generalized performance of a model. We define the training cost ($C_t$) as
 $$
-    C_t = C_h *T_t,
+    C_t = C_h \cdot T_t,
     \label{eq:cost_training}
 $$
 the cost of model inference time as,
 $$
-    C_i = C_h *T_i,
+    C_i = C_h \cdot T_i,
     \label{eq:cost_inference}
 $$
 and the cost of an attack as,
 $$
-    C_a = C_h * T_a.
+    C_a = C_h \cdot T_a.
     \label{eq:cost_attack}
 $$
 where $C_h$ is the cost per unit time for the hardware, $T_t$ is the training time, $T_i$ is the inference time, and $T_a$ is the attack generation time.
@@ -706,29 +705,29 @@ where $C_h$ is the cost per unit time for the hardware, $T_t$ is the training ti
 \subsubsection{Power}
 The power consumption for a particular piece of hardware ($P_h$), measured in Watts (Joules per second), can be thought of similarly such that the total power consumption of model training is
 $$
-    P_t = P_h *T_t,
+    P_t = P_h \cdot T_t,
     \label{eq:power_training}
 $$
 the power consumption during model inference is
 $$
-    P_i = P_h *T_i,
+    P_i = P_h \cdot T_i,
     \label{eq:power_inference}
 $$
 and the power consumption during attack generation is
 $$
-    P_a = P_h *T_a.
+    P_a = P_h \cdot T_a.
     \label{eq:power_attack}
 $$
 where $P_h$ is the cost per unit time for the hardware, $T_t$ is the training time, $T_i$ is the inference time, and $T_a$ is the attack generation time.
 
-\subsection{Marginal Risk}
-\cm{One advantage of this survival analysis is that we can directly compare the marginal risk and reward for a particular model choice. The \textit{marginal risk} is the change in survival time divided by change in attack compared to some control model such that:
-\[
-    \textrm{Comparative~Risk} := \frac{ \Delta S(t)}{\Delta C_a},
-\]
-where $\Delta$ reflects the change from the control model.}
+\subsection{Why Cost Matters}
+% \cm{One advantage of this survival analysis is that we can directly compare the marginal risk and reward for a particular model choice. The \textit{marginal risk} is the change in survival time divided by change in attack compared to some control model such that:
+% \[
+%     \textrm{Marginal~Risk} := \frac{ \Delta S(t)}{\Delta C_a},
+% \]
+% where $\Delta$ reflects the change from the control model.}
 
-\cm{Another advantage is that we can quickly discard ineffective model choices with this method.} In security analysis, it is  routine to think in optimistic terms for both the attacker and defender. \cm{In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken"). For our purposes, by assuming the best-case scenario for both attacker and defender, we can model the Pareto front --- the best-case asymptotic behavior --- of either party~\cite{zitzler2008quality}.}
+ In security analysis, it is  routine to think in optimistic terms for both the attacker and defender. \cm{In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken"). For our purposes, by assuming the best-case scenario for both attacker and defender, we can model the Pareto front --- the best-case asymptotic behavior --- of either party~\cite{zitzler2008quality}.}
 As such, we center our analysis on the Fast Gradient Method~\cite{fgm} (see: Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}. If the cost to a model builder is much larger than the cost to an attacker ($C_t \gg C_a$), then it is  clear that the model is ``broken" in this cryptographic sense and can be discarded as ineffective. 
 
 
@@ -738,7 +737,7 @@ As such, we center our analysis on the Fast Gradient Method~\cite{fgm} (see: Eq.
 \section{Experiments}
 \label{experiments}
 
-This section outlines specific implementation details for the evaluation of the methodology outlined in Section~\ref{afr}.
+This section outlines specific implementation details for the evaluation of the methodology outlined in Sec.~\ref{afr}.
 
 
 \subsection{Cloud Platform and Hardware}
@@ -768,7 +767,7 @@ We restricted ourselves to a single model for our evaluations. Primarily, this w
 
 
 \subsection{Attacks}
-Since one goal of this paper was to evaluate how hardware and deployment cost affect adversarial robustness during run-time, we focused on evasion attacks since they induce failures by adding noise to the data at run-time. Prior research~\cite{meyers} has shown that the Fast Gradient method (see Eq.~\ref{eq:fgm}) is consistently the most effective at inducing a large number of failures in a small amount of time. To evaluate the effect of adversarial noise on our samples, we varied $\varepsilon \in [0, 1]$, using the \texttt{adversarial-robustness-toolbox} package maintained by a team at IBM~\cite{art2018}.
+Since we are examining the effect of model parameters at run-run, we focused on evasion attacks since they induce failures by adding noise to the data at the inference stage. Prior research~\cite{meyers} has shown that the Fast Gradient method (see Eq.~\ref{eq:fgm}) is consistently the most effective at inducing a large number of failures in a small amount of time. To evaluate the effect of adversarial noise on our samples, we varied $\varepsilon \in [0, 1]$, using the \texttt{adversarial-robustness-toolbox} package maintained by a team at IBM~\cite{art2018}.
 
 
 \subsection{GPU Configurations}
@@ -794,7 +793,7 @@ We tested several hardware configurations, which have various hourly costs, peak
 \end{table}
 
 \subsection{Survival Analysis}
-In addition to the optimisation criteria of benign/adversarial accuracy and training time, we collected prediction times, attack times, power consumption, batch size and number of epochs to be used as covariates of the function, $S(t)$. To fit the AFR model and to plot the effect of covariates, we used the \texttt{lifelines} Python package~\cite{lifelines}. We also compared the chosen modelling functions (see Section~\ref{afr}).  These results can be found in Section~\ref{results}.
+In addition to the optimisation criteria of benign/adversarial accuracy and training time, we collected prediction times, attack times, power consumption, batch size and number of epochs to be used as covariates of the function, $S(t)$. To fit the AFR model and to plot the effect of covariates, we used the \texttt{lifelines} Python package~\cite{lifelines}. We also compared the chosen modelling functions (see Sec.~\ref{afr}).  These results can be found in Sec.~\ref{results}.
 
 
 
@@ -812,7 +811,7 @@ In this section, we display and discuss the results for all of the experiments a
 
 \subsection{Accuracy}
 \label{res:acc}
-Fig.~\ref{fig:acc} shows the adversarial (right) and benign (left) accuracies for all datasets and hardware. It demonstrates little to no change in accuracy or adversarial accuracy, regardless of hardware though CIFAR10 has worse benign performance and CIFAR100 has substantially worse adversarial performance. For all three datasets, the adversarial accuracy becomes the reciprocal of the number of classes (e.g. the accuracy we would expect on random noise), demonstrating the efficacy of the attack outlined in Sec.~\ref{optimisation}.
+Fig.~\ref{fig:acc} shows the adversarial (right) and benign (left) accuracies for all datasets and hardware. It demonstrates little to no change in accuracy or adversarial accuracy, regardless of hardware. Benign accuracy decreases with resolution (CIFAR10 vs MNIST) or with the number of classes (CIFAR10 vs CIFAR100). For all three datasets, the adversarial accuracy becomes the reciprocal of the number of classes (e.g. the accuracy we would expect on random noise), demonstrating the efficacy of the attack outlined in Sec.~\ref{optimisation}.
 
 \begin{figure}[h!]
     \centering
@@ -858,29 +857,37 @@ The monetary cost for each dataset and each piece of hardware is shown in Fig.~\
 
 
 
-
 \subsection{AFR Models}
 \label{res:afr}
-Table~\ref{tab:combined} shows the performance metrics for all three AFR models, as outlined in Sec.~\ref{survival_time}. It shows that the aft models using Weibull, log-logistic and log-normal functions have similar predictive abilities, but we used the log-logistic model to render partial effect due to its marginally improved AIC.
+\cm{
+Table~\ref{tab:combined} shows the performance metrics for all three AFR models, as outlined in Sec.~\ref{survival_time}. It shows that the aft models using Weibull, log-logistic and log-normal functions have similar predictive abilities, but below we examine the log-logistic model due to its improved AIC. Fig.~\ref{fig:qq} compares the AFR-predicted failures with the empirical failures. We can see that the model is largely effective, though becomes less effective as the number of failures increases. It is, however, very precise when measuring a small number of failures, which is far more important for safety-critical design. }
 \input{plots/combined/aft_comparison}
-
+\cm{
+Fig.~\ref{fig:aft} shows the log-scale coefficients for the AFR model. It shows that epochs, batch size, and training time have no effect on the survival time. Additionally, it reveals this for the random state variable, which is expected. However, we can clearly see that inference time (e.g. how long it takes to query the model) is as strong an indicator as the attack noise distance, revealing that model speed is at least as important as the attack itself. Furthermore, we see that benign accuracy is negatively correlated with accuracy, confirming previous assertions that robustness ($S(t)$) is inversely related to test-set accuracy (which is the normal indicator of generalization performance). 
+}
+\cm{
+Using the $S(t)$ described in Sec.~\ref{afr}, we can model the partial effect of various hardware devices, which is depicted in Fig.~\ref{fig:partial}. It clearly shows that hardware choice has no bearing on robustness, despite the disparity in cost outlined in Table~\ref{tab:hardware}.
+}
 
 \begin{figure}[h!]
     \centering
     \begin{subfigure}[b]{\linewidth}
         \centering
         \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_qq.pdf}
-        \caption{Plot depicting the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis).}
+        \caption{Plot depicting the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis). The dotted line depicts a perfect model.}
+        \label{fig:qq}
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
         \centering
         \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_aft.pdf}
         \caption{Coefficients of the Covariates for the Log Logistic AFR model}
+        \label{fig:aft}
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_attack_eps_partial_effect.pdf}
+        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_device_num_partial_effect.pdf}
         \caption{Partial Effect  of $\varepsilon$ on $S(t)$ }
+        \label{fig:partial}
     \end{subfigure}
     \caption{This shows the partial effects plots for}
 \end{figure}
@@ -891,7 +898,7 @@ Table~\ref{tab:combined} shows the performance metrics for all three AFR models,
 
 \section{Considerations}
 \label{considerations}
-We have taken much care to conduct these measurements as carefully as possible. Primarily, to minimize timing jitter and account for GPU parallelization, we assumed that the time-to-failure during the benign and adversarial accuracy measurements was uniform across the samples, but independent and identically distributed data is already a pre-condition for maximum likelihood learning~\cite{ma2022state}. Given the strong ($>0.5$) concordance results and uniformity across AFR functions in Table~\ref{tab:Combined}, this assumption appears to be insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexplained variance. Additionally, we chose a model and set of datasets small enough to fit entirely in GPU memory to minimize the confounding factors around parallelized, distributed, and/or federated learning. \cm{While this obscures the effect of GPU parallelization, the result doesn't change since all metrics are measured on a particular piece of hardware for both the attacker and defender. Furthermore, we see the attack batch size and the training batch size to be the same for every trial. If anything, the smaller sample size of the attacks means that proportionally more parallelization overhead is needed per sample, leading to an underestimate of the attack efficacy.} In general, distributed/federated models are out of scope, but architectural choices regarding the configuration of such methods could be evaluated using the cost and survival analysis techniques outlined above. Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth. However, we would like to note that the ``inference-optimized" Nvidia 4-series GPUs are perfectly capable and affordable training machines. We restricted our search to only a single evasion attack (see Eq.~\ref{eq:fgm}) in the interest of time (and therefore deployment cost), though this analysis would generalize to other evasion, extraction, inversion, or poisoning attacks.
+We have taken much care to conduct these measurements as carefully as possible. Primarily, to minimize timing jitter and account for GPU parallelization, we assumed that the time-to-failure during the benign and adversarial accuracy measurements was uniform across the samples, but independent and identically distributed data is already a pre-condition for maximum likelihood learning~\cite{ma2022state}. Given the strong ($>0.5$) concordance results and uniformity across AFR functions in Table~\ref{tab:combined}, this assumption appears to be insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexplained variance. Additionally, we chose a model and set of datasets small enough to fit entirely in GPU memory to minimize the confounding factors around parallelized, distributed, and/or federated learning. \cm{While this obscures the effect of GPU parallelization, the result doesn't change since all metrics are measured on a particular piece of hardware for both the attacker and defender. Furthermore, we see the attack batch size and the training batch size to be the same for every trial. If anything, the smaller sample size of the attacks means that proportionally more parallelization overhead is needed per sample, leading to an underestimate of the attack efficacy.} In general, distributed/federated models are out of scope, but architectural choices regarding the configuration of such methods could be evaluated using the cost and survival analysis techniques outlined above. Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth. However, we would like to note that the ``inference-optimized" Nvidia 4-series GPUs are perfectly capable and affordable training machines. We restricted our search to only a single evasion attack (see Eq.~\ref{eq:fgm}) in the interest of time (and therefore deployment cost), though this analysis would generalize to other evasion, extraction, inversion, or poisoning attacks.
 
 
 
@@ -899,7 +906,7 @@ We have taken much care to conduct these measurements as carefully as possible. 
 
 \section{Conclusions}
 \label{conclusion}
-In this work, we introduced survival analysis to machine learning, developed a method to quickly and efficiently test model parameter choices and to evaluate them in the presence of adversarial noise, allowing us the model performance as a function of tested model parameters. Using this technique, we showed that despite reduced run-times with newer and/or larger hardware, that adversarial robustness is not substantially effected and that the specific choice of attack parameters is far more important than model training time. Furthermore, we demonstrate the un-advertised training capability of the Nvidia L4 GPU which yields substantially similar results when compared to more expensive and power hungry hardware. However, the marginal run-time is substantial, even if it's cost-effective.
+In this work, we introduced survival analysis to machine learning, developed a method to quickly and efficiently test model parameter choices and evaluated them in the presence of adversarial noise, allowing us the model performance as a function of tested model parameters. Using this technique, we showed that despite reduced run-times with newer and/or larger hardware, that adversarial robustness is not substantially effected and that the specific choice of attack parameters is far more important than model training time. Furthermore, we demonstrate the un-advertised training capability of the Nvidia L4 GPU which yields substantially similar results when compared to more expensive and power hungry hardware. However, the marginal run-time is substantial, even if it's cost-effective.
 
 % no keywords
 % For peer review papers, you can put extra information on the cover
