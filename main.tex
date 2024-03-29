@@ -824,34 +824,35 @@ Fig.~\ref{fig:acc} shows the adversarial (right) and benign (left) accuracies fo
 \subsection{Time}
 Fig.~\ref{fig:time} reveals the training time, inference time, and attack generation time across all datasets and models. Slower hardware (see Memory Bandwidth in Tab.~\ref{tab:hardware}) is only a few milliseconds slower, so this is unlikely to be noticeable to an end-user during inference. This should be no surprise since the less-capable hardware is meant to be used exclusively for inference. Additionally, the attack time (right sub-figure) increases with both the training (left) and prediction times (center) across hardware and datasets --- an expected result since this is driven by the number of samples and the inference time (see Eq.~\ref{attack_time}).
 
-\begin{figure}[h!]
+\begin{figure*}[h]
     \centering
-    \includegraphics[width=0.5\textwidth,clip]{plots/combined/time.pdf}
+    \includegraphics[width=.7\textwidth,clip]{plots/combined/time.pdf}
     \caption{Training, Prediction, and Attack times across datasets and hardware.}
     \label{fig:time}
-\end{figure}
+\end{figure*}
 
 
 \subsection{Power}
-The power consumption, illustrated in Fig.~\ref{fig:power}, tracks monetary cost (Fig.~\ref{fig:cost}) closely, probably because that's the predominant cost for the datacenter itself~\cite{dayarathna2015data}, so it is unsurprising that cloud billing is colinear with this metric. Furthermore, we see that the largest dataset (CIFAR100) and smallest GPU (L4) require the least amount of power (Fig.~\ref{fig:power}). 
+The power consumption during training, inference, and attack generation for all hardware and datasets is illustrated in Fig.~\ref{fig:power}. It is clearly obvious that training is several orders of m
 
-\begin{figure}[h!]
+It tracks monetary cost (Fig.~\ref{fig:cost}) closely, probably because that's the predominant cost for the datacenter itself~\cite{dayarathna2015data}, so it is unsurprising that cloud billing is colinear with this metric. Furthermore, we see that the largest dataset (CIFAR100) and smallest GPU (L4) require the least amount of power (Fig.~\ref{fig:power}). 
+
+\begin{figure*}[h]
     \centering
-    \includegraphics[width=0.5\textwidth,clip]{plots/combined/power.pdf}
+    \includegraphics[width=0.7\textwidth,clip]{plots/combined/power.pdf}
     \caption{Training, Prediction, and Attack Power Consumption Across Datasets and Hardware}
     \label{fig:power}
-\end{figure}
+\end{figure*}
 
 
 \subsection{Cost}
 The monetary cost for each dataset and each piece of hardware is shown in Fig.~\ref{fig:cost}. \cm{For all three datasets across all three pieces of hardware, the cost of training on a single sample often exceeds the cost of attacking a single sample. In the best case scenario, they are comparable. However, we note that the attacker only needs to be lucky once, whereas the the model builder must be lucky always. This reveals an essential advantage for the attacker on the reference model and hardware architecture --- attacks consistently succeed with 100s of samples while model training requires orders of magnitude more.}
 
-\begin{figure}
+\begin{figure*}
     \centering
-    \includegraphics[width=0.5\textwidth,clip]{plots/combined/cost.pdf}
     \caption{Training, Prediction, and Attack Monetary Cost Across Datasets and Hardware}
     \label{fig:cost}
-\end{figure}
+\end{figure*}
 
 
 
