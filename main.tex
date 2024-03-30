@@ -737,7 +737,7 @@ As such, we center our analysis on the Fast Gradient Method~\cite{fgm} (see: Eq.
 \section{Experiments}
 \label{experiments}
 
-This section outlines specific implementation details for the evaluation of the methodology outlined in Sec.~\ref{afr}.
+This section outlines specific implementation details for the evaluation of the survival analysis methodology outlined in Sec.~\ref{afr} and the cost analysis methodology outlined in Sec~\ref{cost}.
 
 
 \subsection{Cloud Platform and Hardware}
@@ -755,7 +755,7 @@ To assess the energy consumption of the experiments deployed on a Google Kuberne
 
 \subsection{AFR Models}
 
-For each hardware configuration and dataset, we ran one thousand trials, a number that should converge to a Pareto-optimal result~\cite{ozaki2020multiobjective,zitzler2008quality} for the TPE algorithm, within some expected error bounds ~\cite{legriel2010approximating}. We used three optimisation criteria-- benign accuracy, training time, and adversarial accuracy seeking to maximize both benign and adversarial accuracy while minimizing training time (and therefore deployment cost). We selected a set of parameters as per the TPE algorithm and trained on 80\% of the samples. Of the remaining samples, 100 were withheld to be attacked and used to evaluate the adversarial accuracy. Fig.~\ref{fig:experiments} illustrates this methodology. For each dataset, we tested this on ten random splits of the data. For each trial, we recorded attack generation time, model training time, model inference time, benign accuracy and adversarial accuracy, and the size of the training set, test set, and attack. Using these values, we fit an AFR model to the number of failures (indicated by accuracy and sample size) and the attack generation time after adding dummy variables for the dataset and hardware device. The inference time and training time were used to conduct the cost analysis outlined in the next section (Sec.~\ref{cost}). 
+For each hardware configuration and dataset, we ran one thousand trials, a number that should converge to a Pareto-optimal result~\cite{ozaki2020multiobjective,zitzler2008quality} for the TPE algorithm, within some expected error bounds ~\cite{legriel2010approximating}. We used three optimisation criteria-- benign accuracy, training time, and adversarial accuracy seeking to maximize both benign and adversarial accuracy while minimizing training time (and therefore deployment cost). We selected a set of parameters as per the TPE algorithm and trained on 80\% of the samples. Of the remaining samples, 100 were withheld to be attacked and used to evaluate the adversarial accuracy. Fig.~\ref{fig:experiments} illustrates this methodology. For each dataset, we tested this on ten random splits of the data. For each trial, we recorded attack generation time, model training time, model inference time, benign accuracy and adversarial accuracy, and the size of the training set, test set, and attack. Using these values, we fit an AFR model to the number of failures (indicated by accuracy and sample size) and the attack generation time after adding dummy variables for the dataset and hardware device.  
 
 \subsection{Datasets}
 The AFR models were evaluated using the MNIST~\cite{mnist}, CIFAR10\cite{cifar}, and CIFAR100\cite{cifar} datasets, chosen primarily for their standardized use in adversarial analysis~\cite{madry2017towards,croce_reliable_2020,carlini_towards_2017,deepfool} and decades of experimental results.
@@ -837,7 +837,7 @@ Fig.~\ref{fig:acc} shows the adversarial (right) and benign (left) accuracies fo
         \caption{Training, Prediction, and Attack Monetary Cost}
         \label{fig:cost}
     \end{subfigure}
-    \caption{The run-times, power consumption, and monetary cost of training, prediction, and attack generation across all hardwware and datasets.}
+    \caption{The all cost metrics for all hardware and datasets.}
 \end{figure*}
 
 
@@ -853,9 +853,6 @@ The power consumption during training, inference, and attack generation for all 
 \subsection{Cost}
 \label{res:cost}
 The monetary cost for each dataset and each piece of hardware is shown in Fig.~\ref{fig:cost}. \cm{For all three datasets across all three pieces of hardware, the cost of training on a single sample often exceeds the cost of attacking a single sample. In the best case scenario, they are comparable. However, we note that the attacker only needs to be lucky once, whereas the the model builder must be lucky always. This reveals an essential advantage for the attacker on the reference model and hardware architecture --- attacks consistently succeed with 100s of samples while model training requires orders of magnitude more.}
-
-
-
 
 \subsection{AFR Models}
 \label{res:afr}
@@ -873,19 +870,19 @@ Using the $S(t)$ described in Sec.~\ref{afr}, we can model the partial effect of
     \centering
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_qq.pdf}
-        \caption{Plot depicting the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis). The dotted line depicts a perfect model.}
+        \includegraphics[width=.6\linewidth,clip]{plots/combined/weibull_qq.pdf}
+        \caption{The red line depicts the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis). The dotted line depicts a perfect model.}
         \label{fig:qq}
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_aft.pdf}
+        \includegraphics[width=.7\linewidth,clip]{plots/combined/weibull_aft.pdf}
         \caption{Coefficients of the Covariates for the Log Logistic AFR model}
         \label{fig:aft}
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_device_num_partial_effect.pdf}
+        \includegraphics[width=.7\linewidth,clip]{plots/combined/weibull_device_num_partial_effect.pdf}
         \caption{Partial Effect  of $\varepsilon$ on $S(t)$ }
         \label{fig:partial}
     \end{subfigure}
