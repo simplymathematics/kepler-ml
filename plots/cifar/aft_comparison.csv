@@ -1,5 +1,5 @@
-,AIC,BIC,Concordance,Test Concordance,ICI,E50
-Weibull,-1234.74,-1234.74,0.79,0.8,0.02,0.0
-Cox,,,0.8,0.8,0.01,0.0
-Log Logistic,-1335.65,-1335.65,0.79,0.79,0.01,0.0
-Log Normal,-1387.92,-1387.92,0.79,0.79,0.01,0.0
+,AIC,BIC,Concordance,Test Concordance,ICI,Test ICI,E50,Test E50
+Weibull,-4870.34,-4870.34,0.8,0.79,0.01,0.0,0.0,0.0
+Cox,,,0.8,0.79,0.03,0.02,0.0,0.0
+Log Logistic,-5071.71,-5071.71,0.8,0.78,0.01,0.01,0.0,0.0
+Log Normal,-5271.22,-5271.22,0.8,0.78,0.01,0.01,0.0,0.0

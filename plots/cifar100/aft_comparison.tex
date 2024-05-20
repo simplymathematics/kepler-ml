@@ -2,14 +2,14 @@
 \centering
 \caption{Comparison of AFR Models on the CIFAR100 dataset.}
 \label{tab:cifar100}
-\begin{tabular}{lllrrrr}
+\begin{tabular}{lllrrrrrr}
 \toprule
- & AIC & BIC & Concordance & Test Concordance & ICI & E50 \\
+ & AIC & BIC & Concordance & Test Concordance & ICI & Test ICI & E50 & Test E50 \\
 \midrule
-Weibull & -1.11e+03 & -1.11e+03 & 0.78 & 0.76 & 0 & 0 \\
-Cox & -- & -- & 0.79 & 0.76 & 0.02 & 0 \\
-Log Logistic & -1.2e+03 & -1.2e+03 & 0.78 & 0.77 & 0.01 & 0 \\
-Log Normal & -1.24e+03 & -1.24e+03 & 0.79 & 0.77 & 0 & 0 \\
+Weibull & -4.19e+03 & -4.19e+03 & 0.77 & 0.75 & 0 & 0 & 0 & 0 \\
+Cox & -- & -- & 0.77 & 0.76 & 0.01 & 0.01 & 0 & 0 \\
+Log Logistic & -4.49e+03 & -4.49e+03 & 0.77 & 0.75 & 0.02 & 0.01 & 0 & 0 \\
+Log Normal & -4.65e+03 & -4.65e+03 & 0.77 & 0.75 & 0 & 0 & 0 & 0 \\
 \bottomrule
 \end{tabular}
 \end{table*}
