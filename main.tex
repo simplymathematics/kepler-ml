@@ -193,36 +193,36 @@ The next section outlines the methodology for modelling the effect of model hype
 % First, we present the proposed procedure in Algorithm~\ref{fig:alg} and a visual diagram of it in Figure~\ref{fig:experiments}. Then, in the sections below, we define accuracy (Section~\ref{acc}) and failure rate (Section~\ref{failure_rate}) in the context of survival analysis to make the concept of survival time clear (Section~\ref{survival_time}). We then discuss the importance of the ``acceleration assumption" (Section~\ref{accelerated}), the optimisation algorithm (Section~\ref{optimisation}), and the advantages of this approach (Section~\ref{advantages}).
 
 
-\begin{algorithm}[h!]
-    \caption{Survival Analysis for ML}
-    \label{fig:alg}
-\begin{algorithmic}
-    \Require Samples $x$ of size $N$, model parameters $\theta$, loss function $L(y, \hat{y})$, classifier $K(x; \theta)$, and the number of trials, $n$, where the subscripts $t,i,a$ refer to the respective value for either the train, test, and/or attack sets, \textit{e.g.}, $N_t$ is size of the training set.
-    \State Initialize classifier $K(x, \theta)$, training/inference/attack generation time arrays $T_t/T_i/T_a$, benign/adversarial accuracy arrays, $\lambda_{ben}/ \lambda_{adv}$
-    \State $i = 0$
-    \While{ $i < n$}
-    \State \textbf{Initialize:} Random State, $R$ and split the classification data into the training set $x_t$ and the inference set $x_i$.
-    \State \textbf{Optimise $L(y, \hat{y})$:} over $x_t, \theta$ according to some method (e.g Eq.~\ref{eq:sgd}) with a given batch size, $b$, and number of epochs, $m$.
-    \State  $T_t[i] \gets$ Training Time.
-    \State  $ \hat{y_i} = K(x_i, \theta) $.
-    \State  $ T_i[i] \gets $  Inference Time.
-    \State  $\lambda_{ben}[i] \gets $  Benign Accuracy (Eq.~\ref{eq:acc}).
-    \State find $x_a$ with Eq.~\ref{eq:fgm}.
-    \State  $T_a[i] \gets$ attack generation time.
-    \State  $ \hat{y}_a = K(x_a, \theta) $.
-    \State  $\lambda_{adv}[i] \gets $  Adversarial Accuracy (Eq.~\ref{eq:acc})
-    \EndWhile
-    \State $S_{\theta}(T_a) \approx \phi N_a \cdot \lambda_{adv}$ with $\lambda_{ben}$, $T_t$, $T_i$, $m$, $b$, $R$ \\
-    % used as covariates to some acceleration factor, $\phi$ and  $N_a$ is the attack size array.
-    \Return $S_{\theta}$
-\end{algorithmic}
-\end{algorithm}
+% \begin{algorithm}[h!]
+%     \caption{Survival Analysis for ML}
+%     \label{fig:alg}
+% \begin{algorithmic}
+%     \Require Samples $x$ of size $N$, model parameters $\theta$, loss function $L(y, \hat{y})$, classifier $K(x; \theta)$, and the number of trials, $n$, where the subscripts $t,i,a$ refer to the respective value for either the train, test, and/or attack sets, \textit{e.g.}, $N_t$ is size of the training set.
+%     \State Initialize classifier $K(x, \theta)$, training/inference/attack generation time arrays $T_t/T_i/T_a$, benign/adversarial accuracy arrays, $\lambda_{ben}/ \lambda_{adv}$
+%     \State $i = 0$
+%     \While{ $i < n$}
+%     \State \textbf{Initialize:} Random State, $R$ and split the classification data into the training set $x_t$ and the inference set $x_i$.
+%     \State \textbf{Optimise $L(y, \hat{y})$:} over $x_t, \theta$ according to some method (e.g Eq.~\ref{eq:sgd}) with a given batch size, $b$, and number of epochs, $m$.
+%     \State  $T_t[i] \gets$ Training Time.
+%     \State  $ \hat{y_i} = K(x_i, \theta) $.
+%     \State  $ T_i[i] \gets $  Inference Time.
+%     \State  $\lambda_{ben}[i] \gets $  Benign Accuracy (Eq.~\ref{eq:acc}).
+%     \State find $x_a$ with Eq.~\ref{eq:fgm}.
+%     \State  $T_a[i] \gets$ attack generation time.
+%     \State  $ \hat{y}_a = K(x_a, \theta) $.
+%     \State  $\lambda_{adv}[i] \gets $  Adversarial Accuracy (Eq.~\ref{eq:acc})
+%     \EndWhile
+%     \State $S_{\theta}(T_a) \approx \phi N_a \cdot \lambda_{adv}$ with $\lambda_{ben}$, $T_t$, $T_i$, $m$, $b$, $R$ \\
+%     % used as covariates to some acceleration factor, $\phi$ and  $N_a$ is the attack size array.
+%     \Return $S_{\theta}$
+% \end{algorithmic}
+% \end{algorithm}
 
 
 \begin{figure}
     \centering
-    \includegraphics[width=.35\textwidth]{plots/experiment.pdf}
-    \caption{Experimental Pipeline Diagram}
+    \includegraphics[width=.45\textwidth]{plots/experiment.pdf}
+    \caption{For each dataset and hardware combination, a random state parameter was chosen at random to decide the test and train sets. Next, model parameters and attack parameters are chosen at random. After 128 random trials, the TPE algorithm attempts to maximize benign and adversarial accuracy while minimizing training time.}
     \label{fig:experiments}
 \end{figure}
 
@@ -263,8 +263,7 @@ where $p(T>t)$ is the probability that a model has not failed by time $t$ (``sur
 \[
 	\mathbb{E}_{S_\theta}[T] = \int_0^{t^*}  S_\theta(t) \,dt,
 \]
-where $t^*$ is the latest time observed in the survival data. However, modelling $S_{\theta}(t)$ requires a choice in modelling function for $S_{\theta}$. The Log-Logistic, Log-Normal, and Weibull functions are widely used alternatives~\cite{kleinbaum1996survival}. For each trial, one can measure the inference time to define the time interval and the accuracy to estimate the number of failures in that time interval. The full algorithm can be seen in Algorithm~\ref{fig:alg}.
-
+where $t^*$ is the latest time observed in the survival data. However, modelling $S_{\theta}(t)$ requires a choice in modelling function for $S_{\theta}$. The Log-Logistic, Log-Normal, and Weibull functions are widely used alternatives~\cite{kleinbaum1996survival,meyers_aft}. For each trial, one can measure the attack generation time to define the time interval and the accuracy to estimate the number of failures and successes in that time interval. 
 
 \subsubsection{Choosing the best AFT Model}
 
@@ -293,10 +292,7 @@ However, in order to find the optimal hyper-parameter configurations for both th
 
 ML models are typically trained by examining the effect of the entire hyper-parameter space on the resulting accuracy. However, the number of hyper-parameter combinations are often infinite or at least exponential in the number of hyper-parameters,
 making it infeasible to exhaustively evaluate the entire hyper-parameter search space. Additionally, the goals of test-set accuracy and adversarial accuracy are often at odds~\cite{carlini_towards_2017} --- with several researchers noting an inverse relationship between model accuracy and model robustness~\cite{carlini_towards_2017,meyers,dohmatob_generalized_2019}. Therefore, a proper search would keep this dual-objective in mind.
-To optimise for adversarial and benign accuracy simultaneously, we propose the use of the Tree-structure Parzen Estimator (TPE) because it has been shown to converge  over tens or hundreds of trials rather the the 1000s of trials required by other multi-objective optimization algorithms like CMAES or NGSA-II~\cite{ozaki2020multiobjective,optuna,tpe_params}.
-
-
-
+To optimise for adversarial and benign accuracy simultaneously, we propose the use of the Tree-structure Parzen Estimator (TPE) because it has been shown to converge  over tens or hundreds of trials rather the the 1000s of trials required by other multi-objective optimisation algorithms like CMAES or NGSA-II~\cite{ozaki2020multiobjective,optuna,tpe_params}.
 
 \section{Cost Analysis}
 \label{cost}
@@ -306,7 +302,7 @@ In addition to the survival analysis, we can use an estimate of survival time to
 
 \subsection{Accuracy}
 
-In order to estimate the number of failures in a given time period, we measured both the benign accuracy and the adversarial accuracy, which reflect the normal test-set accuracy and the test-set accuracy in the presence of additive noise in the direction that maximizes loss. Under the AFT framework above, we can use the adversarial accuracy as a measure of the survival time across a specified time period as outlined in Algorithm~\ref{fig:alg}.
+In order to estimate the number of failures in a given time period, we measured both the benign accuracy and the adversarial accuracy, which reflect the normal test-set accuracy and the test-set accuracy in the presence of additive noise in the direction that maximizes loss. Under the AFT framework above, we can use the adversarial accuracy as a measure of the survival time across a specified time period as outlined in Figure~\ref{fig:experiments}.
 
 
 \subsection{Training Time}
@@ -391,9 +387,8 @@ To assess the energy consumption of the experiments deployed on a Google Kuberne
 
 \begin{figure*}
     \centering
-    \includegraphics[width=.6\textwidth]{plots/architecture.pdf}
-    \caption{For our experiments we used 5 concurrent nodes. The left column depicts each node used for monitoring the experiments running on the others-- one for each tested GPU. The power, performance, and timing metrics, were then stored on  persistent volume claim (PVC) is a request for storage by a user. Object storage is...
-    1000 trials were run for each dataset and hardware device.}
+    \includegraphics[width=.8\textwidth]{plots/architecture.pdf}
+    \caption{For our experiments we used four node pools from Google Cloud Platform, each has a particular responsibility. The first node pool includes 3 different nodes responsible for hosting monitoring services such as Prometheus and Grafana.  The other node pools each had one node with a specific GPU.  The KEPLER exporter is then deployed on each node as DaemonSet to monitor the resource usage.  All the storage requirements during the experimentation such as storage for experiments and monitoring data were then stored on storage provided by persistent volume claim (PVC). A PVC is a request for storage by user in Kubernetes which is then connected to the object storage.}
     \label{fig:architecture}
 \end{figure*}
 
@@ -508,7 +503,7 @@ Table~\ref{tab:combined} shows the performance metrics for all three AFT models,
 
 Figure~\ref{fig:aft} shows the log-scale coefficients for the AFT model. It shows that epochs, batch size, and training time have no effect on the survival time. Additionally, the covariate value of 0 for random state indicates that random permutations of the training and test data have no effect on the survival time, which is expected. However, we can clearly see that inference time  is as strong an indicator as the attack noise distance, revealing that model speed is nearly as important as the the noise value of the attack ($\varepsilon$). Furthermore, we see that benign accuracy is negatively correlated with the survival time, confirming previous assertions that robustness ($S_{\theta}(t)$) is inversely related to benign accuracy (which is the standard indicator of generalization performance)~\cite{carlini_towards_2017}.
 
-Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effect of various hardware devices, which is depicted in Figure~\ref{fig:dummies}. It clearly shows that hardware choice has a relatively small effect (+/- 20\%) on robustness, despite the much larger disparity in cost outlined in Table~\ref{tab:hardware}.
+Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effect of various hardware devices, which is depicted in Figure~\ref{fig:aft}. It clearly shows that hardware choice has a relatively small effect (+/- 20\%) on robustness, despite the much larger disparity in cost outlined in Table~\ref{tab:hardware}.
 
 \begin{figure*}[h!]
     \centering
@@ -528,7 +523,7 @@ Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effec
         \includegraphics[width=\linewidth,clip]{plots/combined/log_normal_qq.pdf}
         \caption{}
     \end{subfigure}
-    \caption{\cm{The red and blue lines depict the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis) for the training set (blue) and test set (red). The dotted line indicates a perfect model.}}
+    \caption{\cm{The red and blue lines depict the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis) for the training set (blue) and test set (red). The dotted line indicates a cubic spline fit to $S_{\theta}(t=t_a) \approx \lambda_{adv} * N $.}}
     \label{fig:qq}
 \end{figure*}
 \begin{figure*}[h!]
@@ -536,19 +531,27 @@ Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effec
     \captionsetup[subfigure]{skip=0pt} % Adjust the skip here
     % \begin{subfigure}{.5\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{plots/combined/weibull_aft.pdf}
+        \includegraphics[width=.5\textwidth]{plots/combined/weibull_aft.pdf}
         \caption{Coefficients of the Covariates for the Weibull AFT model. Here, "Random State" is used as a control variable that should be (and is) close to 0.}
         \label{fig:aft}
     % \end{subfigure}
     % \begin{subfigure}[b]{.45\linewidth}
     %     \centering
-    %     \includegraphics[width=\linewidth]{plots/combined/weibull_aft_dummies.pdf}
-    %     \caption{AFT coefficients for devices and datasets on $S_{\theta}(t)$.}
-    %     \label{fig:dummies}
+    %     \includegraphics[width=\linewidth]{plots/combined/weibull_device_num_partial_effect.pdf}
+    %     \caption{\cm{The partial effect GPU on survival time. After accounting for GPU bandwidth (see Table~\ref{tab:hardware}) and the covariate effects of the hardware and and inference time, we se ethat Graphic}}
+    %     \label{fig:partial_effect}
     % \end{subfigure}
-    \caption{Weibull AFT Model.}
+    % \caption{Weibull AFT Model.}
 \end{figure*}
 
+\subsection{Why Cost Matters}
+
+In security analysis, it is  routine to think in optimistic terms for both the attacker and defender. 
+In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken"). 
+Using AFT models, one can model the Pareto front --- the set of points that are superior to all others in the search space --- of either party~\cite{zitzler2008quality}. 
+By using a whitebox attack to generate the failures, we ensure that our defender operates under the worst case scenario while the attacker operates under their best case scenario to yield a worst-case failure rate.
+As such, we center our analysis on the whitebox Fast Gradient Method~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}. 
+If the cost to a model builder is much larger than the cost to an attacker ($C_t \gg C_a$), then it is  clear that the model is ``broken" in this cryptographic sense and can be discarded as ineffective. 
 
 \subsection{Advantages of this Methodology}
 \label{advantages}
