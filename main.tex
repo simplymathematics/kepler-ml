@@ -25,7 +25,7 @@
 \newcommand{\erik}[1]{\textit{[{\color{brown}Erik: #1}]}}
 \newcommand{\mr}[1]{\textit{[{\color{brown}Mohammed: #1}]}}
 \begin{document}
-\title{A Cloud Native Approach to Adversarial Robustness of Neural Networks}
+\title{A Cost-Aware Approach to Adversarial Robustness in Neural Networks}
 
 \author{}
 % author names and affiliations
@@ -98,7 +98,7 @@ In this work, we used accelerated failure-time methods to predict model performa
 
 
 \subsection{Contributions}
-To tackle the problems of minimizing deployment cost while maximizing the model performance on both the test set and in the presence of adversarial noise we present a scalable and effective methodology (see Algorithm~\ref{fig:alg} and Figure~\ref{fig:experiments}) and software framework (see Figure~\ref{fig:architecture}) for the training (see Section~\ref{aft}) and evaluation (see Section~\ref{cost}) of machine learning models that:
+To tackle the problems of minimizing deployment cost while maximizing the model performance on both the test set and in the presence of adversarial noise we present a scalable and effective methodology (see  Figure~\ref{fig:experiments}) and software framework (see Figure~\ref{fig:architecture}) for the training (see Section~\ref{aft}) and evaluation (see Section~\ref{cost}) of machine learning models that:
 \begin{itemize}
     \item Optimises for benign and adversarial accuracy simultaneously,
     % \item Extends survival analysis to the realm of neural networks, 
@@ -128,7 +128,7 @@ A service \textit{mesh} typically consists of a set of interconnected components
 
 
 \subsection{ML Pipelines}
-ML pipelines are often long-running and complex software tool-chains with many tunable hyperparameters. Managing, tracking, and controlling for various parameters is non trivial, but many management tools are available~\cite{dvc,hydra,k8s}. In general, a dataset is split into \textit{training} and \textit{test} sets. The training set is then used to determine the best configuration of a given model architecture on a given hardware architecture with the expectation that it will generalize both on the withheld test set and on new data generated and submitted by users. To verify the training process, the test set is validated against the \textit{inference} configuration of a model which may run on different hardware than the \textit{training} configuration to reduce cost, latency, or power consumption. Likewise, Nvidia offers hardware that is marketed as either for training (\textit{e.g.}, v100 and p100) or only for inference (\textit{e.g.}, l4).
+ML pipelines are often long-running and complex software tool-chains with many tunable hyperparameters. Managing, tracking, and controlling for various parameters is non trivial, but many management tools are available~\cite{dvc,hydra,k8s}. In general, a dataset is split into \textit{training} and \textit{test} sets. The test set is then used to determine the best configuration of a given model architecture on a given hardware architecture with the expectation that it will generalize both on the withheld test set and on new data generated and submitted by users. To verify the training process, the test set is validated against the \textit{inference} configuration of a model which may run on different hardware than the \textit{training} configuration to reduce cost, latency, or power consumption. Likewise, Nvidia offers hardware that is marketed as either for training (\textit{e.g.}, v100 and p100) or only for inference (\textit{e.g.}, l4).
 
 
 \subsection{Classifiers}
@@ -272,13 +272,14 @@ To choose a best-fit from the possible AFT functions, one should prepare the col
 
 
 
-\subsection{Benign and Adversarial Survival Time}
+\subsection{Survival Time}
 \label{accelerated}
 
 Using accelerated failure time models under adverse ones (accelerated failure time), $S_{adv}$. The survival time for is
 $$
-    S_{adv} := S(t_i; x, y, \theta) \mathrm{~~where~~} 0 < \varepsilon \leq \varepsilon_{max}.
+    S_{\theta} := S(t_i; x, y, \varepsilon \mid \theta) \mathrm{~~where~~} 0 < \varepsilon \leq \varepsilon_{max}.
 $$
+\cm{where $\varepsilon$ -- or noise distance -- is treated as a covariate}.
 This can also be thought of in terms of the accelerated failure time assumption~\cite{kleinbaum1996survival}
 \begin{equation} \label{assumption}
     S_\theta(t) = S_0 \left( \frac{t}{\phi_\theta(x)} \right)
@@ -374,9 +375,7 @@ $$
 where $P_h$ is the cost per unit time for the hardware, $T_t$ is the training time, $T_i$ is the inference time, and $T_a$ is the attack generation time, as defined above.
 
 
-\subsection{Why Cost Matters}
 
-In security analysis, it is  routine to think in optimistic terms for both the attacker and defender. In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken"). Using AFTs, one can model the Pareto front --- the set of points that are superior to all others in the search space --- of either party~\cite{zitzler2008quality}. By using a whitebox attack to generate the failures, we ensure that our defender operates under the worst case scenario while the attacker operates under their best case scenario to yield a worst-case failure rate. As such, we center our analysis on the whitebox Fast Gradient Method~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}. If the cost to a model builder is much larger than the cost to an attacker ($C_t \gg C_a$), then it is  clear that the model is ``broken" in this cryptographic sense and can be discarded as ineffective. 
 
 
 \section{Experiments}
@@ -400,7 +399,7 @@ To assess the energy consumption of the experiments deployed on a Google Kuberne
 
 \subsection{AFT Models}
 
-For each hardware configuration and dataset, the TPE algorithm was used to select the hyper-parameters~\cite{ozaki2020multiobjective,zitzler2008quality}, and it was iterated for 1000 trials. This was chosen to be significantly larger than the 200 used successfully by Watanabe~\textit{et. al.}~\cite{tpe_params} while still allowing for reasonable run times. In reality, the correct number of iterations will be determined by the frequency of local minima across the search space and the number of optimisation criteria where marginally more minima or criteria require significantly more trials to yield accurate results~\cite{legriel2010approximating}. Examining the effect of this and other TPE parameters on the total run-time and performance of this methodology was outside the scope of this work.
+For each hardware configuration and dataset, the TPE algorithm was used to select the hyper-parameters~\cite{ozaki2020multiobjective,zitzler2008quality}, and it was iterated for 1000 trials. This was chosen to be substantially larger than the 200 used successfully by Watanabe~\textit{et al.}~\cite{tpe_params} while still allowing for reasonable run times. In reality, the correct number of iterations will be determined by the frequency of local minima across the search space and the number of optimisation criteria where marginally more minima or criteria require significantly more trials to yield accurate results~\cite{legriel2010approximating}. Examining the effect of this and other TPE parameters on the total run-time and performance of this methodology was outside the scope of this work.
 We used three optimisation criteria: benign accuracy, training time, and adversarial accuracy, seeking to maximize both benign and adversarial accuracy while minimizing training time (and therefore deployment cost). We selected a set of parameters as per the TPE algorithm and trained on 80\% of the samples for each of the MNIST, CIFAR10, and CIFAR100 datasets. Of the remaining samples, 100 were withheld to be attacked and used to evaluate the adversarial accuracy. Figure~\ref{fig:experiments} illustrates this methodology. For each dataset, we tested this on ten random splits of the data to create 10 unique test/train pairs. For each trial, we recorded attack generation time, model training time, model inference time, benign accuracy and adversarial accuracy, and the size of the training set, test set, and attack set. Using these values, we fit an AFT model to the number of failures (indicated by accuracy and sample size) and the attack generation time after adding dummy variables for the dataset and hardware device. Additionally, we approximate the AFT model using the methodology described in Algorithm~\ref{fig:alg}.
 
 
@@ -534,18 +533,18 @@ Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effec
 \begin{figure*}[h!]
     \centering
     \captionsetup[subfigure]{skip=0pt} % Adjust the skip here
-    \begin{subfigure}{.5\linewidth}
+    % \begin{subfigure}{.5\linewidth}
         \centering
         \includegraphics[width=\linewidth]{plots/combined/weibull_aft.pdf}
         \caption{Coefficients of the Covariates for the Weibull AFT model. Here, "Random State" is used as a control variable that should be (and is) close to 0.}
         \label{fig:aft}
-    \end{subfigure}
-    \begin{subfigure}[b]{.45\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{plots/combined/weibull_aft_dummies.pdf}
-        \caption{AFT coefficients for devices and datasets on $S_{\theta}(t)$.}
-        \label{fig:dummies}
-    \end{subfigure}
+    % \end{subfigure}
+    % \begin{subfigure}[b]{.45\linewidth}
+    %     \centering
+    %     \includegraphics[width=\linewidth]{plots/combined/weibull_aft_dummies.pdf}
+    %     \caption{AFT coefficients for devices and datasets on $S_{\theta}(t)$.}
+    %     \label{fig:dummies}
+    % \end{subfigure}
     \caption{Weibull AFT Model.}
 \end{figure*}
 
