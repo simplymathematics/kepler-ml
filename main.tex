@@ -10,6 +10,7 @@
 \usepackage{subcaption}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage[type=\acronymtype]{glossaries}
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -24,10 +25,18 @@
 \newcommand{\cm}[1]{\textit{{\color{blue}#1}}}
 \newcommand{\erik}[1]{\textit{[{\color{brown}Erik: #1}]}}
 \newcommand{\mr}[1]{\textit{[{\color{brown}Mohammed: #1}]}}
+
+\input{glossary}
+\makeglossaries
 \begin{document}
+
 \title{A Cost-Aware Approach to Adversarial Robustness in Neural Networks}
 
+\maketitle
+
+
 \author{}
+
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
@@ -56,7 +65,6 @@
 % elmroth@cs.umu.se}
 % }
 
-\maketitle
 
 
 \begin{abstract}
@@ -71,6 +79,9 @@ artificial intelligence, machine learning, adversarial AI, optimisation, complia
 \end{IEEEkeywords}
 
 
+
+
+
 \section{Introduction}
 \subsection{Motivation}
 % \begin{itemize}
@@ -81,8 +92,11 @@ artificial intelligence, machine learning, adversarial AI, optimisation, complia
 %     \item Which means that cars, medical equipment is tested in the wild
 % \end{itemize}
 
-Recently, machine learning (ML) using deep neural networks has become a popular way to classify large amounts of data --- with applications ranging from medical imaging~\cite{ai_medical_imaging} to aviation~\cite{ai_aviation} and from security~\cite{ai_security,ai_luggage,ai_prison} to self-driving cars~\cite{ai_automotive}. 
-Statistical learning theory~\cite{vcdimension} provides us no guarantees about the generalization performance of deep neural networks due to the massive number of tunable parameters. To overcome this, neural networks need large amounts of data~\cite{desislavov2021compute,bailly2022effects} to train ever-larger model~\cite{desislavov2021compute}, which has yielded increasingly marginal gains on test-set accuracy~\cite{sun2017revisiting}. It is also clear that reaching safety-critical standards using test-set accuracy would require an infeasibly large test set~\cite{meyers}. Therefore, we propose using accelerated failure time models to simulate edge-cases and verify models using a small number of samples.
+Recently, \acrfull{ml} using deep neural networks has become a popular way to classify large amounts of data --- with applications ranging from medical imaging~\cite{ai_medical_imaging} to aviation~\cite{ai_aviation} and from security~\cite{ai_security,ai_luggage,ai_prison} to self-driving cars~\cite{ai_automotive}.
+Statistical learning theory~\cite{vcdimension} provides us no guarantees about the generalization performance of deep neural networks due to the massive number of tunable parameters. 
+To overcome this, neural networks need large amounts of data~\cite{desislavov2021compute,bailly2022effects} to train ever-larger model~\cite{desislavov2021compute}, which has yielded increasingly marginal gains on test-set accuracy~\cite{sun2017revisiting}.
+It is also clear that reaching safety-critical standards using test-set accuracy would require an infeasibly large test set~\cite{meyers}. 
+Therefore, we propose using \acrfull{aft} models to simulate edge-cases and verify models using a small number of samples.
 
 \cm{
 Modern neural networks are massive --- they have have grown to be one of the largest consumers of data-center power, especially with the rise of generative AI~\cite{msft_water}. For image systems, VGG19~\cite{vgg} is now considered small with \textit{only} 138 million parameters. ResNet152 has a similar number of parameters at 116 million~\cite{resnet}. However, modern advancements in transformer architectures have lead to an explosion in model size with the recent Mamba model boasting a massive 8 \textit{billion} tunable parameters~\cite{mamba}. At these scales, we have no statistical guarantees about the performance of these models and test-set validation would require many, many billions of samples for each and every model change.
@@ -122,7 +136,7 @@ In this paper, we evaluate a comprehensive methodology for evaluating model robu
 \subsection{Cloud Architectures}
 
 
-ML pipelines play a crucial role in the development and deployment of robust and accurate models. However, managing complex pipelines across diverse CPU and GPU architectures, ensuring robustness against adversarial attacks, and understanding the relationship between computational cost, model loss, and prediction accuracy remain ongoing challenges.
+ML pipelines play a crucial role in the development and deployment of robust and accurate models. However, managing complex pipelines across diverse \acrfull{cpu} and \acrfull{gpu}  architectures, ensuring robustness against adversarial attacks, and understanding the relationship between computational cost, model loss, and prediction accuracy remain ongoing challenges.
 One popular solution is using a network of interconnected services~\cite{panchal2024reusable,hasselbring2017microservice,zhou2022online,singh2023load} where a \textit{service} is the smallest component of a ``cloud-native" software stack. In the context of ML, that might be some software component meant for training, inference, pre-processing, sampling, or any other arbitrarily small part of the data pipeline. 
 A service \textit{mesh} typically consists of a set of interconnected components or proxies deployed alongside the services within the system.  These components facilitate various capabilities and functionalities essential for managing the communication between services. Kubernetes has become one of the largest open source projects on the code-sharing website Github~\cite{k8s-size} and provides a framework for managing, monitoring, and networking a self-scaling set of tools across arbitrary software and hardware architectures using a service mesh. For ML applications, these services are often divided into ``training" and ``inference" configurations that often have distinct hardware and software configurations~\cite{wang2019benchmarking}. In this work, we leveraged Kubernetes~\cite{k8s} to manage a multi-stage ML pipeline (see Figure~\ref{fig:experiments}) and measure the power and cost of training and evaluating the pipeline (see Figure~\ref{fig:architecture}) across a variety of different hardware architectures (see Table~\ref{tab:hardware}).
 
@@ -219,12 +233,6 @@ The next section outlines the methodology for modelling the effect of model hype
 % \end{algorithm}
 
 
-\begin{figure}
-    \centering
-    \includegraphics[width=.45\textwidth]{plots/experiment.pdf}
-    \caption{For each dataset and hardware combination, a random state parameter was chosen at random to decide the test and train sets. Next, model parameters and attack parameters are chosen at random. After 128 random trials, the TPE algorithm attempts to maximize benign and adversarial accuracy while minimizing training time.}
-    \label{fig:experiments}
-\end{figure}
 
 
 
@@ -236,7 +244,7 @@ Accuracy measures the vulnerability or susceptibility of the model to failures. 
     \lambda:= \mathrm{Accuracy} := 1 - \frac{\mathrm{False~Classifications}}{\mathrm{Total~Classifciations}},
     \label{eq:acc}
 \end{equation}
-which is generally assumed to indicate the rate of successes in real-world data sampled from the same distribution as the training data~\cite{tan2021critical}. However, the normal test/train split methodology consistently overestimates the model's performance in the presence of adversarial noise~\cite{croce_reliable_2020.
+which is generally assumed to indicate the rate of successes in real-world data sampled from the same distribution as the training data~\cite{tan2021critical}. However, the normal test/train split methodology consistently overestimates the model's performance in the presence of adversarial noise~\cite{croce_reliable_2020}.
 In addition, it ignores the run-time cost of a given architectural decision, caring only about accuracy on benchmark data~\cite{desislavov2021compute,bailly2022effects}. Additionally, it has been shown that it is trivial to generate adversarial counter examples that reveal the test/train split methodology to be optimistic at best~\cite{carlini_towards_2017,adversarialpatch,pixelattack,hopskipjump,biggio_poisoning_2013,chakraborty_adversarial_2018,dohmatob_generalized_2019,meyers}. 
 
 
@@ -248,6 +256,27 @@ The failure rate refers to the percentage or proportion of examples that cause t
     h_{\theta}(t) :=  \frac{p(\textrm{False~Classification} \mid \theta)}{\Delta t} t,
 \]
 where $p(\textrm{False~Classification} \mid \theta)$ is the probability of a false classification given a particular set of hyper-parameters, $\theta$, $\Delta t$ is a time interval, and $t$ is a point in time.  Note that  $1 - \lambda$  is an estimate of this value when $\Delta t = t$ and converges to this value as the number of samples, $N \rightarrow \infty$. By modelling accuracy as a function of time, one can then compare the probability of failure to the cost, which is also measured in time, allowing one to make deployment decisions based on the risk analysis standards outlined in IEC61508~\cite{IEC61508}. This then allows us to make claims like ``increasing training time by X\% will yield survival time gains of Y\%''~\cite{meyers_aft}.
+
+
+
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\textwidth]{plots/experiment.pdf}
+    \caption{For each dataset and hardware combination, a random state parameter was chosen at random to decide the test and train sets. Next, model parameters and attack parameters are chosen at random. After 128 random trials, the TPE algorithm attempts to maximize benign and adversarial accuracy while minimizing training time by tuning the model parameters. The random seed for the data split and the attack parameters are sampled independently from this optimization, which is why they are colored differently. The model tuning (blue-box) is discussed in Section~\ref{optimisation}. After the trials are completed, several AFT models are fit (see: Section~\ref{survival_time}) and compared (see: Section~\ref{best-fit}) using the process depicted in the purple box. Finally we conduct the cost analysis outlined in Section~\ref{cost} (green box).}
+    \label{fig:experiments}
+\end{figure*}
+
+
+
+\subsection{Optimisation}
+\label{optimisation}
+
+ML models are typically trained by examining the effect of the entire hyper-parameter space on the resulting accuracy. However, the number of hyper-parameter combinations are often infinite or at least exponential in the number of hyper-parameters,
+making it infeasible to exhaustively evaluate the entire hyper-parameter search space. Additionally, the goals of test-set accuracy and adversarial accuracy are often at odds~\cite{carlini_towards_2017} --- with several researchers noting an inverse relationship between model accuracy and model robustness~\cite{carlini_towards_2017,meyers,dohmatob_generalized_2019}. Therefore, a proper search would keep this dual-objective in mind.
+To optimise for adversarial and benign accuracy simultaneously, we propose the use of the Tree-structure Parzen Estimator (TPE) because it has been shown to converge  over tens or hundreds of trials rather the the 1000s of trials required by other multi-objective optimisation algorithms like CMAES or NGSA-II~\cite{ozaki2020multiobjective,optuna,tpe_params}. In addition, we seek to minimize the training time in order to maximize the number of hyper-parameters that can be examined on a fixed budget. Further discussion of the cost analysis can be found in Section~\ref{cost}.
+
+
 
 
 \subsection{AFT Models}
@@ -265,34 +294,41 @@ where $p(T>t)$ is the probability that a model has not failed by time $t$ (``sur
 \]
 where $t^*$ is the latest time observed in the survival data. However, modelling $S_{\theta}(t)$ requires a choice in modelling function for $S_{\theta}$. The Log-Logistic, Log-Normal, and Weibull functions are widely used alternatives~\cite{kleinbaum1996survival,meyers_aft}. For each trial, one can measure the attack generation time to define the time interval and the accuracy to estimate the number of failures and successes in that time interval. 
 
-\subsubsection{Choosing the best AFT Model}
-
-To choose a best-fit from the possible AFT functions, one should prepare the collected metrics and scores and then compare them using \textit{e.g.}, Akaike Information Criterion (AIC), Bayesian Information Criteria (BIC), or Concordance, as per the best-practices for this methodology~\cite{aft_models,kleinbaum1996survival}. For AIC and BIC, that means choosing the smallest value. Concordance, however, is a number between $0$ and $1$ that quantifies the degree to which the survival time is explained by the model, where a $1$ reflects a perfect explanation~\cite{kleinbaum1996survival} and 0.5 reflects random chance. By evaluating $\mathbb{E}_{S_\theta}[T]$ under extreme perturbations, one can test the model and minimize the number of evaluated samples~\cite{aft_models,kleinbaum1996survival} rather than relying on the $> 10^{12}$ samples as required by IEC61508~\cite{IEC61508}. We also noted the integrated calibration index (ICI) as well as the error at the median (E50)~\cite{ici}. These are the mean absolute difference between observed and predicted probabilities and the median absolute difference between observed and predicted probabilities, respectively~\cite{ici}. Then, the fitted AFT models were plotted using that compares the fitted AFT model to a cubic spline fit to the data~\textit{et al.}~\cite{ici}  to visually inspect each model for goodness-of-fit (see Figure~\ref{fig:qq}). \cm{Additionally, the data were split into a training set that was used to fit the model (80\%) and an unseen test set (20\%) and the concordance, ICI, and E50 were measured for both.}
-
-
-
-\subsection{Survival Time}
+\subsubsection{Survival Time}
 \label{accelerated}
-
-Using accelerated failure time models under adverse ones (accelerated failure time), $S_{adv}$. The survival time for is
+~\cm{
+By using adversarial samples (see: Equation~\ref{eq:adv_success}, failures can be induced. The likelihood of that failure is dependent on the amount of adversarial noise, $\varepsilon$~\cite{meyers_aft}. That is, we can say the probability of success at time, $t$ is inversely proportional to  noise distance, $\varepsilon$, and  directly proportional to some baseline survival function, $S_0$, such that the parameterised survival time $S_{\theta}(t)$ is:
 $$
-    S_{\theta} := S(t_i; x, y, \varepsilon \mid \theta) \mathrm{~~where~~} 0 < \varepsilon \leq \varepsilon_{max}.
+S_{\theta}(t) \propto  S_0 \left( \frac{t}{\varepsilon} \right)
 $$
-\cm{where $\varepsilon$ -- or noise distance -- is treated as a covariate}.
 This can also be thought of in terms of the accelerated failure time assumption~\cite{kleinbaum1996survival}
 \begin{equation} \label{assumption}
-    S_\theta(t) = S_0 \left( \frac{t}{\phi_\theta(x)} \right)
+    S_\theta(t) = S_0 \left( \frac{t}{\phi_\theta(x)} \right),
 \end{equation}
-where $\phi$ is some acceleration factor described by the joint effect of the covariates and $S_0$ is the baseline hazard function (where the effect of the covariates are 0). This assumption means we can evaluate the generalization performance using a small number of adversarial samples~\cite{kleinbaum1996survival}, with our precision coming from careful time measurements rather than massive test sets.
+where $\phi$ is some acceleration factor described by the joint effect of the covariates:
+$$
+phi_{\theta}(x) = \exp( \beta_0 \varepsilon + \beta_1 x_1 + \cdots + \beta_n x_n),
+$$ 
+and where $\varpsilon, x$ are covariates and $\beta_0 \cdots \beta_n$ describe the fitted parameters.
+}
+This assumption means we can evaluate the generalization performance using a small number of adversarial samples with our precision coming from careful time measurements rather than massive test sets~\cite{kleinbaum1996survival,meyers_aft}.
 However, in order to find the optimal hyper-parameter configurations for both the model and attack, one must search this space systematically.
 
 
-\subsection{Optimisation}
-\label{optimisation}
 
-ML models are typically trained by examining the effect of the entire hyper-parameter space on the resulting accuracy. However, the number of hyper-parameter combinations are often infinite or at least exponential in the number of hyper-parameters,
-making it infeasible to exhaustively evaluate the entire hyper-parameter search space. Additionally, the goals of test-set accuracy and adversarial accuracy are often at odds~\cite{carlini_towards_2017} --- with several researchers noting an inverse relationship between model accuracy and model robustness~\cite{carlini_towards_2017,meyers,dohmatob_generalized_2019}. Therefore, a proper search would keep this dual-objective in mind.
-To optimise for adversarial and benign accuracy simultaneously, we propose the use of the Tree-structure Parzen Estimator (TPE) because it has been shown to converge  over tens or hundreds of trials rather the the 1000s of trials required by other multi-objective optimisation algorithms like CMAES or NGSA-II~\cite{ozaki2020multiobjective,optuna,tpe_params}.
+
+\subsection{Choosing the best AFT Model}
+\label{best-fit}
+To choose a best-fit from the possible AFT functions, one should prepare the collected metrics and scores and then compare them using \textit{e.g.}, Akaike Information Criterion (\acrshort{aic}), Bayesian Information Criteria (\acrshort{bic}), or Concordance, as per the best-practices for this methodology~\cite{aft_models,kleinbaum1996survival}. 
+For \acrshort{aic} and \acrshort{bic}, that means choosing the smallest value. Concordance, however, is a number between $0$ and $1$ that quantifies the degree to which the survival time is explained by the model, where a $1$ reflects a perfect explanation~\cite{kleinbaum1996survival} and 0.5 reflects random chance. By evaluating $\mathbb{E}_{S_\theta}[T]$ under extreme perturbations, one can test the model and minimize the number of evaluated samples~\cite{aft_models,kleinbaum1996survival} rather than relying on the $> 10^{12}$ samples as required by IEC61508~\cite{IEC61508}. 
+We also noted the integrated calibration index (\acrshort{ici}) as well as the error at the 50th percentile \acrshort{e50}~\cite{ici}. 
+These are the mean absolute difference between observed and predicted probabilities and the median absolute difference between observed and predicted probabilities, respectively~\cite{ici}. 
+Then, the fitted AFT models were plotted using that compares the fitted AFT model to a cubic spline fit to the data~\textit{et al.}~\cite{ici}  to visually inspect each model for goodness-of-fit (see Figure~\ref{fig:qq}). \cm{Additionally, the data were split into a training set that was used to fit the model (80\%) and an unseen test set (20\%) and the concordance, ICI, and E50 were measured for both.}
+
+
+
+
+
 
 \section{Cost Analysis}
 \label{cost}
@@ -371,7 +407,11 @@ $$
 where $P_h$ is the cost per unit time for the hardware, $T_t$ is the training time, $T_i$ is the inference time, and $T_a$ is the attack generation time, as defined above.
 
 
+\subsection{Why Cost Matters}
 
+In security analysis, it is  routine to think in optimistic terms for both the attacker and defender. In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken"). 
+Using AFT, one can model the Pareto front --- the set of points that are superior to all others in the search space --- of either party~\cite{zitzler2008quality}. By using a whitebox attack to generate the failures, we ensure that our defender operates under the worst case scenario while the attacker operates under their best case scenario to yield a worst-case failure rate.
+As such, we center our analysis on the whitebox Fast Gradient Method~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}. If the cost to a model builder is much larger than the cost to an attacker ($C_t \gg C_a$), then it is  clear that the model is ``broken" in this cryptographic sense and can be discarded as ineffective. 
 
 
 \section{Experiments}
@@ -383,11 +423,12 @@ This section outlines specific implementation details for the evaluation of the 
 \subsection{Cloud Platform and Hardware}
 To conduct the experiments and have access to different types of hardware, we utilized GCP. Six virtual machines running container optimised operating system provided by GCP constituted the test-bed. Using Google Kubernetes Engine 1.27.3 and Containerd 1.7.0, a cluster consisting of six worker nodes was created. Three worker nodes were responsible for running the monitoring platforms-- Prometheus 2.47.2 and Grafana 10.2.0. These nodes were of the ``e2-medium" instance type provided by GCP. In total, three GPU architectures were used--the Nvidia P100, V100, and L4. For P100 and V100 GPUs, the ``n1-standard-2'' type was used for the nodes and for L4 GPUs the ``g2-standard-4'' was used.
 
-To assess the energy consumption of the experiments deployed on a Google Kubernetes Engine, the Kubernetes Efficient Power Level Exporter (KEPLER) was employed as measurement tool~\cite{amaral2023kepler}. This approach enables gathering energy consumption data on granular levels as it runs in Kubernetes cluster and capable of collecting energy consumption of Kubernetes components. In essence, KEPLER uses extended Berkeley Packet Filter (eBPF) to probe energy-related system stats and exports them as Prometheus metrics. The eBPF can be described as a lightweight and sandboxed virtual machine (VM) in kernel space. The eBPF programs are invoked by the kernel when certain events occur. Examples of such events include system calls or network activity. These processes enable deep analysis and full control over different events with low overhead~\cite{sedghpour@ebpf}. A diagram of the cloud architecture can be found in Figure~\ref{fig:architecture}. Finally, for a cost-effective model evaluation technique, all of the experiments were restricted to a single one-thousand United States dollar budget (a research grant from Google). Approximately 10\% of this was used for development and 90\% was used for the evaluations.
+To assess the energy consumption of the experiments, \Gls{kepler} deployed on a was used to measure the power consumption of each experiment~\cite{amaral2023kepler}. This approach enables gathering energy consumption data on granular levels as it runs in Kubernetes cluster and capable of collecting energy consumption of Kubernetes components. In essence, KEPLER uses extended Berkeley Packet Filter to probe energy-related system stats and exports them as Prometheus metrics. This filter can be described as a lightweight and sandboxed virtual machine (VM) in kernel space. The filter programs are invoked by the kernel when certain events occur. Examples of such events include system calls or network activity. These processes enable deep analysis and full control over different events with low overhead~\cite{sedghpour@ebpf}. A diagram of the cloud architecture can be found in Figure~\ref{fig:architecture}. Finally, for a cost-effective model evaluation technique, all of the experiments were restricted to a single one-thousand United States dollar budget (a research grant from Google). Approximately 10\% of this was used for development and 90\% was used for the evaluations.
+\cm{Over the course of the evaluations, 6\% of the budget went to the storage, 6\% to the monitoring, and the remaining 88\% went the GPUs. TODO: Calculate total cost/gpu for 1000 trials.}.
 
 \begin{figure*}
     \centering
-    \includegraphics[width=.8\textwidth]{plots/architecture.pdf}
+    \includegraphics[width=.9\textwidth]{plots/architecture.pdf}
     \caption{For our experiments we used four node pools from Google Cloud Platform, each has a particular responsibility. The first node pool includes 3 different nodes responsible for hosting monitoring services such as Prometheus and Grafana.  The other node pools each had one node with a specific GPU.  The KEPLER exporter is then deployed on each node as DaemonSet to monitor the resource usage.  All the storage requirements during the experimentation such as storage for experiments and monitoring data were then stored on storage provided by persistent volume claim (PVC). A PVC is a request for storage by user in Kubernetes which is then connected to the object storage.}
     \label{fig:architecture}
 \end{figure*}
@@ -395,8 +436,9 @@ To assess the energy consumption of the experiments deployed on a Google Kuberne
 
 \subsection{AFT Models}
 
-For each hardware configuration and dataset, the TPE algorithm was used to select the hyper-parameters~\cite{ozaki2020multiobjective,zitzler2008quality}, and it was iterated for 1000 trials. This was chosen to be substantially larger than the 200 used successfully by Watanabe~\textit{et al.}~\cite{tpe_params} while still allowing for reasonable run times. In reality, the correct number of iterations will be determined by the frequency of local minima across the search space and the number of optimisation criteria where marginally more minima or criteria require significantly more trials to yield accurate results~\cite{legriel2010approximating}. Examining the effect of this and other TPE parameters on the total run-time and performance of this methodology was outside the scope of this work.
-We used three optimisation criteria: benign accuracy, training time, and adversarial accuracy, seeking to maximize both benign and adversarial accuracy while minimizing training time (and therefore deployment cost). We selected a set of parameters as per the TPE algorithm and trained on 80\% of the samples for each of the MNIST, CIFAR10, and CIFAR100 datasets. Of the remaining samples, 100 were withheld to be attacked and used to evaluate the adversarial accuracy. Figure~\ref{fig:experiments} illustrates this methodology. For each dataset, we tested this on ten random splits of the data to create 10 unique test/train pairs. For each trial, we recorded attack generation time, model training time, model inference time, benign accuracy and adversarial accuracy, and the size of the training set, test set, and attack set. Using these values, we fit an AFT model to the number of failures (indicated by accuracy and sample size) and the attack generation time after adding dummy variables for the dataset and hardware device. Additionally, we approximate the AFT model using the methodology described in Algorithm~\ref{fig:alg}.
+For each hardware configuration and dataset, the TPE algorithm was used to select the hyper-parameters~\cite{ozaki2020multiobjective,zitzler2008quality}, and it was iterated for 1000 trials. This was chosen to be substantially larger than the 200 used successfully by Watanabe \textit{et al.}~\cite{tpe_params} while still allowing for reasonable run times~\cite{legriel2010approximating}. 
+% In reality, the correct number of iterations will be determined by the frequency of local minima across the search space and the number of optimisation criteria where marginally more minima or criteria require significantly more trials to yield accurate results~\cite{legriel2010approximating}. Examining the effect of this and other TPE parameters on the total run-time and performance of this methodology was outside the scope of this work.
+We used three optimisation criteria: benign accuracy, training time, and adversarial accuracy, seeking to maximize both benign and adversarial accuracy while minimizing training time (and therefore deployment cost). We selected a set of parameters as per the TPE algorithm and trained on 80\% of the samples for each of the MNIST, CIFAR10, and CIFAR100 datasets. Of the remaining samples, 100 were withheld to be attacked and used to evaluate the adversarial accuracy. Figure~\ref{fig:experiments} illustrates this methodology. For each dataset, we tested this on ten random splits of the data to create 10 unique test/train pairs. For each trial, we recorded attack generation time, model training time, model inference time, benign accuracy and adversarial accuracy, and the size of the training set, test set, and attack set. Using these values, we fit an AFT model to the number of failures (indicated by accuracy and sample size) and the attack generation time after adding dummy variables for the dataset and hardware device. Additionally, we approximate the \acrshort{aft} model using the methodology depicted in Figure~\ref{fig:experiments}.
 
 
 \subsection{Datasets}
@@ -457,7 +499,7 @@ Figure~\ref{fig:acc} shows the benign (left) and adversarial (right) accuracies 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth,clip]{plots/combined/acc.pdf}
-    \caption{Ben. and Adv. Accuracy Across Datasets and Hardware.}
+    \caption{\cm{Benign and adversarial accuracy across all hardware and datasets for all 1000 trials using plots that depict the distribution of the y-axis values using the width of the plot. Each color is a different device and the datasets are displayed along the x-axis. Outliers are denoted with a white dot.}}
     \label{fig:acc}
 \end{figure}
 
@@ -465,20 +507,21 @@ Figure~\ref{fig:acc} shows the benign (left) and adversarial (right) accuracies 
     \centering
     \begin{subfigure}[b]{.8\textwidth}
         \includegraphics[width=\linewidth,clip]{plots/combined/time.pdf}
-        \caption{Training (left), Prediction (center), and Attack (right) Times.}
+        \caption{}
         \label{fig:time}
     \end{subfigure}
     \begin{subfigure}[b]{.8\textwidth}
         \includegraphics[width=\linewidth,clip]{plots/combined/power.pdf}
-        \caption{Training (left), Prediction (center), and Attack (right) Power Consumption.}
+        \caption{}
         \label{fig:power}
     \end{subfigure}
     \begin{subfigure}[b]{.8\textwidth}
         \includegraphics[width=\linewidth,clip]{plots/combined/cost.pdf}
-        \caption{Training (left), Prediction (center), and Attack (right) Monetary Cost.}
+        \caption{}
         \label{fig:cost}
     \end{subfigure}
-    \caption{This depicts the training, inference, and attack cost metrics for all hardware and datasets. For these plots, the y-axes have been scaled by the the number of samples for the sake of comparison.}
+    \caption{This depicts the training, inference, and attack cost metrics for all hardware and datasets \cm{ for all 1000 trials using plots that depict the distribution of the second axis values using the width of the plot. Each color is a different device and the datasets are displayed along the first axis. Outliers are denoted with a white dot.}
+    For these plots, the second axes have been scaled by the number of samples for the sake of comparison.}
 \end{figure*}
 
 
@@ -492,13 +535,25 @@ The power consumption during training, inference, and attack generation for all 
 The monetary cost for each dataset and each piece of hardware is shown in Figure~\ref{fig:cost}. For all three datasets across all three pieces of hardware, the cost of training on a single sample often exceeds the cost of attacking a single sample. In the best case scenario, they are comparable, but attacks consistently succeed with only 100 samples (Figure~\ref{fig:acc}) while model training requires orders of magnitude more. 
 %  However, we note that the attacker only needs to be lucky once, whereas the the model builder must be lucky always.
 
-\input{plots/combined/aft_comparison}  % Table II
-
+\begin{table*}
+\centering
+\caption{Comparison of AFT Models on the combined dataset. \cm{\acrshort{aic} and \acrshort{bic} are measures of goodness-of-fit, with a smaller one being preferred. Concordance is a value between 0 and 1 that reflects how what proportion of events (failures) can be explained by the model. \acrshort{ici} measures the average error between a cubic-spline and the model and \acrshort{e50} measures the median error between the spline and the model. These measured on both the train and test sets of the collected data, with the latter being denoted ``Test''.}}
+\label{tab:combined}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+ & AIC & BIC & Concordance & Test Concordance & ICI & Test ICI & E50 & Test E50 \\
+\midrule
+Weibull & -2.11e+04 & -2.11e+04 & 0.84 & 0.83 & 0 & 0.01 & 0 & 0 \\
+Log Logistic & -2.18e+04 & -2.18e+04 & 0.84 & 0.83 & 0.01 & 0.01 & 0 & 0 \\
+Log Normal & -2.25e+04 & -2.25e+04 & 0.84 & 0.83 & 0.01 & 0 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
 \subsection{AFT Models}
 \label{res:aft}
 
-Table~\ref{tab:combined} shows the performance metrics for all three AFT models, as outlined in Section~\ref{survival_time}. A total 75\% of the available data were used to build the AFT models and 25\% were withheld for evaluation. The concordance is both strong ($>0.5$) and similar for all three AFT models and both the train and test sets. We observed no more than 1\% mean absolute error in the probabilities (ICI) and no error in the median probability (E50) across all three AFT models. Figure~\ref{fig:qq} depicts the observed and predicted probabilities for all three AFT models. For further analysis, we chose the Weibull AFT due to its superior fit in Figure~\ref{fig:qq}, and average test error of 1\% (ICI) and 0 error for the median sample (E50). We also see that these metrics are  functionally identical across all AFT models as well as between the test and train set of each model. 
+Table~\ref{tab:combined} shows the performance metrics for all three AFT models, as outlined in Section~\ref{survival_time}. A total 75\% of the available data were used to build the AFT models and 25\% were withheld for evaluation. The concordance is both strong ($>0.5$) and similar for all three AFT models and both the train and test sets. We observed no more than 1\% mean absolute error in the probabilities \acrshort{ici} and no error in the median probability \acrshort{e50} across all three AFT models. Figure~\ref{fig:qq} depicts the observed and predicted probabilities for all three AFT models. For further analysis, we chose the Weibull AFT due to its superior fit in Figure~\ref{fig:qq}, and average test error of 1\% \acrshort{ici} and 0 error for the median sample \acrshort{e50}. We also see that these metrics are  functionally identical across all AFT models as well as between the test and train set of each model. 
 
 
 Figure~\ref{fig:aft} shows the log-scale coefficients for the AFT model. It shows that epochs, batch size, and training time have no effect on the survival time. Additionally, the covariate value of 0 for random state indicates that random permutations of the training and test data have no effect on the survival time, which is expected. However, we can clearly see that inference time  is as strong an indicator as the attack noise distance, revealing that model speed is nearly as important as the the noise value of the attack ($\varepsilon$). Furthermore, we see that benign accuracy is negatively correlated with the survival time, confirming previous assertions that robustness ($S_{\theta}(t)$) is inversely related to benign accuracy (which is the standard indicator of generalization performance)~\cite{carlini_towards_2017}.
@@ -526,7 +581,7 @@ Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effec
     \caption{\cm{The red and blue lines depict the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis) for the training set (blue) and test set (red). The dotted line indicates a cubic spline fit to $S_{\theta}(t=t_a) \approx \lambda_{adv} * N $.}}
     \label{fig:qq}
 \end{figure*}
-\begin{figure*}[h!]
+\begin{figure}[h!]
     \centering
     \captionsetup[subfigure]{skip=0pt} % Adjust the skip here
     % \begin{subfigure}{.5\linewidth}
@@ -542,7 +597,7 @@ Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effec
     %     \label{fig:partial_effect}
     % \end{subfigure}
     % \caption{Weibull AFT Model.}
-\end{figure*}
+\end{figure}
 
 \subsection{Why Cost Matters}
 
@@ -558,7 +613,7 @@ If the cost to a model builder is much larger than the cost to an attacker ($C_t
 \cm{Moved from the AFT section to here at Tommy's suggestion.}
 \cm{The primary advantage of this methodology over the traditional test/train split measurements is that the precision of the latter is determined by the number of samples; whereas, the precision of the survival time estimate is driven by the resolution of our timing measurements. For test-set accuracy,  meeting the weakest safety-critical IEC standard (1 failure in a million) would require many millions of samples to confidently conclude that a model is safe. However, the presented AFT model has an average error rate of 1\% while requiring a very small number of samples (10 sets of 100) (see: Table~\ref{tab:combined}).}
 Because of the small number of samples needed for building AFT models (when compared to testing against massive in-distribution test sets), AFT models could, for example, act as a unit test in machine learning applications. 
-This is in contrast to a full-system integration tests to evaluate changes to a single model, signal processing technique, data storage format, or API access mechanism~\cite{schmoor2000sample,lachin1981introduction}. It could also be used to highlight error-prone classes or other subsets of data to reduce error or create synthetic samples as is common in medical research~\cite{kleinbaum1996survival}. Furthermore, by isolating changes and testing them as quickly as possible, it is easier to parse cause and effect when compared to full-system integration tests that could include many changes from many different development teams and require live and potentially dangerous systems (like cars, drones, or industrial equipment) to effectively test. To further increase development velocity, these models can quantify the marginal risk associated with each change, as dictated by the ISO 26262 standard~\cite{IEC61508}, allowing the model builder to make a quantitative assessment about the efficacy of a model change without testing the effect on real users. Additionally, since AFT models have strong predictive power for untested hyper-parameter combinations, this method has a potential to reduce the search space by quickly eliminating candidates that are unlikely to increase the survival time. 
+This is in contrast to a full-system integration tests to evaluate changes to a single model, signal processing technique, data storage format, or API access mechanism~\cite{schmoor2000sample,lachin1981introduction}. It could also be used to highlight error-prone classes or other subsets of data to reduce error or create synthetic samples as is common in medical research~\cite{kleinbaum1996survival}. Furthermore, by isolating changes and testing them as quickly as possible, it is easier to parse cause and effect when compared to full-system integration tests that could include many changes from many different development teams and require live and potentially dangerous systems (like cars, drones, or industrial equipment) to effectively test. To further increase development velocity, these models can quantify the marginal risk associated with each change, as dictated by the IEC 61508 standard~\cite{IEC61508}, allowing the model builder to make a quantitative assessment about the efficacy of a model change without testing the effect on real users. Additionally, since AFT models have strong predictive power for untested hyper-parameter combinations, this method has a potential to reduce the search space by quickly eliminating candidates that are unlikely to increase the survival time. 
 
 \section{Considerations}
 \label{considerations}
@@ -591,7 +646,8 @@ Furthermore, the data demonstrate the un-advertised training capability of the N
 % For peerreview papers, this IEEEtran command inserts a page break and
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
-
+\clearpage
+\printglossary[type=\acronymtype]
 \clearpage
 \bibliographystyle{IEEEtran}
 \bibliography{bibliography}
