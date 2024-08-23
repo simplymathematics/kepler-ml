@@ -79,19 +79,10 @@
 %%%%%=============================================================================%%%%
 
 %% as per the requirement new theorem styles can be included as shown below
-\theoremstyle{thmstyleone}%
 \newtheorem{theorem}{Theorem}%  meant for continuous numbers
 %%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
 %% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
-\newtheorem{proposition}[theorem]{Proposition}% 
 %%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
-
-\theoremstyle{thmstyletwo}%
-\newtheorem{example}{Example}%
-\newtheorem{remark}{Remark}%
-
-\theoremstyle{thmstylethree}%
-\newtheorem{definition}{Definition}%
 
 \raggedbottom
 %%\unnumbered% uncomment this for unnumbered level heads
@@ -181,13 +172,13 @@ Statistical learning theory~\cite{vcdimension} provides us no guarantees about t
 To overcome this, neural networks need large amounts of data~\cite{desislavov2021compute,bailly2022effects} to train ever-larger model~\cite{desislavov2021compute}, which has yielded increasingly marginal gains on test-set accuracy~\cite{sun2017revisiting}.
 It is also clear that reaching safety-critical standards using test-set accuracy would require an infeasibly large test set~\cite{meyers}. 
 Therefore, we propose using \acrfull{aft} models to simulate edge-cases and verify models using a small number of samples.
-
-Modern neural networks are massive --- they have have grown to be one of the largest consumers of data-center power, especially with the rise of generative AI~\cite{msft_water}. For image systems, VGG19~\cite{vgg} is now considered small with \textit{only} 138 million parameters. ResNet152 has a similar number of parameters at 116 million~\cite{resnet}. However, modern advancements in transformer architectures have lead to an explosion in model size with the recent Mamba model boasting a massive 8 \textit{billion} tunable parameters~\cite{mamba}. At these scales, we have no statistical guarantees about the performance of these models and test-set validation would require many, many billions of samples for each and every model change.
-% One of Facebook's large language models, dubbed LLaMA, was placed on the codesharing website, GitHub~\cite{llama}. Immediately, an open-sourced clone was created, which itself spawned hundreds of offshoot projects~\cite{openllama}. One version of this open-source large language model (LLM) was able to outperform the commercially available GPT-3.5 model~\cite{liu2023goat} with a fraction of the parameters (13 Billion), small enough to run on a laptop without a graphics processing unit (GPU), suggesting that consumer-level hardware can be used to effectively train large models in a reasonable time. Furthermore, popular models like Generative Pre-trained Transformer (GPT)~\cite{floridi2020gpt} or ResNet~\cite{resnet} have many millions or billions of parameters, requiring infeasibly large training datasets to verify a model\cite{vcdimension}. Media reports place the cost of training a GPT3 somewhere between 4 and 63 million dollars~\cite{Patel_Ahmad_2023,Feswing_2023}, meaning only a few entities in the whole world have the requisite hardware and/or cloud budget to build a competing system. While the benefits of a more portable model are plentiful, there is not yet a method for formalizing the relationship between cost and model performance.
-
-Furthermore, even if we ignore the immense cost of training modern neural networks, the required number of test samples creates serious questions about the efficacy of the typical train/test split methodology for assessing model generalization~\cite{meyers} since regulatory standards around safety-critical software applications~\cite{IEC61508,iso26262,aviation_software,safetyframework} clearly define the maximum failure rate to be in the range $[10^{-12}, 10^{-15}]$ depending on the number of lives at risk. Furthermore, ensuring the robustness of ML models against adversarial noise has become a critical concern since inducing a failure at run-time has consistently shown to be trivial~\cite{adversarialpatch, carlini_towards_2017, croce_reliable_2020, hopskipjump, chakraborty2018adversarial, art2018}. Collecting, labelling, and testing a new set of data for every software change --- as required by law in most of the world~\cite{IEC61508,iso26262,aviation_software,safetyframework} --- would be prohibitively expensive for these large models. Therefore, a new evaluation methodology is required.
-
-% As such, the methodology proposed in this paper, centered around survival analysis, tests a model against ``worst-case" (\textit{e.g.}, adversarial) inputs to verify the efficacy of one modelling deployment decision over another. 
+Modern neural networks are massive --- they have have grown to be one of the largest consumers of data-center power, especially with the rise of generative AI~\cite{msft_water}. 
+For image systems, VGG19~\cite{vgg} is now considered small with \textit{only} 138 million parameters. 
+ResNet152 has a similar number of parameters at 116 million~\cite{resnet}. 
+However, modern advancements in transformer architectures have lead to an explosion in model size with the recent Mamba model boasting a massive 8 \textit{billion} tunable parameters~\cite{mamba}. At these scales, we have no statistical guarantees about the performance of these models and test-set validation would require many, many billions of samples for each and every model change. 
+Furthermore, even if we ignore the immense cost of training modern neural networks, the required number of test samples creates serious questions about the efficacy of the typical train/test split methodology for assessing model generalization~\cite{meyers} since regulatory standards around safety-critical software applications~\cite{IEC61508,iso26262,aviation_software,safetyframework} clearly define the maximum failure rate to be in the range $[10^{-12}, 10^{-15}]$ depending on the number of lives at risk. 
+Furthermore, ensuring the robustness of ML models against adversarial noise has become a critical concern since inducing a failure at run-time has consistently shown to be trivial~\cite{adversarialpatch, carlini_towards_2017, croce_reliable_2020, hopskipjump, chakraborty2018adversarial, art2018}. Collecting, labelling, and testing a new set of data for every software change --- as required by law in most of the world~\cite{IEC61508,iso26262,aviation_software,safetyframework} --- would be prohibitively expensive for these large models. 
+Therefore, a new evaluation methodology is required.
 We propose to use survival analysis as a methodological framework to model the failure conditions of a machine learning model. Instead of having a test set large enough to cover all of the failure cases, we generate adversarial samples crafted specifically to make the model fail and then use survival analysis to predict these failures in general.
 
 In this work, we used accelerated failure-time methods to predict model performance as a function of various model parameters. The methodology outlined in Section~\ref{aft} allows the model-builder to minimize the training cost, optimise for adversarial robustness, estimate the effects of covariates on model performance during routine training procedures. Then, one can perform a cost analysis (Section~\ref{cost}). We then demonstrate the efficacy of this methodology in Section~\ref{results} by examining the role of hardware on model performance, the particulars of which are outlined in Section~\ref{experiments}.
@@ -371,9 +362,11 @@ $$
     S_{\theta}(t) = p(T>t) = \exp\left(-\int_0^t h_{\theta}(u) \, du\right)
 $$
 where $p(T>t)$ is the probability that a model has not failed by time $t$ (``survives'' beyond time $t$). The expected survival time is
-\[
+\begin{equation}    
 	\mathbb{E}_{S_\theta}[T] = \int_0^{t^*}  S_\theta(t) \,dt,
-\]
+    \label{eq:expectation}
+\end{equation}
+
 where $t^*$ is the latest time observed in the survival data. However, modelling $S_{\theta}(t)$ requires a choice in modelling function for $S_{\theta}$. The Log-Logistic, Log-Normal, and Weibull functions are widely used alternatives~\cite{kleinbaum1996survival,meyers_aft}. For each trial, one can measure the attack generation time to define the time interval and the accuracy to estimate the number of failures and successes in that time interval. 
 
 \subsubsection{Survival Time}
@@ -382,17 +375,16 @@ where $t^*$ is the latest time observed in the survival data. However, modelling
 By using adversarial samples (see: Equation~\ref{eq:adv_success}, failures can be induced. The likelihood of that failure is dependent on the amount of adversarial noise, $\varepsilon$~\cite{meyers_aft}. That is, we can say the probability of success at time, $t$ is inversely proportional to  noise distance, $\varepsilon$, and  directly proportional to some baseline survival function, $S_0$, such that the parameterised survival time $S_{\theta}(t)$ is:
 }
 $$
-S_{\theta}(t) \propto  S_0 \left( \frac{t}{\varepsilon} \right)
+S_{\theta}(t) \propto  S_0  \frac{1}{\varepsilon} \left( t\right)
 $$
 \cm{
-This can also be thought of in terms of the accelerated failure time assumption~\cite{kleinbaum1996survival}
+This can also be thought of in terms of the accelerated failure time assumption~\cite{kleinbaum1996survival}}
 \begin{equation} \label{assumption}
     S_\theta(t) = S_0 \left( \frac{t}{\phi_\theta(x)} \right),
 \end{equation}
 where $\phi$ is some acceleration factor described by the joint effect of the covariates:
-}
 $$
-phi_{\theta}(x) = \exp( \beta_0 \varepsilon + \beta_1 x_1 + \cdots + \beta_n x_n),
+\phi_{\theta}(x) = \exp( \beta_0 \varepsilon + \beta_1 x_1 + \cdots + \beta_n x_n),
 $$
 \cm{
 and where $\varpsilon, x$ are covariates and $\beta_0 \cdots \beta_n$ describe the fitted parameters.
@@ -442,17 +434,16 @@ Latency is the time it takes to respond to a query. We assume that latency per s
 $$
     T_i := t_i \cdot n,
 $$
-which will be driven by the memory bandwidth (measured in bits/second) of a given CPU or GPU and the size~\cite{vgg} and complexity~\cite{resnet} of a given neural network architecture.
+which will be driven by the memory bandwidth (measured in bits/second) of a given \acrshort{cpu} or \acrshort{gpu} and the size~\cite{vgg} and complexity~\cite{resnet} of a given neural network architecture.
 
 
 \subsection{Attack Generation Time}
-
-A successful attack is one that induces failure in a model. That is, the expected survival time, $\mathbb{E}_{S_\theta}[T]$, can be thought of as the average time it takes for an attacker to induce a change in the model output. We approximate this for each attack/defence configuration by the total attack time, $T_a$, for $n$ samples, $i$ iterations, and attack time per sample, $t_a$, as
-\begin{equation}
-    \label{attack_time}
-    T_a := t_a \cdot n \cdot i.
-\end{equation}
-In the interest of time, our chosen attack, FGM, uses only a single iteration $i =1$~\cite{fgm}.
+\cm{
+A successful attack is one that induces failure in a model. That is, the expected survival time, $\mathbb{E}_{S_\theta}[T]$, can be thought of as the average time it takes for an attacker to induce a failure. That is, the expected attack time \textit{is} the expected survival time. We can then define $t_a$ by using the survival model estimation from Equation~\ref{eq:expectation}, such that.
+}
+$$
+t_{a} = \mathbb{E}_{S_\theta}[T] = \int_0^{t^*}  S_\theta(t) \,dt \approx  \frac{T_a}{n}.
+$$
 
 
 \subsection{Cost}
@@ -495,9 +486,14 @@ where $P_h$ is the cost per unit time for the hardware, $T_t$ is the training ti
 
 \subsection{Why Cost Matters}
 
-In security analysis, it is  routine to think in optimistic terms for both the attacker and defender. In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken"). 
-Using AFT, one can model the Pareto front --- the set of points that are superior to all others in the search space --- of either party~\cite{zitzler2008quality}. By using a whitebox attack to generate the failures, we ensure that our defender operates under the worst case scenario while the attacker operates under their best case scenario to yield a worst-case failure rate.
-As such, we center our analysis on the whitebox Fast Gradient Method~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}. If the cost to a model builder is much larger than the cost to an attacker ($C_t \gg C_a$), then it is  clear that the model is ``broken" in this cryptographic sense and can be discarded as ineffective. 
+In security analysis, it is  routine to think in optimistic terms for both the attacker and defender. In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken").
+Using \acrshort{aft}, one can model the Pareto front --- the set of points that are superior to all others in the search space --- for all objectives~\cite{zitzler2008quality}. 
+By using a whitebox attack to generate the failures, we ensure that our defender operates under the worst case scenario while the attacker operates under their best case scenario to yield a worst-case failure rate.
+As such, we center our analysis on the whitebox Fast Gradient Method~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}. If the cost to a model builder is much larger than the cost to an attacker ($C_t \gg C_a$), then it is  clear that the model is ``broken" in this cryptographic sense and can be discarded as ineffective. Previous research has provided a useful \textit{training rate and survival heuristic} (\acrshort{trash} score)~\cite{meyers_aft} that quantifies the ratio of training time to attack time.
+\begin{equation}
+    \textrm{TRASH~Score} = \frac{t_{t}}{t_{a}} 
+    \label{eq:trash}
+\end{equation}
 
 
 \section{Experiments}
@@ -507,7 +503,7 @@ This section outlines specific implementation details for the evaluation of the 
 
 
 \subsection{Cloud Platform and Hardware}
-To conduct the experiments and have access to different types of hardware, we utilized GCP. Six virtual machines running container optimised operating system provided by GCP constituted the test-bed. Using Google Kubernetes Engine 1.27.3 and Containerd 1.7.0, a cluster consisting of six worker nodes was created. Three worker nodes were responsible for running the monitoring platforms-- Prometheus 2.47.2 and Grafana 10.2.0. These nodes were of the ``e2-medium" instance type provided by GCP. In total, three GPU architectures were used--the Nvidia P100, V100, and L4. For P100 and V100 GPUs, the ``n1-standard-2'' type was used for the nodes and for L4 GPUs the ``g2-standard-4'' was used.
+To conduct the experiments and have access to different types of hardware, we utilized \acrshort{gcp}. Six virtual machines running container optimised operating system provided by GCP constituted the test-bed. Using Google Kubernetes Engine 1.27.3 and Containerd 1.7.0, a cluster consisting of six worker nodes was created. Three worker nodes were responsible for running the monitoring platforms-- Prometheus 2.47.2 and Grafana 10.2.0. These nodes were of the ``e2-medium" instance type provided by GCP. In total, three GPU architectures were used--the Nvidia P100, V100, and L4. For P100 and V100 GPUs, the ``n1-standard-2'' type was used for the nodes and for L4 GPUs the ``g2-standard-4'' was used.
 
 To assess the energy consumption of the experiments, \Gls{kepler} deployed on a was used to measure the power consumption of each experiment~\cite{amaral2023kepler}. This approach enables gathering energy consumption data on granular levels as it runs in Kubernetes cluster and capable of collecting energy consumption of Kubernetes components. In essence, KEPLER uses extended Berkeley Packet Filter to probe energy-related system stats and exports them as Prometheus metrics. This filter can be described as a lightweight and sandboxed virtual machine (VM) in kernel space. The filter programs are invoked by the kernel when certain events occur. Examples of such events include system calls or network activity. These processes enable deep analysis and full control over different events with low overhead~\cite{sedghpour@ebpf}. A diagram of the cloud architecture can be found in Figure~\ref{fig:architecture}. Finally, for a cost-effective model evaluation technique, all of the experiments were restricted to a single one-thousand United States dollar budget (a research grant from Google). Approximately 10\% of this was used for development and 90\% was used for the evaluations.
 \cm{Over the course of the evaluations, 6\% of the budget went to the storage, 6\% to the monitoring, and the remaining 88\% went the GPUs. TODO: Calculate total cost/gpu for 1000 trials.}.
@@ -557,12 +553,11 @@ Several hardware configurations were tested, that had various hourly costs, peak
     Memory Bandwidth (GB/s) & 900    & 732    & 300   &  \\
     \bottomrule
     \end{tabular}
-    % \caption{Hardware specifications for the tested GPUs. The specifications were retrieved from Nvidia's website at the following links: 
-    % \href{https://images.nvidia.com/content/technologies/volta/pdf/volta-v100-datasheet-update-us-1165301-r5.pdf}{V100 Datasheet},
-    % \href{https://images.nvidia.com/content/tesla/pdf/nvidia-tesla-p100-PCIe-datasheet.pdf}{P100 Datasheet}, and
-    % \href{https://nvdam.widen.net/s/rvq98gbwsw/l4-datasheet-2595652}{L4 Datasheet}. Prices were retrieved from \href{https://cloud.google.com/pricing/list}{Google Cloud Platform} for the \texttt{europe-west4} region on 3 December 2023.
-    % }
-    \caption{}
+    \caption{Hardware specifications for the tested GPUs. The specifications were retrieved from Nvidia's website at the following links: 
+    \href{https://images.nvidia.com/content/technologies/volta/pdf/volta-v100-datasheet-update-us-1165301-r5.pdf}{V100 Datasheet},
+    \href{https://images.nvidia.com/content/tesla/pdf/nvidia-tesla-p100-PCIe-datasheet.pdf}{P100 Datasheet}, and
+    \href{https://nvdam.widen.net/s/rvq98gbwsw/l4-datasheet-2595652}{L4 Datasheet}. Prices were retrieved from \href{https://cloud.google.com/pricing/list}{Google Cloud Platform} for the \texttt{europe-west4} region on 3 December 2023.
+    }
     \label{tab:hardware}
 \end{table}
 
@@ -623,7 +618,7 @@ The monetary cost for each dataset and each piece of hardware is shown in Figure
 
 \begin{table}
 \centering
-\caption{Comparison of AFT Models across all hardware and datasets. \cm{\acrshort{aic} and \acrshort{bic} are measures of goodness-of-fit, with a smaller one being preferred. Concordance (Conc) is a value between 0 and 1 that reflects how what proportion of events (failures) can be explained by the model. \acrshort{ici} measures the average error between a cubic-spline and the model and \acrshort{e50} measures the median error between the spline and the model. These measured on both the train and test sets of the collected data, with the latter being denoted ``Test''.}}
+\caption{Comparison of AFT Models across all hardware and datasets. \cm{\acrshort{aic} and \acrshort{bic} are measures of goodness-of-fit, with a smaller value being preferred. Concordance (Conc) is a value between 0 and 1 that reflects how what proportion of events (failures) can be explained by the model. \acrshort{ici} measures the average error between a cubic-spline and the model and \acrshort{e50} measures the median error between the spline and the model. These measured on both the train and test sets of the collected data, with the latter being denoted ``Test''.}}
 \label{tab:combined}
 \begin{tabular}{lrrrrrrrr}
 \toprule
@@ -655,6 +650,28 @@ Log Normal & -2.25e+04 & -2.25e+04 & 0.84 & 0.83 & 0.01 & 0.00 & 0.00 & 0.00 \\
     \end{subfigure}
     \caption{\cm{The red and blue lines depict the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis) for the training set (blue) and test set (red). The dotted line indicates a cubic spline fit to $S_{\theta}(t=t_a) \approx \lambda_{adv} * N $.}}
     \label{fig:qq}
+\end{figure*}
+
+\begin{figure*}[h!]
+    \centering
+    \captionsetup[subfigure]{skip=0pt} % Adjust the skip here
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \includegraphics[width=.7\linewidth,clip]{plots/combined/weibull_trash_score.pdf}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_trash_score.pdf}
+        \caption{ }
+    \end{subfigure}
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_normal_trash_score.pdf}
+        \caption{}
+    \end{subfigure}
+    \caption{\cm{TODO}}
+    \label{fig:trash}
 \end{figure*}
 \subsection{AFT Models}
 \label{res:aft}
