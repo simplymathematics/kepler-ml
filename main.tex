@@ -400,9 +400,12 @@ However, in order to find the the correct distribution, one must measure the goo
 \label{best-fit}
 To choose a best-fit from the possible AFT functions, one should prepare the collected metrics and scores and then compare them using \textit{e.g.}, Akaike Information Criterion (\acrshort{aic}), Bayesian Information Criteria (\acrshort{bic}), or Concordance, as per the best-practices for this methodology~\cite{aft_models,kleinbaum1996survival}. 
 For \acrshort{aic} and \acrshort{bic}, that means choosing the smallest value. Concordance, however, is a number between $0$ and $1$ that quantifies the degree to which the survival time is explained by the model, where a $1$ reflects a perfect explanation~\cite{kleinbaum1996survival} and 0.5 reflects random chance. By evaluating $\mathbb{E}_{S_\theta}[T]$ under extreme perturbations, one can test the model and minimize the number of evaluated samples~\cite{aft_models,kleinbaum1996survival} rather than relying on the $> 10^{12}$ samples as required by IEC61508~\cite{IEC61508}. 
-We also noted the integrated calibration index (\acrshort{ici}) as well as the error at the 50th percentile \acrshort{e50}~\cite{ici}. 
+\cm{
+While the aforementioned metrics measure goodness-of-fit, one should conduct a \textit{survival probability calibration}, where one fits the AFT model to the data and compares it to a cubic-spline that is meant to capture the un-modelled relationship between failures and time~\cite{ici}. These plots can be used to visually inspect the goodness-of-fit of various models, as in Figure~\ref{fig:qq}.
+}
+The integrated calibration index (\acrshort{ici}) as well as the error at the 50th percentile \acrshort{e50}~\cite{ici} can then be calculated. 
 These are the mean absolute difference between observed and predicted probabilities and the median absolute difference between observed and predicted probabilities, respectively~\cite{ici}. 
-Then, the fitted AFT models were plotted using that compares the fitted AFT model to a cubic spline fit to the data~\textit{et al.}~\cite{ici}  to visually inspect each model for goodness-of-fit (see Figure~\ref{fig:qq}). \cm{Additionally, the data were split into a training set that was used to fit the model (80\%) and an unseen test set (20\%) and the concordance, ICI, and E50 were measured for both.}
+\cm{Additionally, the data were split into a training set that was used to fit the model (80\%) and an unseen test set (20\%) and the concordance, ICI, and E50 were measured for both.}
 
 
 
@@ -642,20 +645,20 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
     \captionsetup[subfigure]{skip=0pt} % Adjust the skip here
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \includegraphics[width=.7\linewidth,clip]{plots/combined/weibull_qq.pdf}
+        \includegraphics[width=.67\linewidth,clip]{plots/combined/weibull_qq.pdf}
         \caption{}
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_qq.pdf}
+        \includegraphics[width=.67\linewidth,clip]{plots/combined/log_logistic_qq.pdf}
         \caption{ }
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_normal_qq.pdf}
+        \includegraphics[width=.67\linewidth,clip]{plots/combined/log_normal_qq.pdf}
         \caption{}
     \end{subfigure}
-    \caption{\cm{The red and blue lines depict the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis) for the training set (blue) and test set (red). The dotted line indicates a cubic spline fit to $S_{\theta}(t=t_a) \approx \lambda_{adv} * N $.}}
+    \caption{\cm{The red and blue lines depict the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis) for the training set (blue) and test set (red). The dotted line indicates a cubic spline fit to $S_{\theta}(t=t_a) \approx \lambda_{adv} $.}}
     \label{fig:qq}
 \end{figure*}
 
@@ -671,7 +674,7 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
     \begin{subfigure}{\textwidth}
         \includegraphics[width=.8\textwidth]{plots/combined/log_logistic_aft.pdf}
     \end{subfigure}
-    \caption{Coefficients of the Covariates for the Weibull, Log-Normal, and Log-Logistic AFT models. Here, "Random State" is used as a control variable that should be (and is) close to 0. \cm{A positive value indicates that covariate increases the survival time and negative value indicates that covariate decreases the survival time. The symbols $T_i$ and $T_t$ refer training and inference time for all samples, while $\lambda$ refers to the benign accuracy (accuracy on the un-altered samples).}}
+    \caption{Coefficients of the Covariates for the Weibull, Log-Normal, and Log-Logistic AFT models. Here, "Random State" is used as a control variable that should be (and is) close to 0. \cm{A positive value indicates that covariate increases the survival time and negative value indicates that covariate decreases the survival time. The symbols $T_i$ and $T_t$ refer training and inference time for all samples, while \textit{Ben. Accuracy} refers to the benign accuracy (accuracy on the un-altered samples), and $\varepsilon$ is the noise distance.}}
     \label{fig:aft}
 \end{figure*}
 \subsection{AFT Models}
@@ -743,7 +746,7 @@ The hyper-parameter search was restricted to only a single evasion attack (see E
 
 In this work, we introduced survival analysis to machine learning, developed a method to quickly and efficiently test model parameter choices and evaluated them in the presence of adversarial noise, allowing one to the model performance as a function of tested model parameters.
 Using this technique, it is clear that reduced run-times with newer and/or larger hardware, that adversarial robustness is not substantially effected and that the specific choice of attack parameters is far more important than model training time.
-Furthermore, the data demonstrate the un-advertised training capability of the Nvidia L4 GPU which yields a 20\% increase in survival time while costing 75\% less than the V100 that's been typical in the literature over the last several years.
+Furthermore, the data demonstrate the un-advertised training capability of the Nvidia L4 GPU which yields a 20\% increase in survival time while costing 75\% less than the V100 that's been typical in the literature over the last several years. \cm{TODO add}
 
 % no keywords
 % For peer review papers, you can put extra information on the cover
