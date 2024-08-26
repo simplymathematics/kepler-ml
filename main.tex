@@ -153,11 +153,6 @@ For neural networks in particular, the relationships between the learning rate, 
 \keywords{artificial intelligence, machine learning, adversarial AI, optimisation, compliance}
 
 
-
-%%\pacs[JEL Classification]{D8, H51}
-
-%%\pacs[MSC Classification]{35A01, 65L10, 65L12, 65L20, 65L70}
-
 \maketitle
 
 
@@ -172,14 +167,14 @@ For neural networks in particular, the relationships between the learning rate, 
 % \end{itemize}
 
 Recently, \acrfull{ml} using deep neural networks has become a popular way to classify large amounts of data --- with applications ranging from medical imaging~\cite{ai_medical_imaging} to aviation~\cite{ai_aviation} and from security~\cite{ai_security,ai_luggage,ai_prison} to self-driving cars~\cite{ai_automotive}.
-Statistical learning theory~\cite{vcdimension} provides us no guarantees about the generalization performance of deep neural networks due to the massive number of tunable parameters. 
+Statistical learning theory~\cite{vcdimension,shalev2014understanding} provides us no guarantees about the generalization performance of deep neural networks due to the massive number of tunable parameters. 
 To overcome this, neural networks need large amounts of data~\cite{desislavov2021compute,bailly2022effects} to train ever-larger model~\cite{desislavov2021compute}, which has yielded increasingly marginal gains on test-set accuracy~\cite{sun2017revisiting}.
 It is also clear that reaching safety-critical standards using test-set accuracy would require an infeasibly large test set~\cite{meyers}. 
 Therefore, we propose using \acrfull{aft} models to simulate edge-cases and verify models using a small number of samples.
 Modern neural networks are massive --- they have have grown to be one of the largest consumers of data-center power, especially with the rise of generative AI~\cite{msft_water}. 
-For image systems, VGG19~\cite{vgg} is now considered small with \textit{only} 138 million parameters. 
-ResNet152 has a similar number of parameters at 116 million~\cite{resnet}. 
-However, modern advancements in transformer architectures have lead to an explosion in model size with the recent Mamba model boasting a massive 8 \textit{billion} tunable parameters~\cite{mamba}. At these scales, we have no statistical guarantees about the performance of these models and test-set validation would require many, many billions of samples for each and every model change. 
+For image systems, AlexNet~\cite{alom2018history} is now considered small with \textit{only} 60 million parameters. 
+ResNet152 has even more parameters at 116 million~\cite{resnet}. 
+However, modern architectures have lead to an explosion in model size with the recent Mamba model boasting a massive 8 \textit{billion} tunable parameters~\cite{mamba}. At these scales, we have no statistical guarantees about the performance of these models and test-set validation would require many, many billions of samples for each and every model change. 
 Furthermore, even if we ignore the immense cost of training modern neural networks, the required number of test samples creates serious questions about the efficacy of the typical train/test split methodology for assessing model generalization~\cite{meyers} since regulatory standards around safety-critical software applications~\cite{IEC61508,iso26262,aviation_software,safetyframework} clearly define the maximum failure rate to be in the range $[10^{-12}, 10^{-15}]$ depending on the number of lives at risk. 
 Furthermore, ensuring the robustness of ML models against adversarial noise has become a critical concern since inducing a failure at run-time has consistently shown to be trivial~\cite{adversarialpatch,carlini_towards_2017,croce_reliable_2020,hopskipjump,chakraborty2018adversarial,art2018}. Collecting, labelling, and testing a new set of data for every software change --- as required by law in most of the world~\cite{IEC61508,iso26262,aviation_software,safetyframework} --- would be prohibitively expensive for these large models. 
 Therefore, a new evaluation methodology is required.
@@ -344,7 +339,7 @@ ML models are typically trained by examining the effect of the entire hyper-para
 making it infeasible to exhaustively evaluate the entire hyper-parameter search space. Additionally, the goals of test-set accuracy and adversarial accuracy are often at odds~\cite{carlini_towards_2017} --- with several researchers noting an inverse relationship between model accuracy and model robustness~\cite{carlini_towards_2017,meyers,dohmatob_generalized_2019}. Therefore, a proper search would keep this dual-objective in mind.
 \cm{
 In addition, we attempt to minimize the training time for each piece of hardware since optimal batch size and, therefore, learning rate will be determined by the \acrshort{vram}, the size bit depth of the data as well as the size and bit depth of the model.
-To maximise adversarial and benign accuracy simultaneously while minimizing training time, we propose the use of the \acrfull{tpe} because it has been shown to converge  over tens or hundreds of trials rather the the 1000s of trials typical of other multi-objective optimisation algorithms like CMAES or NGSA-II~\cite{ozaki2020multiobjective,optuna,tpe_params}.
+To maximise adversarial and benign accuracy simultaneously while minimizing training time, we propose the use of the \acrfull{tpe} because it has been shown to converge  over tens or hundreds of trials rather the the 1000s of trials typical of other multi-objective optimisation algorithms like CMAES or NSGA-II~\cite{ozaki2020multiobjective,optuna,tpe_params}.
 In addition, we seek to minimize the training time in order to maximize the number of hyper-parameters that can be examined on a fixed budget. Further discussion of the cost analysis can be found in Section~\ref{cost}.
 }
 
@@ -358,11 +353,11 @@ AFT models are widely used in industrial, medical, or risk-mitigation contexts~\
 
 The point of this is to model the \textit{survival time}, $S_{\theta}(t)$, as a function of the time, $t$,  and some set of model parameters, $\theta$ such that,
 $$
-    S_{\theta}(t) = p(T>t) = \exp\left(-\int_0^t h_{\theta}(u) \, du\right)
+    S_{\theta}(t) = p(T>t  \mid \theta) = \exp\left(-\int_0^t h_{\theta}(u) \, du\right)
 $$
 where $p(T>t)$ is the probability that a model has not failed by time $t$ (``survives'' beyond time $t$). The expected survival time is
 \begin{equation}    
-	\mathbb{E}_{S_\theta}[T] = \int_0^{t^*}  S_\theta(t) \,dt,
+	\mathbb{E}_{S_\theta}[T] = \int_0^{t^*}  S_\theta(u) \,du,
     \label{eq:expectation}
 \end{equation}
 
@@ -383,12 +378,12 @@ In the language of accelerated failure time models, this can be expressed in ter
 where $\phi$ is some acceleration factor described by the joint effect of the covariates, such that
 }
 $$
-    \phi_{\theta}(x) = \exp{ \left( \theta_0 x_0 + \theta_1 x_1 + \cdots + \theta_n x_n \right) },
+    \phi_{\theta}(x) = \exp{ \left( \theta_0 x_0 + \theta_1 x_1 + \cdots + \theta_n x_i \right) },
 $$
 \cm{
-and where $x_0 \cdots x_n$ are covariates and $\theta_0, \ldots, \theta_n$ describe the fitted parameters when $\varepsilon$ is used as one of the covariates. That is, when the adversarial noise increases, it will shorten the expected survival time of a sample proportionally. 
+and where $x_0 \cdots x_n$ are covariates and $\theta_0, \ldots, \theta_n$ describe the fitted parameters  $\varepsilon$ is used as one of the covariates. That is, when the adversarial noise increases, it will shorten the expected survival time of a sample proportionally. 
 }
-This assumption means we can evaluate the generalization performance using a small number of adversarial samples with our precision coming from careful time measurements rather than massive test sets~\cite{kleinbaum1996survival,meyers_aft}.\
+This assumption means we can evaluate the generalization performance using a small number of adversarial samples with our precision coming from careful time measurements rather than massive test sets~\cite{kleinbaum1996survival,meyers_aft}.
 \cm{
 However, in order to find the the correct distribution, one must measure the goodness-of-fit and conduct a survival probability calibration.
 }
@@ -709,7 +704,7 @@ Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effec
         \includegraphics[width=.7\linewidth,clip]{plots/combined/log_normal_trash_score.pdf}
         \caption{}
     \end{subfigure}
-    \caption{\cm{TODO}}
+    \caption{The training rate and survival heuristic that depicts the per-sample ratio of training time to attack time. If this value is greater than one (the red line), then the model can be discarded as ineffective.}
     \label{fig:trash}
 \end{figure*}
 
