@@ -596,7 +596,7 @@ The monetary cost for each dataset and each piece of hardware is shown in Figure
 %  However, we note that the attacker only needs to be lucky once, whereas the the model builder must be lucky always.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth,clip]{plots/combined/acc.pdf}
+    \includegraphics[width=\textwidth]{plots/combined/acc.pdf}
     \caption{\cm{Benign and adversarial accuracy across all hardware and datasets for all 1000 trials using plots that depict the distribution of the y-axis values using the width of the plot. Each color is a different device and the datasets are displayed along the x-axis. Outliers are denoted with a white dot.}}
     \label{fig:acc}
 \end{figure}
@@ -604,21 +604,22 @@ The monetary cost for each dataset and each piece of hardware is shown in Figure
 \begin{figure*}[h]
     \centering
     \begin{subfigure}[b]{\textwidth}
-        \includegraphics[width=\linewidth,clip]{plots/combined/time.pdf}
+        \includegraphics[width=\linewidth]{plots/combined/time.pdf}
         \caption{}
         \label{fig:time}
     \end{subfigure}
     \begin{subfigure}[b]{\textwidth}
-        \includegraphics[width=\linewidth,clip]{plots/combined/power.pdf}
+        \includegraphics[width=\linewidth]{plots/combined/power.pdf}
         \caption{}
         \label{fig:power}
     \end{subfigure}
     \begin{subfigure}[b]{\textwidth}
-        \includegraphics[width=\linewidth,clip]{plots/combined/cost.pdf}
+        \includegraphics[width=\linewidth]{plots/combined/cost.pdf}
         \caption{}
         \label{fig:cost}
     \end{subfigure}
     \caption{This depicts the training, inference, and attack times (a), power (b), and cost (c), for all hardware and datasets \cm{for all 1000 trials using plots that depict the distribution of the second axis values using the width of the plot. Each color is a different device and the datasets are displayed along the first axis. Outliers are denoted with a white dot.} For these plots, the second axes have been scaled by the number of samples for the sake of comparison.}
+    \label{fig:costs}
 \end{figure*}
 
 \begin{table}
@@ -640,20 +641,20 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
     \captionsetup[subfigure]{skip=0pt} % Adjust the skip here
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \includegraphics[width=.67\linewidth,clip]{plots/combined/weibull_qq.pdf}
-        \caption{}
-    \end{subfigure}
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \includegraphics[width=.67\linewidth,clip]{plots/combined/log_logistic_qq.pdf}
+        \includegraphics[width=.57\linewidth]{plots/combined/weibull_qq.pdf}
         \caption{ }
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \includegraphics[width=.67\linewidth,clip]{plots/combined/log_normal_qq.pdf}
-        \caption{}
+        \includegraphics[width=.57\linewidth]{plots/combined/log_logistic_qq.pdf}
+        \caption{ }
     \end{subfigure}
-    \caption{\cm{The red and blue lines depict the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis) for the training set (blue) and test set (red). The dotted line indicates a cubic spline fit to $S_{\theta}(t=t_a) \approx \lambda_{adv} $.}}
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \includegraphics[width=.57\linewidth]{plots/combined/log_normal_qq.pdf}
+        \caption{ }
+    \end{subfigure}
+    \caption{\cm{The red and blue lines depict the relationship between the modelled number of failures (x-axis) and the measured number of failures (y-axis) for the training set (blue) and test set (red). The dotted line indicates a cubic spline fit to $S_{\theta}(t=t_a) \approx \lambda_{adv} $. A model that fits this cubic spline exactly would be a diagonal line at $y=x$. The process of comparing the fitted AFT model to a default cubic spline is called \textit{survival probability calibration} and is discussed in more detail in Section~\ref{best-fit}.}}
     \label{fig:qq}
 \end{figure*}
 
@@ -661,13 +662,16 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
     \centering
     \captionsetup[subfigure]{skip=0pt} % Adjust the skip here
     \begin{subfigure}{\textwidth}
-        \includegraphics[width=.8\textwidth]{plots/combined/weibull_aft.pdf}
+        \centering
+        \includegraphics[width=.57\textwidth]{plots/combined/weibull_aft.pdf}
     \end{subfigure}
     \begin{subfigure}{\textwidth}
-        \includegraphics[width=.8\textwidth]{plots/combined/log_normal_aft.pdf}
+        \centering
+        \includegraphics[width=.57\textwidth]{plots/combined/log_normal_aft.pdf}
     \end{subfigure}
     \begin{subfigure}{\textwidth}
-        \includegraphics[width=.8\textwidth]{plots/combined/log_logistic_aft.pdf}
+        \centering
+        \includegraphics[width=.57\textwidth]{plots/combined/log_logistic_aft.pdf}
     \end{subfigure}
     \caption{Coefficients of the Covariates for the Weibull, Log-Normal, and Log-Logistic AFT models. Here, "Random State" is used as a control variable that should be (and is) close to 0. \cm{A positive value indicates that covariate increases the survival time and negative value indicates that covariate decreases the survival time. The symbols $T_i$ and $T_t$ refer training and inference time for all samples, while \textit{Ben. Accuracy} refers to the benign accuracy (accuracy on the un-altered samples), and $\varepsilon$ is the noise distance.}}
     \label{fig:aft}
@@ -691,20 +695,21 @@ Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effec
     \captionsetup[subfigure]{skip=0pt} % Adjust the skip here
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \includegraphics[width=.7\linewidth,clip]{plots/combined/weibull_trash_score.pdf}
+        \includegraphics[width=.7\linewidth]{plots/combined/weibull_trash_score.pdf}
         \caption{}
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_logistic_trash_score.pdf}
+        \includegraphics[width=.7\linewidth]{plots/combined/log_logistic_trash_score.pdf}
         \caption{ }
     \end{subfigure}
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \includegraphics[width=.7\linewidth,clip]{plots/combined/log_normal_trash_score.pdf}
+        \includegraphics[width=.7\linewidth]{plots/combined/log_normal_trash_score.pdf}
         \caption{}
     \end{subfigure}
-    \caption{The training rate and survival heuristic that depicts the per-sample ratio of training time to attack time. If this value is greater than one (the red line), then the model can be discarded as ineffective.}
+    \caption{\cm{The \textit{training rate and survival heuristic} score (TRASH score) that depicts the per-sample ratio of training time to attack time. 
+    If this value is greater than one (the red line), then the model can be discarded as ineffective. The x-axis shows each dataset, the y-axis shows the \acrshort{trash} score and each GPU model is given its own color. Outlier scores are depicted with a white dot.}}
     \label{fig:trash}
 \end{figure*}
 
@@ -739,9 +744,23 @@ The hyper-parameter search was restricted to only a single evasion attack (see E
 \section{Conclusions}
 \label{conclusion}
 
-In this work, we introduced survival analysis to machine learning, developed a method to quickly and efficiently test model parameter choices and evaluated them in the presence of adversarial noise, allowing one to the model performance as a function of tested model parameters.
-Using this technique, it is clear that reduced run-times with newer and/or larger hardware, that adversarial robustness is not substantially effected and that the specific choice of attack parameters is far more important than model training time.
-Furthermore, the data demonstrate the un-advertised training capability of the Nvidia L4 GPU which yields a 20\% increase in survival time while costing 75\% less than the V100 that's been typical in the literature over the last several years. \cm{TODO add}
+In this work, \cm{we applied survival analysis to cloud-native machine learning}, developed a method to quickly and efficiently test model parameter choices and evaluated them in the presence of adversarial noise, allowing one to the model performance as a function of tested model parameters.
+Using this technique, it is clear that reduced run-times with newer and/or larger hardware, that adversarial robustness is not substantially effected and that the specific choice of attack parameters is far more important than model training time. 
+
+~\cm{
+The experiments conducted confirm that this methodology is both sound and cost-effective. While 88\% of the cloud budget went to GPU rentals, the data show how cutting that cost by 75\% and using less power-intensive hardware designed for 8-bit image processing would be \textit{more} effective than using the 32-bit datacenter GPUs (V100 and P100) for typical image classification tasks. Using \acrshort{kepler} proved to be a cost-effective as real-time monitoring only used a fraction of the budget (6\%). 
+Figure~\ref{fig:acc} confirms the efficacy of the ~\acrshort{tpe} algorithm discussed in Section~\ref{optimisation}, allowing a infrastructure engineer to ignore the intricacies of learning rate optimization while tuning the model to a particular piece of hardware. 
+Additionally, Table~\ref{tab:combined} and Figure~\ref{fig:qq} show that \acrshort{aft} models are an effective way to model the survival time across hardware variants. 
+By comparing the training, inference, and attack  times, costs, and power consumption across different hardware devices (Figure~\ref{fig:costs}, it is clear that attacks generally cost less than training, even when we ignore the fact that attacks are consistently effective using a small number of samples while training relies on many thousands (see: Figures~\ref{fig:experiments}~\&~\ref{fig:acc}).
+This analysis is further confirmed by examining the coefficients of the AFT models in Figure~\ref{fig:aft}. 
+}
+
+\cm{
+Regardless of which AFT model is chosen, the model suggests that the P100 decreases the survival time compared to the V100 and the L4 increases the survival time (both compared to the V100, which has no significant effect).
+Furthermore, the coefficients again confirm an inverse relationship between test-set (benign) accuracy and the adversarial robustness (\textit{i.e.} survival time). 
+Finally, even when we account for the reduced GPU bandwidth (see: Table~\ref{tab:hardware}) and increased training time (see: Figure~\ref{fig:time}), it is clear the the L4 model is superior in terms of robustness and cost-effectiveness (see: Figure~\ref{fig:trash}), despite it being advertised as ``inference only" by the manufacturer. 
+}
+Furthermore, the data demonstrate the un-advertised training capability of the Nvidia L4 GPU which yields a 20\% increase in survival time while costing 75\% less than the V100 that's been typical in the literature over the last several years.
 
 % no keywords
 % For peer review papers, you can put extra information on the cover
