@@ -99,51 +99,50 @@
 %%  \sfx{IV}}\email{iauthor@gmail.com}
 %%=============================================================%%
 
-\author*[1,2]{\fnm{First} \sur{Author}}\email{iauthor@gmail.com}
+\author*[1]{\fnm{Charles} \sur{Meyers}}\email{cmeyers@cs.umu.se}
 
-\author[2,3]{\fnm{Second} \sur{Author}}\email{iiauthor@gmail.com}
-\equalcont{These authors contributed equally to this work.}
+\author[1]{\fnm{Mohammad} \sur{Reza Saleh Sedghpour}}\email{msaleh@cs.umu.se}
 
-\author[1,2]{\fnm{Third} \sur{Author}}\email{iiiauthor@gmail.com}
-\equalcont{These authors contributed equally to this work.}
+\author[1]{\fnm{Erik} \sur{Elmroth}}\email{tommy@cs.umu.se}
 
-\affil*[1]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{100190}, \state{State}, \country{Country}}}
+\author[1,2]{\fnm{Erik} \sur{Elmroth}}\email{elmroth@cs.umu.se}
 
-\affil[2]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{10587}, \state{State}, \country{Country}}}
+\affil*[1]{\orgdiv{Department of Computing Science}, \orgname{Ume\aa University}, \orgaddress{\street{Universitetorget 4}, \city{Ume\aa}, \postcode{901 87}, \country{Sweden}}}
 
-\affil[3]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{610101}, \state{State}, \country{Country}}}
+\affil[2]{\orgname{Elastisys AB},  \country{Sweden}}
+
 
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
 % \author{\IEEEauthorblockN{1\textsuperscript{st} Charles Meyers}
 % \IEEEauthorblockA{\textit{Dept. of Computing Science} \\
-% \textit{Umeå University}\\
-% Umeå, Sweden \\
+% \textit{Ume\aa University}\\
+% Ume\aa, Sweden \\
 % cmeyers@cs.umu.se}
 % \and
 % \IEEEauthorblockN{2\textsuperscript{nd} Mohammad Reza}
 % \IEEEauthorblockA{\textit{Elastisys} \\
-% % \textit{Umeå University}\\
+% % \textit{Ume\aa University}\\
 % % Lund, Sweden \\
 % mohammad.saleh@elastisys.com}
 % \and
 % \IEEEauthorblockN{3\textsuperscript{rd} Tommy Löfstedt}
 % \IEEEauthorblockA{\textit{Dept. of Computing Science} \\
-% \textit{Umeå University}\\
-% Umeå, Sweden \\
+% \textit{Ume\aa University}\\
+% Ume\aa, Sweden \\
 % tommy@cs.umu.se}
 % \and
 % \IEEEauthorblockN{4\textsuperscript{th} Erik Elmroth}
 % \IEEEauthorblockA{\textit{Dept. of Computing Science} \\
-% \textit{Umeå University}\\
-% Umeå, Sweden \\
+% \textit{Ume\aa University}\\
+% Ume\aa, Sweden \\
 % elmroth@cs.umu.se}
 % }
 
 
 
-\abtract{
+\abstract{
 Considering the growing prominence of production-level AI and the threat of adversarial attacks that can evade a model at run-time, evaluating the robustness of models to these evasion attacks is of critical importance.
 Additionally, testing model changes likely means deploying the models to \textit{e.g.}, a car, a medical imaging device, or a drone to see how it affects performance, making un-tested changes a public problem that reduces development speed, increases cost of development, and makes it difficult (if not impossible) to parse cause from effect.
 In this work, we used survival analysis as a cloud-native, time-efficient and precise method for predicting model performance in the presence of adversarial noise.
@@ -178,12 +177,12 @@ However, modern architectures have lead to an explosion in model size with the r
 Furthermore, even if we ignore the immense cost of training modern neural networks, the required number of test samples creates serious questions about the efficacy of the typical train/test split methodology for assessing model generalization~\cite{meyers} since regulatory standards around safety-critical software applications~\cite{IEC61508,iso26262,aviation_software,safetyframework} clearly define the maximum failure rate to be in the range $[10^{-12}, 10^{-15}]$ depending on the number of lives at risk. 
 Furthermore, ensuring the robustness of ML models against adversarial noise has become a critical concern since inducing a failure at run-time has consistently shown to be trivial~\cite{adversarialpatch,carlini_towards_2017,croce_reliable_2020,hopskipjump,chakraborty2018adversarial,art2018}. Collecting, labelling, and testing a new set of data for every software change --- as required by law in most of the world~\cite{IEC61508,iso26262,aviation_software,safetyframework} --- would be prohibitively expensive for these large models. 
 Therefore, a new evaluation methodology is required.
-We propose to use survival analysis as a methodological framework to model the failure conditions of a machine learning model. Instead of having a test set large enough to cover all of the failure cases, we generate adversarial samples crafted specifically to make the model fail and then use survival analysis to predict these failures in general.
+We propose to use survival analysis as a methodological framework to model the failure conditions of a machine learning (ML) model. Instead of having a test set large enough to cover all of the failure cases, we generate adversarial samples crafted specifically to make the model fail and then use survival analysis to predict these failures in general.
 In this work, we used accelerated failure-time methods to predict model performance as a function of various model parameters. The methodology outlined in Section~\ref{aft} allows the model-builder to minimize the training cost, optimise for adversarial robustness, estimate the effects of covariates on model performance during routine training procedures. Then, one can perform a cost analysis (Section~\ref{cost}). We then demonstrate the efficacy of this methodology in Section~\ref{results} by examining the role of hardware on model performance, the particulars of which are outlined in Section~\ref{experiments}.
 
 
 \subsection{Contributions}
-To tackle the problems of minimizing deployment cost while maximizing the model performance on both the test set and in the presence of adversarial noise we present a scalable and effective methodology (see  Figure~\ref{fig:experiments}) and software framework (see Figure~\ref{fig:architecture}) for the training (see Section~\ref{aft}) and evaluation (see Section~\ref{cost}) of machine learning models that:
+To tackle the problems of minimizing deployment cost while maximizing the model performance on both the test set and in the presence of adversarial noise we present a scalable and effective methodology (see  Figure~\ref{fig:experiments}) and software framework (see Figure~\ref{fig:architecture}) for the training (see Section~\ref{aft}) and evaluation (see Section~\ref{cost}) of ML models that:
 \begin{itemize}
     \item Optimises for benign and adversarial accuracy simultaneously,
     % \item Extends survival analysis to the realm of neural networks, 
@@ -220,7 +219,7 @@ ML pipelines are often long-running and complex software tool-chains with many t
 \subsection{Classifiers}
 
 We consider ML classifiers, $K(x; \theta)$ with model parameters, $\theta$. The true labels are denoted by $y$, and the model predictions by $\hat{y} = K(x; \theta)$ where $x$ is a mini-batch of size $N$ of data samples. The loss function, the measure of discrepancy between the true label and the predicted label, is denoted by $L(y, \hat{y})$.
-Because of the complexity of modern machine learning models, researchers rely on numerical optimisation, and one popular choice of optimisation algorithm is \textit{stochastic gradient descent}, which updates the model parameters by taking a step in the negative gradient direction, where the gradient is computed using a subset (a mini-batch) of the training samples instead of all training samples.
+Because of the complexity of modern \acrshort{ml} models, researchers rely on numerical optimisation, and one popular choice of optimisation algorithm is \textit{stochastic gradient descent}, which updates the model parameters by taking a step in the negative gradient direction, where the gradient is computed using a subset (a mini-batch) of the training samples instead of all training samples.
 % selects the next $N$ samples from the training set before adjusting the model parameters, $\theta$, in the direction that decreases the loss.
 % This is in the direction of the negative gradient of the loss, $-\nabla L(y, K(x, \theta))$.
 This procedure is repeated for some number of \textit{epochs} (iterations through the entire training set). Every iteration takes a step,
@@ -241,7 +240,7 @@ Choosing a good learning rate is critical for model performance --- greatly effe
 \label{attacks}
 In the context of ML, an adversarial attack refers to deliberate and malicious attempts to manipulate or exploit ML models. Adversarial attacks are designed to deceive or change the model's behavior by introducing carefully crafted input data that can cause the model to make incorrect predictions or otherwise produce undesired outputs. That is, a successful attack is one in which the model outputs on the original, unperturbed data, $\hat{y}$, are not the same as the model outputs on perturbed data, $\hat{y_a}$. That is \textit{adversarial success} or \textit{accelerated failure} is one in which
 \begin{equation}
-    \hat{y} \neq \hat{y_a} = K(x + \varepsilon; \theta ) ,
+    \hat{y} \neq \hat{y}_a = K(x + \varepsilon; \theta ) ,
 \label{eq:adv_success}
 \end{equation}
 where $\varepsilon$ is a noise distance bounded by $0 < \varepsilon \leq \varepsilon^*$
@@ -267,7 +266,7 @@ In the case of safety- or security-critical domains, considering the worst-case 
 
 We propose a methodology for model training and verification using accelerated failure-time (AFT) models, drawn from the field of \textit{survival analysis}, with a focus on cost-efficient evaluation methods.
 AFT models are statistical models used to analyze multivariate effects on the observed failure rate to predict the time-to-failure across a wide variety of circumstances~\cite{aft_models,kleinbaum1996survival}. In medical science, these models are used to make claims like ``smokers are twice as likely to die from lung cancer'' or used to set the operating limits of manufactured components. This methodology can be used to map the relationship between various model tuning parameters and their effect on model performance.
-The next section outlines the methodology for modelling the effect of model hyper-parameters during routine training procedures. We precisely outline the methodology for using survival analysis during the training of machine learning methods. 
+The next section outlines the methodology for modelling the effect of model hyper-parameters during routine training procedures. We precisely outline the methodology for using survival analysis during the training of \acrshort{ml} methods. 
 % First, we present the proposed procedure in Algorithm~\ref{fig:alg} and a visual diagram of it in Figure~\ref{fig:experiments}. Then, in the sections below, we define accuracy (Section~\ref{acc}) and failure rate (Section~\ref{failure_rate}) in the context of survival analysis to make the concept of survival time clear (Section~\ref{survival_time}). We then discuss the importance of the ``acceleration assumption" (Section~\ref{accelerated}), the optimisation algorithm (Section~\ref{optimisation}), and the advantages of this approach (Section~\ref{advantages}).
 
 
@@ -349,7 +348,7 @@ In addition, we seek to minimize the training time in order to maximize the numb
 \subsection{AFT Models}
 \label{survival_time}
 
-AFT models are widely used in industrial, medical, or risk-mitigation contexts~\cite{kleinbaum1996survival, aft_models} to model the effect of covariates on a model's expected time-to-failure (also called survival time. For industrial components, this often means testing the component under a variety  of extreme circumstances to induce failures prematurely. For medical applications, this is used to model the effect of demographic characteristics or the efficacy of certain treatments on a given disease. For machine learning, this means inducing failures during training to measure generalization performance.
+AFT models are widely used in industrial, medical, or risk-mitigation contexts~\cite{kleinbaum1996survival, aft_models} to model the effect of covariates on a model's expected time-to-failure (also called survival time. For industrial components, this often means testing the component under a variety  of extreme circumstances to induce failures prematurely. For medical applications, this is used to model the effect of demographic characteristics or the efficacy of certain treatments on a given disease. For \acrshort{ml}, this means inducing failures during training to measure generalization performance.
 
 The point of this is to model the \textit{survival time}, $S_{\theta}(t)$, as a function of the time, $t$,  and some set of model parameters, $\theta$ such that,
 $$
@@ -357,10 +356,9 @@ $$
 $$
 where $p(T>t)$ is the probability that a model has not failed by time $t$ (``survives'' beyond time $t$). The expected survival time is
 \begin{equation}    
-	\mathbb{E}_{S_\theta}[T] = \int_0^{t^*}  S_\theta(u) \,du,
+	\mathbb{E}_{S_\theta}[T] = \int_0^{t^*} S_\theta(u) \,du,
     \label{eq:expectation}
 \end{equation}
-
 where $t^*$ is the latest time observed in the survival data. However, modelling $S_{\theta}(t)$ requires a choice in modelling function for $S_{\theta}$. The Log-Logistic, Log-Normal, and Weibull functions are widely used alternatives~\cite{kleinbaum1996survival,meyers_aft}. For each trial, one can measure the attack generation time to define the time interval and the accuracy to estimate the number of failures and successes in that time interval. 
 
 \subsubsection{Survival Time}
@@ -375,13 +373,13 @@ In the language of accelerated failure time models, this can be expressed in ter
     S_\theta(t) = S_0 \left( \frac{t}{\phi_\theta(x)} \right),
 \end{equation}
 \cm{
-where $\phi$ is some acceleration factor described by the joint effect of the covariates, such that
+where $\phi_\theta$ is the acceleration factor, described by the joint effect of the covariates, such that
 }
 $$
-    \phi_{\theta}(x) = \exp{ \left( \theta_0 x_0 + \theta_1 x_1 + \cdots + \theta_n x_i \right) },
+    \phi_{\theta}(x) = \exp{ \left( \theta_{0} x_{0} + \theta_{1} x_{1} + \cdots + \theta_{n} x_{n} \right) },
 $$
 \cm{
-and where $x_0 \cdots x_n$ are covariates and $\theta_0, \ldots, \theta_n$ describe the fitted parameters  $\varepsilon$ is used as one of the covariates. That is, when the adversarial noise increases, it will shorten the expected survival time of a sample proportionally. 
+and where $x=(x_0, \ldots, x_n)$ is a vector of covariates and $\theta=(\theta_0, \ldots, \theta_n)$ describe the fitted parameters, and  $\varepsilon$ is used as one of the covariates. That is, when the adversarial noise level changes, it will alter the expected survival time of a sample proportionally.
 }
 This assumption means we can evaluate the generalization performance using a small number of adversarial samples with our precision coming from careful time measurements rather than massive test sets~\cite{kleinbaum1996survival,meyers_aft}.
 \cm{
@@ -410,7 +408,7 @@ These are the mean absolute difference between observed and predicted probabilit
 \section{Cost Analysis}
 \label{cost}
 
-In addition to the survival analysis, we can use an estimate of survival time to conduct a cost analysis as dictated by IEC61508~\cite{IEC61508} which allows us to quantify the marginal risk. To quantify this marginal risk, one must measure the benign and adversarial accuracies (see Eqs.~\ref{eq:adv_success}~and~~\ref{eq:acc}), the model training time ($t_{t}$), the model inference time or latency ($t_{i}$), the attack generation time ($t_{a}$), the cost per hour for a particular hardware ($C$), as well as the power consumption ($P$) of each tested model and attack. 
+In addition to the survival analysis, we can use an estimate of survival time to conduct a cost analysis as dictated by IEC61508~\cite{IEC61508} which allows us to quantify the marginal risk. To quantify this marginal risk, one must measure the benign and adversarial accuracies (see Equations~\ref{eq:adv_success}~and~\ref{eq:acc}), the model training time, $t_{t}$, the model inference time or latency, $t_{i}$, the attack generation time, $t_{a}$, the cost per hour for a particular hardware, $C$, as well as the power consumption, $P$, of each tested model and attack.
 
 
 \subsection{Accuracy}
@@ -422,9 +420,8 @@ In order to estimate the number of failures in a given time period, we measured 
 
 The training time, $T_t$, is the time it takes to evaluate $n$ samples when $t_t$ is the training time per sample. It is defined as
 $$
-    T_t := t_t \cdot n  \cdot m,
+    T_t := t_t \cdot n.
 $$
-where $m$ is the number of epochs.
 
 
 \subsection{Latency}
@@ -439,21 +436,23 @@ which will be driven by the memory bandwidth (measured in bits/second) of a give
 \subsection{Attack Generation Time}
 A successful attack is one that induces failure in a model. That is, the expected survival time, $\mathbb{E}_{S_\theta}[T]$, can be thought of as the average time it takes for an attacker to induce a change in the model output. Assuming a uniform distribution, $T_a$, for $n$ samples, $i$ iterations, and attack time per sample, $t_a$, as
 \begin{equation}
-    T_a := t_a \cdot n \cdot i.
+    T_a := t_a \cdot n.
     \label{eq:attack_time}
 \end{equation}
-In the interest of time, our chosen attack, FGM, uses only a single iteration $i =1$~\cite{fgm}. 
+
 \cm{
-In reality, the attack time will not be drawn from a uniform distribution and prior research~\cite{meyers_aft} has shown that by treating model and attack parameters as  this can be more accurately approximated with $t_{a}'$
+In reality, the attack time will not be drawn from a uniform distribution and prior research~\cite{meyers_aft} has shown that by treating model and attack parameters as covariates, one can model the survival time accurately by using and AFT model, such that:
 }
 \begin{equation}
 	t_{a}' \approx \mathbb{E}_{S_\theta}[T] =  \int_{0}^{t^*} S_{\theta}(t) dt.
- \label{eq:aft_time}
+    \label{eq:aft_time}
 \end{equation}
+
+
 
 \subsection{Cost}
 
-Furthermore, we approach the cost of deployment at two scales. Firstly, we consider the cloud-rental scale, where a small-business might test and deploy a model using \textit{e.g.}, the Google Cloud Platform\footnote{\href{https://cloud.google.com}{https://cloud.google.com}} (GCP) compute costs as a measure of total cost. However, at a certain scale or with certain applications, it is  more appropriate to talk about cost in terms of power (\textit{e.g.}, to deploy a self-driving car with a useful operating range). Finally, we define best-case and worst-case success metrics that provide an efficient way to minimize the latency, cost of deployment, and 
+Furthermore, we approach the cost of deployment at two scales. Firstly, we consider the cloud-rental scale, where a small-business might test and deploy a model using \textit{e.g.}, the Google Cloud Platform (GCP) compute costs as a measure of total cost. However, at a certain scale or with certain applications, it is  more appropriate to talk about cost in terms of power (\textit{e.g.}, to deploy a self-driving car with a useful operating range). Finally, we define metrics that provide an efficient way to minimize the latency, cost of deployment, and 
 maximize the generalized performance of a model. We define the training cost as
 $$
     C_t = C_h \cdot T_t,
@@ -464,7 +463,7 @@ $$
 $$
 and the cost of an attack as,
 $$
-    C_a = C_h \cdot T_a.
+    C_a = C_h \cdot T_a,
 $$
 where $C_h$ is the cost per unit time for the hardware, $T_t$ is the training time, $T_i$ is the inference time, and $T_a$ is the attack generation time, as defined above.
 
@@ -473,7 +472,7 @@ where $C_h$ is the cost per unit time for the hardware, $T_t$ is the training ti
 With an estimate of the expected survival time in hand,  quantify the cost-normalized failure rate, or the ratio of training time to attack time. Assuming that the cost scales linearly -- as discussed above-- the model builder's cost is proportional to the training time ($C_t \propto t_{t}$), and the attacker's cost is proportional to the attack time, which is approximately the expected survival time ($C_{a} \propto t_{a}' \approx \mathbb{E}_{S\theta}[T]$). Using the definition of $\varepsilon$ from Equation~\ref{eq:adv_success} and definition of $t_a'$ from Equation~\ref{eq:aft_time}, we can express the cost of failure in adversarial terms as follows:
 }
 \begin{equation}
-	\textrm{TRASH~Score}=\frac{t_t}{\mathbb{E}_{\theta}[T \,|\, 0 < \varepsilon \leq \varepsilon^*]} = \frac{t_t}{t_a'}.
+	\textrm{TRASH}=\frac{t_t}{\mathbb{E}_{\theta}[T]} = \frac{t_t}{t_a'}.
 	\label{eq:cost}
 \end{equation}
 
@@ -546,7 +545,7 @@ To examine the effect of model parameters at run-time, evasion attacks, which at
 
 \subsection{GPU Configurations}
 
-Several hardware configurations were tested, that had various hourly costs, peak power demands, and theoretical memory bandwidths. The V100 was chosen as a baseline, since it is routinely used in the literature~\cite{svedin2021benchmarking,xu2018deep}. The P100 architecture comes from the same line of server-grade GPUs, but from an older generation. The L4, however, is advertised as a machine built for inference --- not training --- relying on a smaller number of bits per tensor core. Consequently, the number of operations per second depends on the bit depth of the data and model weights, with peak numbers outlined in Table~\ref{tab:hardware} for 8-bit inputs. The rental cost of the hardware, measured in United States Dollars per hour, indicates the operating cost of a given model. To calculate this, the price per hour from each cloud service pricing page\footnote{Google Cloud prices for P100 and V100 obtained \href{https://cloud.google.com/compute/gpus-pricing}{here.} Google Cloud prices for L4 obtained \href{https://cloud.google.com/compute/vm-instance-pricing\#accelerator-optimised}{here.}} were used and the cost of training ($C_{t}$) and the cost of inference ($C_{i}$) calculated from the cost of hardware ($C_{h}$), the training time ($T_{t}$), and the inference time ($T_{i}$).
+Several hardware configurations were tested, that had various hourly costs, peak power demands, and theoretical memory bandwidths. The V100 was chosen as a baseline, since it is routinely used in the literature~\cite{svedin2021benchmarking,xu2018deep}. The P100 architecture comes from the same line of server-grade GPUs, but from an older generation. The L4, however, is advertised as a machine built for inference --- not training --- relying on a smaller number of bits per tensor core. Consequently, the number of operations per second depends on the bit depth of the data and model weights, with peak numbers outlined in Table~\ref{tab:hardware} for 8-bit inputs. The rental cost of the hardware, measured in United States Dollars per hour, indicates the operating cost of a given model. To calculate this, the price per hour from each cloud service pricing page~\cite{pricing_1,pricing_2} were used and the cost of training ($C_{t}$) and the cost of inference ($C_{i}$) calculated from the cost of hardware ($C_{h}$), the training time ($T_{t}$), and the inference time ($T_{i}$).
 \begin{table*}[h]
     \centering
     \begin{tabular}{lllll}
@@ -708,7 +707,7 @@ Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effec
         \includegraphics[width=.7\linewidth]{plots/combined/log_normal_trash_score.pdf}
         \caption{}
     \end{subfigure}
-    \caption{\cm{The \textit{training rate and survival heuristic} score (TRASH score) that depicts the per-sample ratio of training time to attack time. 
+    \caption{\cm{The \textit{training rate and survival heuristic} score (TRASH score) that depicts the per-sample ratio of training time to attack time for each of the tested AFT models. 
     If this value is greater than one (the red line), then the model can be discarded as ineffective. The x-axis shows each dataset, the y-axis shows the \acrshort{trash} score and each GPU model is given its own color. Outlier scores are depicted with a white dot.}}
     \label{fig:trash}
 \end{figure*}
@@ -718,13 +717,13 @@ Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effec
 In security analysis, it is  routine to think in optimistic terms for both the attacker and defender. In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken").
 Using \acrshort{aft}, one can model the Pareto front --- the set of points that are superior to all others in the search space --- for all objectives~\cite{zitzler2008quality}. 
 By using a whitebox attack to generate the failures, we ensure that our defender operates under the worst case scenario while the attacker operates under their best case scenario to yield a worst-case failure rate.
-As such, we center our analysis on the whitebox Fast Gradient Method~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}. If the cost to a model builder is much larger than the cost to an attacker, then it is  clear that the model is ``broken" in this cryptographic sense and can be discarded as ineffective~\cite{meyers_aft}. \cm{TODO. Discuss the TRASH SCORE plots.}
+As such, we center our analysis on the whitebox Fast Gradient Method (\acrshort{fgm})~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}. If the cost to a model builder is much larger than the cost to an attacker, then it is  clear that the model is ``broken" in this cryptographic sense and can be discarded as ineffective~\cite{meyers_aft}. \cm{Figure~\ref{fig:trash} depicts the TRASH score defined in Equation~\ref{eq:cost}, that quantifies the per-sample ratio of training to attack time. It is clear that even with the reduced GPU bandwidth (Table~\ref{tab:hardware}), that the L4 model is not only superior in terms of cost (Table~\ref{tab:hardware}), but also in terms of robustness (Table~\ref{tab:hardware}), presumably since the extra bit-depth provided by the P100 and V100 ends up being useless noise anyway when operating on 8-bit images like MNIST and CIFAR.}
 
 
 \subsection{Advantages of this Methodology}
 \label{advantages}
 \cm{The primary advantage of this methodology over the traditional test/train split measurements is that the precision of the latter is determined by the number of samples; whereas, the precision of the survival time estimate is driven by the resolution of our timing measurements. For test-set accuracy,  meeting the weakest safety-critical IEC standard (1 failure in a million) would require many millions of samples to confidently conclude that a model is safe. However, the presented AFT model has an average error rate of 1\% while requiring a very small number of samples (10 sets of 100) (see Table~\ref{tab:combined}).}
-Because of the small number of samples needed for building AFT models (when compared to testing against massive in-distribution test sets), AFT models could, for example, act as a unit test in machine learning applications. 
+Because of the small number of samples needed for building AFT models (when compared to testing against massive in-distribution test sets), AFT models could, for example, act as a unit test in \acrshort{ml} applications. 
 This is in contrast to a full-system integration tests to evaluate changes to a single model, signal processing technique, data storage format, or API access mechanism~\cite{schmoor2000sample,lachin1981introduction}. It could also be used to highlight error-prone classes or other subsets of data to reduce error or create synthetic samples as is common in medical research~\cite{kleinbaum1996survival}. Furthermore, by isolating changes and testing them as quickly as possible, it is easier to parse cause and effect when compared to full-system integration tests that could include many changes from many different development teams and require live and potentially dangerous systems (like cars, drones, or industrial equipment) to effectively test. To further increase development velocity, these models can quantify the marginal risk associated with each change, as dictated by the IEC 61508 standard~\cite{IEC61508}, allowing the model builder to make a quantitative assessment about the efficacy of a model change without testing the effect on real users. Additionally, since AFT models have strong predictive power for untested hyper-parameter combinations, this method has a potential to reduce the search space by quickly eliminating candidates that are unlikely to increase the survival time. 
 
 \section{Considerations}
@@ -736,23 +735,24 @@ While it is very possible (if not altogether guaranteed) that some classes or sa
 However, given the strong results and uniformity across AFT functions in Table~\ref{tab:combined}, the uniform time assumption appears to be insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexplained variance. 
 Additionally, we chose a model and set of datasets small enough to fit entirely in GPU memory to minimize the confounding factors around parallelized, distributed, and/or federated learning as well as the complexities around storage hardware, file systems, and various access mechanisms. 
 Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth, but the 48GB of VRAM provided by the L40 should be more than sufficient for vision tasks based on 8-bit images standard in the literature (e.g. MNIST, CIFAR10, CIFAR100). Furthermore, the attack batch size and the training batch size were set to be the same for every trial for each dataset and piece of hardware so that the attack timing would mimic the usage of regular users.
-If anything, the smaller sample size of the attacks means that proportionally more parallelization overhead is needed per sample, leading to an underestimate of the attack efficacy compared to the benign measurements. Furthermore, while FGM is fast, it is not guaranteed to find failures as quickly as possible, meaning that the survival time estimate is likely to be overestimated.
+If anything, the smaller sample size of the attacks means that proportionally more parallelization overhead is needed per sample, leading to an underestimate of the attack efficacy compared to the benign measurements. Furthermore, while \acrshort{fgm} is fast, it is not guaranteed to find failures as quickly as possible, meaning that the survival time estimate is likely to be overestimated.
 In general, distributed/federated models were out of scope for this work, but architectural choices regarding the configuration of such methods could be evaluated using the cost and survival analysis techniques outlined above. 
 The hyper-parameter search was restricted to only a single evasion attack (see Eq.~\ref{eq:fgm}) in the interest of time and budget, though this analysis would generalize to other evasion, extraction, inversion, or poisoning attacks~\cite{biggio_evasion_2013,biggio_poisoning_2013,choquette2021label,orekondy2019knockoff}. 
+
 
 
 \section{Conclusions}
 \label{conclusion}
 
-In this work, \cm{we applied survival analysis to cloud-native machine learning}, developed a method to quickly and efficiently test model parameter choices and evaluated them in the presence of adversarial noise, allowing one to the model performance as a function of tested model parameters.
+In this work, \cm{we applied survival analysis to cloud-native \acrshort{ml}}, developed a method to quickly and efficiently test model parameter choices and evaluated them in the presence of adversarial noise, allowing one to the model performance as a function of tested model parameters.
 Using this technique, it is clear that reduced run-times with newer and/or larger hardware, that adversarial robustness is not substantially effected and that the specific choice of attack parameters is far more important than model training time. 
 
 ~\cm{
-The experiments conducted confirm that this methodology is both sound and cost-effective. While 88\% of the cloud budget went to GPU rentals, the data show how cutting that cost by 75\% and using less power-intensive hardware designed for 8-bit image processing would be \textit{more} effective than using the 32-bit datacenter GPUs (V100 and P100) for typical image classification tasks. Using \acrshort{kepler} proved to be a cost-effective as real-time monitoring only used a fraction of the budget (6\%). 
+The experiments conducted confirm that this methodology is both sound and cost-effective. While 88\% of the cloud budget went to GPU rentals, the data show how cutting that cost by 75\% and using less power-intensive hardware designed for 8-bit image processing would be \textit{more} effective than using the 32-bit datacenter \acrshort{gpu}s (V100 and P100) for typical image classification tasks. Using \acrshort{kepler} proved to be a cost-effective as real-time monitoring only used a fraction of the budget (6\%). 
 Figure~\ref{fig:acc} confirms the efficacy of the ~\acrshort{tpe} algorithm discussed in Section~\ref{optimisation}, allowing a infrastructure engineer to ignore the intricacies of learning rate optimization while tuning the model to a particular piece of hardware. 
 Additionally, Table~\ref{tab:combined} and Figure~\ref{fig:qq} show that \acrshort{aft} models are an effective way to model the survival time across hardware variants. 
 By comparing the training, inference, and attack  times, costs, and power consumption across different hardware devices (Figure~\ref{fig:costs}, it is clear that attacks generally cost less than training, even when we ignore the fact that attacks are consistently effective using a small number of samples while training relies on many thousands (see: Figures~\ref{fig:experiments}~\&~\ref{fig:acc}).
-This analysis is further confirmed by examining the coefficients of the AFT models in Figure~\ref{fig:aft}. 
+This analysis is further confirmed by examining the coefficients of the AFT models in Figure~\ref{fig:aft} wherein it is evident that neither training time ($T_t$) nor the number of epochs have noticeable effect on the survival time, but that model latency ($T_i$) does. 
 }
 
 \cm{
@@ -772,6 +772,8 @@ Furthermore, the data demonstrate the un-advertised training capability of the N
 % For peerreview papers, this IEEEtran command inserts a page break and
 % creates the second title. It will be ignored for other modes.
 \clearpage
+\section{Availability of Data and Materials}
+The source code for conducting the experiments is available \href{https://github.com/simplymathematics/deckard/tree/main/examples/power}{in the \texttt{deckard} repository} and the pretrained \texttt{pytorch} version of ResNet18 was used to conduct the experiments. Requirements and dependencies are listed within the repository, which is distributed under the GNU Public License version 3. The compiled data and the Python source code for this document are available \href{https://github.com/simplymathematics/kepler-ml}{here}. The source code has been tested on Windows and various Linux distributions and should work on MacOS, but has not been tested there.
 \printglossary
 \clearpage
 \bibliography{sn-bibliography}
