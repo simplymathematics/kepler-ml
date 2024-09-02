@@ -517,11 +517,11 @@ This section outlines specific implementation details for the evaluation of the 
 \begin{figure*}
     \centering
     \includegraphics[width=.9\textwidth]{plots/architecture.pdf}
-    \caption{\cm{For our experiments we used four node pools from Google Cloud Platform, each has a particular responsibility. The first node pool includes 3 different nodes responsible for hosting monitoring services such as Prometheus and Grafana.  
-    The other node pools each had one node with a specific GPU\@.  
-    The KEPLER exporter is then deployed on each node as DaemonSet to monitor the resource usage.  
-    All the storage requirements during the experimentation such as storage for experiments and monitoring data were then stored on storage provided by persistent volume claim (PVC). 
-    A PVC is a request for storage by user in Kubernetes which is then connected to the object storage. 
+    \caption{\cm{For our experiments we used four node pools from Google Cloud Platform, each has a particular responsibility. The first node pool includes 3 different nodes responsible for hosting monitoring services such as Prometheus and Grafana.
+    The other node pools each had one node with a specific GPU\@.
+    The KEPLER exporter is then deployed on each node as DaemonSet to monitor the resource usage.
+    All the storage requirements during the experimentation such as storage for experiments and monitoring data were then stored on storage provided by persistent volume claim (PVC).
+    A PVC is a request for storage by user in Kubernetes which is then connected to the object storage.
     The blue experiment, blue-green object storage, green analysis component, and purple AFT component correspond to the same colors in Figure~\ref{fig:experiments}.}}
     \label{fig:architecture}
 \end{figure*}
@@ -529,7 +529,12 @@ This section outlines specific implementation details for the evaluation of the 
 
 
 \subsection{Cloud Platform and Hardware}
-To conduct the experiments and have access to different types of hardware, we utilized \acrshort{gcp}. Six virtual machines running container optimised operating system provided by GCP constituted the test-bed. Using Google Kubernetes Engine 1.27.3 and Containerd 1.7.0, a cluster consisting of six worker nodes was created. Three worker nodes were responsible for running the monitoring platforms-- Prometheus 2.47.2 and Grafana 10.2.0. These nodes were of the ``e2-medium'' instance type provided by GCP. In total, three GPU architectures were used--the Nvidia P100, V100, and L4. For P100 and V100 GPUs, the ``n1-standard-2'' type was used for the nodes and for L4 GPUs the ``g2-standard-4'' was used.
+To conduct the experiments and have access to different types of hardware, we utilized \acrshort{gcp}\@. 
+Six virtual machines running container optimised operating system provided by GCP constituted the test-bed. 
+Using Google Kubernetes Engine 1.27.3 and Containerd 1.7.0, a cluster consisting of six worker nodes was created. 
+Three worker nodes were responsible for running the monitoring platforms-- Prometheus 2.47.2 and Grafana 10.2.0. 
+These nodes were of the ``e2-medium'' instance type provided by GCP. In total, three GPU architectures were used--the Nvidia P100, V100, and L4. 
+For P100 and V100 GPUs, the ``n1-standard-2'' type was used for the nodes and for L4 GPUs the ``g2-standard-4'' was used.
 
 To assess the energy consumption of the experiments, \Gls{kepler} deployed on a was used to measure the power consumption of each experiment~\cite{amaral2023kepler}. This approach enables gathering energy consumption data on granular levels as it runs in Kubernetes cluster and capable of collecting energy consumption of Kubernetes components. In essence, KEPLER uses extended Berkeley Packet Filter to probe energy-related system stats and exports them as Prometheus metrics. This filter can be described as a lightweight and sandboxed virtual machine (VM) in kernel space. The filter programs are invoked by the kernel when certain events occur. Examples of such events include system calls or network activity. These processes enable deep analysis and full control over different events with low overhead~\cite{sedghpour@ebpf}. A diagram of the cloud architecture can be found in Figure~\ref{fig:architecture}. Finally, for a cost-effective model evaluation technique, all of the experiments were restricted to a single one-thousand United States dollar budget (a research grant from Google). Approximately 10\% of this was used for development and 90\% was used for the evaluations.
 \cm{Over the course of the evaluations, 6\% of the budget went to the storage, 6\% to the monitoring, and the remaining 88\% went the GPUs.}
