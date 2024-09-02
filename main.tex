@@ -268,7 +268,7 @@ In the case of safety- or security-critical domains, considering the worst-case 
 
 We propose a methodology for model training and verification using accelerated failure-time (AFT) models, drawn from the field of \textit{survival analysis}, with a focus on cost-efficient evaluation methods.
 AFT models are statistical models used to analyze multivariate effects on the observed failure rate to predict the time-to-failure across a wide variety of circumstances~\cite{aft_models,kleinbaum1996survival}. In medical science, these models are used to make claims like ``smokers are twice as likely to die from lung cancer'' or used to set the operating limits of manufactured components. This methodology can be used to map the relationship between various model tuning parameters and their effect on model performance.
-The next section outlines the methodology for modelling the effect of model hyper-parameters during routine training procedures. We precisely outline the methodology for using survival analysis during the training of \acrshort{ml} methods. 
+The next section outlines the methodology for modelling the effect of model hyper-parameters during routine training procedures. We precisely outline the methodology for using survival analysis during the training of \acrshort{ml} methods.
 % First, we present the proposed procedure in Algorithm~\ref{fig:alg} and a visual diagram of it in Figure~\ref{fig:experiments}. Then, in the sections below, we define accuracy (Section~\ref{acc}) and failure rate (Section~\ref{failure_rate}) in the context of survival analysis to make the concept of survival time clear (Section~\ref{survival_time}). We then discuss the importance of the ``acceleration assumption" (Section~\ref{accelerated}), the optimisation algorithm (Section~\ref{optimisation}), and the advantages of this approach (Section~\ref{advantages}).
 
 
@@ -350,18 +350,21 @@ In addition, we seek to minimize the training time in order to maximize the numb
 \subsection{AFT Models}
 \label{survival_time}
 
-AFT models are widely used in industrial, medical, or risk-mitigation contexts~\cite{kleinbaum1996survival, aft_models} to model the effect of covariates on a model's expected time-to-failure (also called survival time. For industrial components, this often means testing the component under a variety  of extreme circumstances to induce failures prematurely. For medical applications, this is used to model the effect of demographic characteristics or the efficacy of certain treatments on a given disease. For \acrshort{ml}, this means inducing failures during training to measure generalization performance.
+AFT models are widely used in industrial, medical, or risk-mitigation contexts~\cite{kleinbaum1996survival,aft_models} to model the effect of covariates on a model's expected time-to-failure (also called survival time).
+For industrial components, this often means testing the component under a variety  of extreme circumstances to induce failures prematurely.
+For medical applications, this is used to model the effect of demographic characteristics or the efficacy of certain treatments on a given disease.
+For \acrshort{ml}, this means inducing failures during training to measure generalization performance.
 
 The point of this is to model the \textit{survival time}, $S_{\theta}(t)$, as a function of the time, $t$,  and some set of model parameters, $\theta$ such that,
 \[
     S_{\theta}(t) = p(T>t  \mid \theta) = \exp\left(-\int_0^t h_{\theta}(u) \, du\right)
 \]
 where $p(T>t)$ is the probability that a model has not failed by time $t$ (``survives'' beyond time $t$). The expected survival time is
-\begin{equation}    
+\begin{equation}
 	\mathbb{E}_{S_\theta}[T] = \int_0^{t^*} S_\theta(u) \,du,
     \label{eq:expectation}
 \end{equation}
-where $t^*$ is the latest time observed in the survival data. However, modelling $S_{\theta}(t)$ requires a choice in modelling function for $S_{\theta}$. The Log-Logistic, Log-Normal, and Weibull functions are widely used alternatives~\cite{kleinbaum1996survival,meyers_aft}. For each trial, one can measure the attack generation time to define the time interval and the accuracy to estimate the number of failures and successes in that time interval. 
+where $t^*$ is the latest time observed in the survival data. However, modelling $S_{\theta}(t)$ requires a choice in modelling function for $S_{\theta}$. The Log-Logistic, Log-Normal, and Weibull functions are widely used alternatives~\cite{kleinbaum1996survival,meyers_aft}. For each trial, one can measure the attack generation time to define the time interval and the accuracy to estimate the number of failures and successes in that time interval.
 
 \subsubsection{Survival Time}
 \label{accelerated}
@@ -455,7 +458,7 @@ In reality, the attack time will not be drawn from a uniform distribution and pr
 
 \subsection{Cost}
 
-Furthermore, we approach the cost of deployment at two scales. Firstly, we consider the cloud-rental scale, where a small-business might test and deploy a model using \textit{e.g.}, the Google Cloud Platform (GCP) compute costs as a measure of total cost. However, at a certain scale or with certain applications, it is  more appropriate to talk about cost in terms of power (\textit{e.g.}, to deploy a self-driving car with a useful operating range). Finally, we define metrics that provide an efficient way to minimize the latency, cost of deployment, and 
+Furthermore, we approach the cost of deployment at two scales. Firstly, we consider the cloud-rental scale, where a small-business might test and deploy a model using \textit{e.g.}, the Google Cloud Platform (GCP) compute costs as a measure of total cost. However, at a certain scale or with certain applications, it is  more appropriate to talk about cost in terms of power (\textit{e.g.}, to deploy a self-driving car with a useful operating range). Finally, we define metrics that provide an efficient way to minimize the latency, cost of deployment, and
 maximize the generalized performance of a model. We define the training cost as
 \[
     C_t = C_h \cdot T_t,
@@ -713,7 +716,7 @@ Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effec
         \includegraphics[width=.7\linewidth]{plots/combined/log_normal_trash_score.pdf}
         \caption{}
     \end{subfigure}
-    \caption{\cm{The \textit{training rate and survival heuristic} score (TRASH score) that depicts the per-sample ratio of training time to attack time for each of the tested AFT models. 
+    \caption{\cm{The \textit{training rate and survival heuristic} score (TRASH score) that depicts the per-sample ratio of training time to attack time for each of the tested AFT models.
     If this value is greater than one (the red line), then the model can be discarded as ineffective. The x-axis shows each dataset, the y-axis shows the \acrshort{trash} score and each GPU model is given its own color. Outlier scores are depicted with a white dot.}}
     \label{fig:trash}
 \end{figure*}
@@ -729,21 +732,21 @@ As such, we center our analysis on the whitebox Fast Gradient Method (\acrshort{
 \subsection{Advantages of this Methodology}
 \label{advantages}
 \cm{The primary advantage of this methodology over the traditional test/train split measurements is that the precision of the latter is determined by the number of samples; whereas, the precision of the survival time estimate is driven by the resolution of our timing measurements. For test-set accuracy,  meeting the weakest safety-critical IEC standard (1 failure in a million) would require many millions of samples to confidently conclude that a model is safe. However, the presented AFT model has an average error rate of 1\% while requiring a very small number of samples (10 sets of 100) (see Table~\ref{tab:combined}).}
-Because of the small number of samples needed for building AFT models (when compared to testing against massive in-distribution test sets), AFT models could, for example, act as a unit test in \acrshort{ml} applications. 
-This is in contrast to a full-system integration tests to evaluate changes to a single model, signal processing technique, data storage format, or API access mechanism~\cite{schmoor2000sample,lachin1981introduction}. It could also be used to highlight error-prone classes or other subsets of data to reduce error or create synthetic samples as is common in medical research~\cite{kleinbaum1996survival}. Furthermore, by isolating changes and testing them as quickly as possible, it is easier to parse cause and effect when compared to full-system integration tests that could include many changes from many different development teams and require live and potentially dangerous systems (like cars, drones, or industrial equipment) to effectively test. To further increase development velocity, these models can quantify the marginal risk associated with each change, as dictated by the IEC 61508 standard~\cite{IEC61508}, allowing the model builder to make a quantitative assessment about the efficacy of a model change without testing the effect on real users. Additionally, since AFT models have strong predictive power for untested hyper-parameter combinations, this method has a potential to reduce the search space by quickly eliminating candidates that are unlikely to increase the survival time. 
+Because of the small number of samples needed for building AFT models (when compared to testing against massive in-distribution test sets), AFT models could, for example, act as a unit test in \acrshort{ml} applications.
+This is in contrast to a full-system integration tests to evaluate changes to a single model, signal processing technique, data storage format, or API access mechanism~\cite{schmoor2000sample,lachin1981introduction}. It could also be used to highlight error-prone classes or other subsets of data to reduce error or create synthetic samples as is common in medical research~\cite{kleinbaum1996survival}. Furthermore, by isolating changes and testing them as quickly as possible, it is easier to parse cause and effect when compared to full-system integration tests that could include many changes from many different development teams and require live and potentially dangerous systems (like cars, drones, or industrial equipment) to effectively test. To further increase development velocity, these models can quantify the marginal risk associated with each change, as dictated by the IEC 61508 standard~\cite{IEC61508}, allowing the model builder to make a quantitative assessment about the efficacy of a model change without testing the effect on real users. Additionally, since AFT models have strong predictive power for untested hyper-parameter combinations, this method has a potential to reduce the search space by quickly eliminating candidates that are unlikely to increase the survival time.
 
 \section{Considerations}
 \label{considerations}
 
 We have taken much care to conduct all timing measurements as carefully as possible.
-Primarily, to minimize timing jitter and account for GPU parallelization, we assumed that the time-to-failure during the benign and adversarial accuracy measurements was uniform across the samples in each trial. 
-While it is very possible (if not altogether guaranteed) that some classes or samples are easier to attack than others, we assume that this averages out over the 100 samples given to each attack. Further work examining, for example, the effect of imbalanced datasets on the the distribution of survival times across classes is outside the scope of this work, though the methodology would remain identical. Similarly, one could examine survival times for samples near the class boundary and compare them with prototypical samples near the center of the class cluster. 
-However, given the strong results and uniformity across AFT functions in Table~\ref{tab:combined}, the uniform time assumption appears to be insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexplained variance. 
-Additionally, we chose a model and set of datasets small enough to fit entirely in GPU memory to minimize the confounding factors around parallelized, distributed, and/or federated learning as well as the complexities around storage hardware, file systems, and various access mechanisms. 
-Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth, but the 48GB of VRAM provided by the L40 should be more than sufficient for vision tasks based on 8-bit images standard in the literature (e.g. MNIST, CIFAR10, CIFAR100). Furthermore, the attack batch size and the training batch size were set to be the same for every trial for each dataset and piece of hardware so that the attack timing would mimic the usage of regular users.
+Primarily, to minimize timing jitter and account for GPU parallelization, we assumed that the time-to-failure during the benign and adversarial accuracy measurements was uniform across the samples in each trial.
+While it is very possible (if not altogether guaranteed) that some classes or samples are easier to attack than others, we assume that this averages out over the 100 samples given to each attack. Further work examining, for example, the effect of imbalanced datasets on the the distribution of survival times across classes is outside the scope of this work, though the methodology would remain identical. Similarly, one could examine survival times for samples near the class boundary and compare them with prototypical samples near the center of the class cluster.
+However, given the strong results and uniformity across AFT functions in Table~\ref{tab:combined}, the uniform time assumption appears to be insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexplained variance.
+Additionally, we chose a model and set of datasets small enough to fit entirely in GPU memory to minimize the confounding factors around parallelized, distributed, and/or federated learning as well as the complexities around storage hardware, file systems, and various access mechanisms.
+Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth, but the 48GB of VRAM provided by the L40 should be more than sufficient for vision tasks based on 8-bit images standard in the literature (\textit{e.g.} MNIST, CIFAR10, CIFAR100). Furthermore, the attack batch size and the training batch size were set to be the same for every trial for each dataset and piece of hardware so that the attack timing would mimic the usage of regular users.
 If anything, the smaller sample size of the attacks means that proportionally more parallelization overhead is needed per sample, leading to an underestimate of the attack efficacy compared to the benign measurements. Furthermore, while \acrshort{fgm} is fast, it is not guaranteed to find failures as quickly as possible, meaning that the survival time estimate is likely to be overestimated.
-In general, distributed/federated models were out of scope for this work, but architectural choices regarding the configuration of such methods could be evaluated using the cost and survival analysis techniques outlined above. 
-The hyper-parameter search was restricted to only a single evasion attack (see Eq.~\ref{eq:fgm}) in the interest of time and budget, though this analysis would generalize to other evasion, extraction, inversion, or poisoning attacks~\cite{biggio_evasion_2013,biggio_poisoning_2013,choquette2021label,orekondy2019knockoff}. 
+In general, distributed/federated models were out of scope for this work, but architectural choices regarding the configuration of such methods could be evaluated using the cost and survival analysis techniques outlined above.
+The hyper-parameter search was restricted to only a single evasion attack (see Eq.~\ref{eq:fgm}) in the interest of time and budget, though this analysis would generalize to other evasion, extraction, inversion, or poisoning attacks~\cite{biggio_evasion_2013,biggio_poisoning_2013,choquette2021label,orekondy2019knockoff}.
 
 
 
@@ -751,20 +754,20 @@ The hyper-parameter search was restricted to only a single evasion attack (see E
 \label{conclusion}
 
 In this work, \cm{we applied survival analysis to cloud-native \acrshort{ml}}, developed a method to quickly and efficiently test model parameter choices and evaluated them in the presence of adversarial noise, allowing one to the model performance as a function of tested model parameters.
-Using this technique, it is clear that reduced run-times with newer and/or larger hardware, that adversarial robustness is not substantially effected and that the specific choice of attack parameters is far more important than model training time. 
+Using this technique, it is clear that reduced run-times with newer and/or larger hardware, that adversarial robustness is not substantially effected and that the specific choice of attack parameters is far more important than model training time.
 
 ~\cm{
-The experiments conducted confirm that this methodology is both sound and cost-effective. While 88\% of the cloud budget went to GPU rentals, the data show how cutting that cost by 75\% and using less power-intensive hardware designed for 8-bit image processing would be \textit{more} effective than using the 32-bit datacenter \acrshort{gpu}s (V100 and P100) for typical image classification tasks. Using \acrshort{kepler} proved to be a cost-effective as real-time monitoring only used a fraction of the budget (6\%). 
-Figure~\ref{fig:acc} confirms the efficacy of the ~\acrshort{tpe} algorithm discussed in Section~\ref{optimisation}, allowing a infrastructure engineer to ignore the intricacies of learning rate optimization while tuning the model to a particular piece of hardware. 
-Additionally, Table~\ref{tab:combined} and Figure~\ref{fig:qq} show that \acrshort{aft} models are an effective way to model the survival time across hardware variants. 
+The experiments conducted confirm that this methodology is both sound and cost-effective. While 88\% of the cloud budget went to GPU rentals, the data show how cutting that cost by 75\% and using less power-intensive hardware designed for 8-bit image processing would be \textit{more} effective than using the 32-bit datacenter \acrshort{gpu}s (V100 and P100) for typical image classification tasks. Using \acrshort{kepler} proved to be a cost-effective as real-time monitoring only used a fraction of the budget (6\%).
+Figure~\ref{fig:acc} confirms the efficacy of the ~\acrshort{tpe} algorithm discussed in Section~\ref{optimisation}, allowing a infrastructure engineer to ignore the intricacies of learning rate optimization while tuning the model to a particular piece of hardware.
+Additionally, Table~\ref{tab:combined} and Figure~\ref{fig:qq} show that \acrshort{aft} models are an effective way to model the survival time across hardware variants.
 By comparing the training, inference, and attack  times, costs, and power consumption across different hardware devices (Figure~\ref{fig:costs}, it is clear that attacks generally cost less than training, even when we ignore the fact that attacks are consistently effective using a small number of samples while training relies on many thousands (see: Figures~\ref{fig:experiments}~\&~\ref{fig:acc}).
-This analysis is further confirmed by examining the coefficients of the AFT models in Figure~\ref{fig:aft} wherein it is evident that neither training time ($T_t$) nor the number of epochs have noticeable effect on the survival time, but that model latency ($T_i$) does. 
+This analysis is further confirmed by examining the coefficients of the AFT models in Figure~\ref{fig:aft} wherein it is evident that neither training time ($T_t$) nor the number of epochs have noticeable effect on the survival time, but that model latency ($T_i$) does.
 }
 
 \cm{
 Regardless of which AFT model is chosen, the model suggests that the P100 decreases the survival time compared to the V100 and the L4 increases the survival time (both compared to the V100, which has no significant effect).
-Furthermore, the coefficients again confirm an inverse relationship between test-set (benign) accuracy and the adversarial robustness (\textit{i.e.} survival time). 
-Finally, even when we account for the reduced GPU bandwidth (see: Table~\ref{tab:hardware}) and increased training time (see: Figure~\ref{fig:time}), it is clear the the L4 model is superior in terms of robustness and cost-effectiveness (see: Figure~\ref{fig:trash}), despite it being advertised as ``inference only" by the manufacturer. 
+Furthermore, the coefficients again confirm an inverse relationship between test-set (benign) accuracy and the adversarial robustness (\textit{i.e.} survival time).
+Finally, even when we account for the reduced GPU bandwidth (see: Table~\ref{tab:hardware}) and increased training time (see: Figure~\ref{fig:time}), it is clear the the L4 model is superior in terms of robustness and cost-effectiveness (see: Figure~\ref{fig:trash}), despite it being advertised as ``inference only" by the manufacturer.
 }
 Furthermore, the data demonstrate the un-advertised training capability of the Nvidia L4 GPU which yields a 20\% increase in survival time while costing 75\% less than the V100 that's been typical in the literature over the last several years.
 
