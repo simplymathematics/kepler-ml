@@ -42,59 +42,59 @@ weibull:
     "cifar100" : "CIFAR100"
     "cifar" : "CIFAR10"
     "mnist" : "MNIST"
-    "device_id_": "nvidia-"
+    "device_id_": ""
     "tesla-v100" : "V100"
     "tesla-p100" : "P100"
     "l4" : "L4"
-# cox:
-#   plot:
-#     file : cox_aft.pdf
-#     title : Cox AFT Model
-#   labels:
-#     "data.sample.random_state": "Random State"
-#     "atk_value": "Attack Strength"
-#     "train_time": "$T_{t}$"
-#     "predict_proba_time": "$T_{i}$"
-#     "adv_accuracy": "Adv. Accuracy"
-#     "accuracy": "Ben. Accuracy"
-#     "adv_fit_time": "$T_{a}$"
-#     "adv_failure_rate": "$h_{adv.}(t;\\theta)$"
-#     "failure_rate": "$h_{ben.}(t;\\theta)$"
-#     "model.trainer.nb_epoch": "No. of Epochs"
-#     "model.trainer.batch_size": "Batch Size"
-#     "def_gen": "Defence"
-#     "attack.init.eps": "$\\varepsilon$"
-#   partial_effect:
-#     - "file": "cox_epochs_partial_effect.pdf"
-#       "covariate_array": "model.trainer.nb_epoch"
-#       "values_array": [1,10,25,50]
-#       "title": "$S(t)$ for Cox AFR"
-#       "ylabel": "$\\mathbb{P}~(T>t)$"
-#       "xlabel": "Time $t$ (seconds)"
-#       "legend_kwargs": {
-#           "title": "Epochs",
-#           "labels": ["1", "10", "25", "50"]
-#       }
-#     - "file": "cox_batch_size_partial_effect.pdf"
-#       "covariate_array": "model.trainer.batch_size"
-#       "values_array": [1,10,25,50]
-#       "title": "$S(t)$ for Cox AFR"
-#       "ylabel": "$\\mathbb{P}~(T>t)$"
-#       "xlabel": "Time $t$ (seconds)"
-#       "legend_kwargs": {
-#           "title": "Batch Size",
-#           "labels": ["10", "100", "1000", "10000"]
-#       }
-#     - "file" : cox_attack_eps_partial_effect.pdf
-#       "covariate_array" : attack.init.eps
-#       "values_array" : [1e-4, 1e-3, 1e-2, 1e-1, 1]
-#       "title": "$S(t)$ for Cox AFR"
-#       "ylabel": "$\\mathbb{P}~(T>t)$"
-#       "xlabel": "Time $t$ (seconds)"
-#       "legend_kwargs": {
-#           "title": "$\\varepsilon$",
-#           "labels": ["1e-4", "1e-3", "1e-2", '1e-1', '1']
-#       }
+cox:
+  plot:
+    file : cox_aft.pdf
+    title : Cox AFT Model
+  labels:
+    "data.sample.random_state": "Random State"
+    "atk_value": "Attack Strength"
+    "train_time": "$T_{t}$"
+    "predict_proba_time": "$T_{i}$"
+    "adv_accuracy": "Adv. Accuracy"
+    "accuracy": "Ben. Accuracy"
+    "adv_fit_time": "$T_{a}$"
+    "adv_failure_rate": "$h_{adv.}(t;\\theta)$"
+    "failure_rate": "$h_{ben.}(t;\\theta)$"
+    "model.trainer.nb_epoch": "No. of Epochs"
+    "model.trainer.batch_size": "Batch Size"
+    "def_gen": "Defence"
+    "attack.init.eps": "$\\varepsilon$"
+  partial_effect:
+    - "file": "cox_epochs_partial_effect.pdf"
+      "covariate_array": "model.trainer.nb_epoch"
+      "values_array": [1,10,25,50]
+      "title": "$S(t)$ for Cox AFR"
+      "ylabel": "$\\mathbb{P}~(T>t)$"
+      "xlabel": "Time $t$ (seconds)"
+      "legend_kwargs": {
+          "title": "Epochs",
+          "labels": ["1", "10", "25", "50"]
+      }
+    - "file": "cox_batch_size_partial_effect.pdf"
+      "covariate_array": "model.trainer.batch_size"
+      "values_array": [1,10,25,50]
+      "title": "$S(t)$ for Cox AFR"
+      "ylabel": "$\\mathbb{P}~(T>t)$"
+      "xlabel": "Time $t$ (seconds)"
+      "legend_kwargs": {
+          "title": "Batch Size",
+          "labels": ["10", "100", "1000", "10000"]
+      }
+    - "file" : cox_attack_eps_partial_effect.pdf
+      "covariate_array" : attack.init.eps
+      "values_array" : [1e-4, 1e-3, 1e-2, 1e-1, 1]
+      "title": "$S(t)$ for Cox AFR"
+      "ylabel": "$\\mathbb{P}~(T>t)$"
+      "xlabel": "Time $t$ (seconds)"
+      "legend_kwargs": {
+          "title": "$\\varepsilon$",
+          "labels": ["1e-4", "1e-3", "1e-2", '1e-1', '1']
+      }
 log_logistic:
   plot:
     file : log_logistic_aft.pdf
@@ -121,7 +121,7 @@ log_logistic:
     "cifar100" : "CIFAR100"
     "cifar" : "CIFAR10"
     "mnist" : "MNIST"
-    "device_id_": "nvidia-"
+    "device_id_": ""
     "tesla-v100" : "V100"
     "tesla-p100" : "P100"
     "l4" : "L4"
@@ -151,8 +151,7 @@ log_normal:
     "cifar100" : "CIFAR100"
     "cifar" : "CIFAR10"
     "mnist" : "MNIST"
-    "device_id_": "nvidia-"
+    "device_id_": ""
     "tesla-v100" : "V100"
     "tesla-p100" : "P100"
     "l4" : "L4"
-
