@@ -81,7 +81,7 @@
 \newtheorem{theorem}{Theorem}%  meant for continuous numbers
 %%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
 %% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
-%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition \textit{etc.}
 
 \raggedbottom
 %%\unnumbered% uncomment this for unnumbered level heads
@@ -245,7 +245,9 @@ In the context of ML, an adversarial attack refers to deliberate and malicious a
 \label{eq:adv_success}
 \end{equation}
 where $\varepsilon$ is a noise distance bounded by $0 < \varepsilon \leq \varepsilon^*$
-Additionally, one can measure the accuracy of the model when tasked with these adversarial samples, giving us a metric called \textit{adversarial accuracy} which is Eq.~\ref{eq:acc} calculated on the perturbed samples. The goal of an adversarial attack is often to exploit vulnerabilities in the model's decision-making process or to probe its weaknesses. These attacks can occur during various stages of the ML pipeline, including during training~\cite{biggio_poisoning_2013, saha2020hidden}, inference~\cite{chakraborty_adversarial_2018, orekondy2019knockoff}, or deployment~\cite{chakraborty_adversarial_2018,choquette2021label,li2021membership,carlini_towards_2017,adversarialpatch, pixelattack,hopskipjump}.
+Additionally, one can measure the accuracy of the model when tasked with these adversarial samples, giving us a metric called \textit{adversarial accuracy} which is Eq.~\ref{eq:acc} calculated on the perturbed samples.
+The goal of an adversarial attack is often to exploit vulnerabilities in the model's decision-making process or to probe its weaknesses.
+These attacks can occur during various stages of the ML pipeline, including during training~\cite{biggio_poisoning_2013,saha2020hidden}, inference~\cite{chakraborty_adversarial_2018,orekondy2019knockoff}, or deployment~\cite{chakraborty_adversarial_2018,choquette2021label,li2021membership,carlini_towards_2017,adversarialpatch,pixelattack,hopskipjump}.
 One of many possible attacks is designed to induce failures as quickly as possible, and is  conveniently called the \textit{fast gradient method}~\cite{fgm}. It works by applying noise to a set of samples, $x$, to generate adversarial examples, $x_a$, such that,
 \begin{equation}
 x_a = x + \eta \cdot \mathrm{sign}(\nabla_x L(y, K(x, \theta))).
@@ -349,7 +351,10 @@ In addition, we seek to minimize the training time in order to maximize the numb
 \subsection{AFT Models}
 \label{survival_time}
 
-AFT models are widely used in industrial, medical, or risk-mitigation contexts~\cite{kleinbaum1996survival, aft_models} to model the effect of covariates on a model's expected time-to-failure (also called survival time. For industrial components, this often means testing the component under a variety  of extreme circumstances to induce failures prematurely. For medical applications, this is used to model the effect of demographic characteristics or the efficacy of certain treatments on a given disease. For machine learning, this means inducing failures during training to measure generalization performance.
+AFT models are widely used in industrial, medical, or risk-mitigation contexts~\cite{kleinbaum1996survival,aft_models} to model the effect of covariates on a model's expected time-to-failure (also called survival time).
+For industrial components, this often means testing the component under a variety  of extreme circumstances to induce failures prematurely.
+For medical applications, this is used to model the effect of demographic characteristics or the efficacy of certain treatments on a given disease.
+For machine learning, this means inducing failures during training to measure generalization performance.
 
 The point of this is to model the \textit{survival time}, $S_{\theta}(t)$, as a function of the time, $t$,  and some set of model parameters, $\theta$ such that,
 $$
@@ -530,7 +535,7 @@ We used three optimisation criteria: benign accuracy, training time, and adversa
 
 \subsection{Datasets}
 
-The AFT models were evaluated using the MNIST~\cite{mnist}, CIFAR10\cite{cifar}, and CIFAR100\cite{cifar} datasets, chosen primarily for their standardized use in adversarial analysis~\cite{madry2017towards,croce_reliable_2020,carlini_towards_2017,deepfool} and decades of experimental results.
+The AFT models were evaluated using the MNIST~\cite{mnist}, CIFAR10~\cite{cifar}, and CIFAR100~\cite{cifar} datasets, chosen primarily for their standardized use in adversarial analysis~\cite{madry2017towards,croce_reliable_2020,carlini_towards_2017,deepfool} and decades of experimental results.
 Before training, we centered and scaled the data so that the attack distance would be analogous for all tested datasets. Furthermore, to reduce the complexities of system overhead, distributed or federated training, and the effect of shared cloud environments, we restricted ourselves to datasets that were small enough to reside entirely within GPU memory with the model, since the disk read speed in cloud environments is incredibly variable.
 
 
@@ -541,7 +546,10 @@ The evaluations were restricted to a single model. Primarily, this was done to m
 
 \subsection{Attacks}
 
-To examine the effect of model parameters at run-time, evasion attacks, which attack the model at the prediction stage, were examined. Prior research~\cite{meyers,meyers_aft} has shown that the Fast Gradient method (see Eq.~\ref{eq:fgm}) is consistently the most effective at inducing a large number of failures in a small amount of time. To evaluate the effect of adversarial noise on the samples, the noise levels were varied $\varepsilon \in (0, 1]$. This was done using the \texttt{adversarial-robustness-toolbox} package maintained by a team at IBM~\cite{art2018}.
+To examine the effect of model parameters at run-time, evasion attacks, which attack the model at the prediction stage, were examined.
+Prior research~\cite{meyers,meyers_aft} has shown that the Fast Gradient method (see Eq.~\ref{eq:fgm}) is consistently the most effective at inducing a large number of failures in a small amount of time.
+To evaluate the effect of adversarial noise on the samples, the noise levels were varied $\varepsilon \in (0, 1\]$.
+This was done using the \texttt{adversarial-robustness-toolbox} package maintained by a team at IBM~\cite{art2018}.
 
 
 \subsection{GPU Configurations}
@@ -624,7 +632,7 @@ The monetary cost for each dataset and each piece of hardware is shown in Figure
 \begin{table}
 \centering
 \caption{Comparison of AFT Models across all hardware and datasets. \cm{\acrshort{aic} and \acrshort{bic} are measures of goodness-of-fit, with a smaller value being preferred. Concordance (Conc) is a value between 0 and 1 that reflects how what proportion of events (failures) can be explained by the model. \acrshort{ici} measures the average error between a cubic-spline and the model and \acrshort{e50} measures the median error between the spline and the model. These measured on both the train and test sets of the collected data, with the latter being denoted ``Test''.}}
-\label{tab:combined}
+\label{tab:aft_results}
 \begin{tabular}{lrrrrrrrr}
 \toprule
              & AIC              & BIC & Conc & Test Conc & ICI & Test ICI & E50 & Test E50 \\
@@ -675,7 +683,7 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
 \subsection{AFT Models}
 \label{res:aft}
 
-Table~\ref{tab:combined} shows the performance metrics for all three AFT models, as outlined in Section~\ref{survival_time}. A total 75\% of the available data were used to build the AFT models and 25\% were withheld for evaluation. The concordance is both strong ($>0.5$) and similar for all three AFT models and both the train and test sets. We observed no more than 1\% mean absolute error in the probabilities \acrshort{ici} and no error in the median probability \acrshort{e50} across all three AFT models. Figure~\ref{fig:qq} depicts the observed and predicted probabilities for all three AFT models. For further analysis, we chose the Weibull AFT due to its superior fit in Figure~\ref{fig:qq}, and average test error of 1\% \acrshort{ici} and 0 error for the median sample \acrshort{e50}. We also see that these metrics are  functionally identical across all AFT models as well as between the test and train set of each model.
+Table~\ref{tab:aft_results} shows the performance metrics for all three AFT models, as outlined in Section~\ref{survival_time}. A total 75\% of the available data were used to build the AFT models and 25\% were withheld for evaluation. The concordance is both strong ($>0.5$) and similar for all three AFT models and both the train and test sets. We observed no more than 1\% mean absolute error in the probabilities \acrshort{ici} and no error in the median probability \acrshort{e50} across all three AFT models. Figure~\ref{fig:qq} depicts the observed and predicted probabilities for all three AFT models. For further analysis, we chose the Weibull AFT due to its superior fit in Figure~\ref{fig:qq}, and average test error of 1\% \acrshort{ici} and 0 error for the median sample \acrshort{e50}. We also see that these metrics are  functionally identical across all AFT models as well as between the test and train set of each model.
 
 
 Figure~\ref{fig:aft} shows the log-scale coefficients for the AFT model. It shows that epochs, batch size, and training time have no effect on the survival time. Additionally, the covariate value of 0 for random state indicates that random permutations of the training and test data have no effect on the survival time, which is expected. However, we can clearly see that inference time  is as strong an indicator as the attack noise distance, revealing that model speed is nearly as important as the the noise value of the attack ($\varepsilon$). Furthermore, we see that benign accuracy is negatively correlated with the survival time, confirming previous assertions that robustness ($S_{\theta}(t)$) is inversely related to benign accuracy (which is the standard indicator of generalization performance)~\cite{carlini_towards_2017}.
@@ -718,7 +726,7 @@ As such, we center our analysis on the whitebox Fast Gradient Method~\cite{fgm} 
 
 \subsection{Advantages of this Methodology}
 \label{advantages}
-\cm{The primary advantage of this methodology over the traditional test/train split measurements is that the precision of the latter is determined by the number of samples; whereas, the precision of the survival time estimate is driven by the resolution of our timing measurements. For test-set accuracy,  meeting the weakest safety-critical IEC standard (1 failure in a million) would require many millions of samples to confidently conclude that a model is safe. However, the presented AFT model has an average error rate of 1\% while requiring a very small number of samples (10 sets of 100) (see Table~\ref{tab:combined}).}
+\cm{The primary advantage of this methodology over the traditional test/train split measurements is that the precision of the latter is determined by the number of samples; whereas, the precision of the survival time estimate is driven by the resolution of our timing measurements. For test-set accuracy,  meeting the weakest safety-critical IEC standard (1 failure in a million) would require many millions of samples to confidently conclude that a model is safe. However, the presented AFT model has an average error rate of 1\% while requiring a very small number of samples (10 sets of 100) (see Table~\ref{tab:aft_results}).}
 Because of the small number of samples needed for building AFT models (when compared to testing against massive in-distribution test sets), AFT models could, for example, act as a unit test in machine learning applications.
 This is in contrast to a full-system integration tests to evaluate changes to a single model, signal processing technique, data storage format, or API access mechanism~\cite{schmoor2000sample,lachin1981introduction}. It could also be used to highlight error-prone classes or other subsets of data to reduce error or create synthetic samples as is common in medical research~\cite{kleinbaum1996survival}. Furthermore, by isolating changes and testing them as quickly as possible, it is easier to parse cause and effect when compared to full-system integration tests that could include many changes from many different development teams and require live and potentially dangerous systems (like cars, drones, or industrial equipment) to effectively test. To further increase development velocity, these models can quantify the marginal risk associated with each change, as dictated by the IEC 61508 standard~\cite{IEC61508}, allowing the model builder to make a quantitative assessment about the efficacy of a model change without testing the effect on real users. Additionally, since AFT models have strong predictive power for untested hyper-parameter combinations, this method has a potential to reduce the search space by quickly eliminating candidates that are unlikely to increase the survival time.
 
@@ -728,9 +736,9 @@ This is in contrast to a full-system integration tests to evaluate changes to a 
 We have taken much care to conduct all timing measurements as carefully as possible.
 Primarily, to minimize timing jitter and account for GPU parallelization, we assumed that the time-to-failure during the benign and adversarial accuracy measurements was uniform across the samples in each trial.
 While it is very possible (if not altogether guaranteed) that some classes or samples are easier to attack than others, we assume that this averages out over the 100 samples given to each attack. Further work examining, for example, the effect of imbalanced datasets on the the distribution of survival times across classes is outside the scope of this work, though the methodology would remain identical. Similarly, one could examine survival times for samples near the class boundary and compare them with prototypical samples near the center of the class cluster.
-However, given the strong results and uniformity across AFT functions in Table~\ref{tab:combined}, the uniform time assumption appears to be insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexplained variance.
+However, given the strong results and uniformity across AFT functions in Table~\ref{tab:aft_results}, the uniform time assumption appears to be insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexplained variance.
 Additionally, we chose a model and set of datasets small enough to fit entirely in GPU memory to minimize the confounding factors around parallelized, distributed, and/or federated learning as well as the complexities around storage hardware, file systems, and various access mechanisms.
-Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth, but the 48GB of VRAM provided by the L40 should be more than sufficient for vision tasks based on 8-bit images standard in the literature (e.g. MNIST, CIFAR10, CIFAR100). Furthermore, the attack batch size and the training batch size were set to be the same for every trial for each dataset and piece of hardware so that the attack timing would mimic the usage of regular users.
+Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth, but the 48GB of VRAM provided by the L40 should be more than sufficient for vision tasks based on 8-bit images standard in the literature (\textit{e.g.} MNIST, CIFAR10, CIFAR100). Furthermore, the attack batch size and the training batch size were set to be the same for every trial for each dataset and piece of hardware so that the attack timing would mimic the usage of regular users.
 If anything, the smaller sample size of the attacks means that proportionally more parallelization overhead is needed per sample, leading to an underestimate of the attack efficacy compared to the benign measurements. Furthermore, while FGM is fast, it is not guaranteed to find failures as quickly as possible, meaning that the survival time estimate is likely to be overestimated.
 In general, distributed/federated models were out of scope for this work, but architectural choices regarding the configuration of such methods could be evaluated using the cost and survival analysis techniques outlined above.
 The hyper-parameter search was restricted to only a single evasion attack (see Eq.~\ref{eq:fgm}) in the interest of time and budget, though this analysis would generalize to other evasion, extraction, inversion, or poisoning attacks~\cite{biggio_evasion_2013,biggio_poisoning_2013,choquette2021label,orekondy2019knockoff}.

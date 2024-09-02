@@ -477,8 +477,8 @@ stages:
       size: 37267652
     - path: conf/combined_afr.yaml
       hash: md5
-      md5: 82ead54ecfd5d3db2beb04416fd63c8c
-      size: 5123
+      md5: fb4cba9859a04732d31081a051b3a785
+      size: 5095
     outs:
     - path: combined/aft_comparison.csv
       hash: md5
@@ -490,11 +490,11 @@ stages:
       size: 489
     - path: combined/log_logistic_aft.pdf
       hash: md5
-      md5: 51e78abcd90a943683ffffc70cfc8965
+      md5: 524ff91010ff2e7e4dc715a7acf2c8a9
       size: 29164
     - path: combined/log_logistic_qq.pdf
       hash: md5
-      md5: a7da6614a5e6d25d404fd428f8fb1ee2
+      md5: e6df08f0c20803d625ee7aa5590a6e68
       size: 17236
     - path: combined/log_logistic_summary.csv
       hash: md5
@@ -502,11 +502,11 @@ stages:
       size: 3401
     - path: combined/log_normal_aft.pdf
       hash: md5
-      md5: c8dabbc8491005a12e2b67131b7654e6
+      md5: 2746dece78d3b43bacfb77ec58adf45d
       size: 29154
     - path: combined/log_normal_qq.pdf
       hash: md5
-      md5: cfecb4de8a42479e0c5b4667ecb69c96
+      md5: b6690fc1315d8d789eeb5f11d62d2479
       size: 18768
     - path: combined/log_normal_summary.csv
       hash: md5
@@ -514,11 +514,11 @@ stages:
       size: 3370
     - path: combined/weibull_aft.pdf
       hash: md5
-      md5: 7b0165072bc611fd7a5633ac26b7dd9d
+      md5: 6a1251bdba8c20998932a50b07ada615
       size: 29322
     - path: combined/weibull_qq.pdf
       hash: md5
-      md5: 7820b37b0f636c54996a8ccb5bcec595
+      md5: 12f2b2204b5b889909276b809a25db36
       size: 16977
     - path: combined/weibull_summary.csv
       hash: md5

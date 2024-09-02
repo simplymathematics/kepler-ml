@@ -19,7 +19,6 @@ repos:
               "--regex=datasets=\bdata-sets",
               "main.tex",
             ]
-      - id: csquotes
       - id: no-space-in-cite
       - id: tilde-cite
       - id: unique-labels
