@@ -1,7 +1,6 @@
 To render the newest results.
 ```
-git fetch <upstream name>
-git checkout fix-compile-script
-cd deckard/examples/power/plots
+pip install git+ssh://git@github.com:simplymathematics/deckard.git
+cd plots
 dvc repro --downstream compile
 ```
