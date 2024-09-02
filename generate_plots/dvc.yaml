@@ -178,7 +178,7 @@ stages:
         - plot_trash_score.py
       plots:
         - combined/${item}_trash_score.pdf
-  copy:
+  move:
     foreach:
       - mnist
       - cifar
@@ -186,6 +186,6 @@ stages:
       - combined
     do:
       cmd: >-
-        rm -rf ../plots/${item}/ && mkdir -p ../plots/${item}/ && cp -r ${item}/*.pdf ${item}/*.csv ${item}/*.tex ../plots/${item}/
+        rm -rf ../plots/${item}/ && mkdir -p ../plots/${item}/ && mv  ${item}/*.pdf ${item}/*.csv ${item}/*.tex ../plots/${item}/
       deps:
         - ${item}/
