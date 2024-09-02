@@ -189,7 +189,7 @@ To tackle the problems of minimizing deployment cost while maximizing the model 
     % \item Extends survival analysis to the realm of neural networks,
     \item Demonstrates a scalable and effective method to train a model while simultaneously estimating the effect of various hyperparameters, and
     \item Measures the power and monetary cost of deploying a model across different hardware architectures to model the trade-offs between deployment hardware and robustness.
-    \item \cm{Demonstrates that, even when we control for the slower clock speed of "inference only hardware" compared to hardware marketed for training, that models trained using the "inference only" devices are more robust for image classification tasks than models built on hardware designed for training.}
+    \item \cm{Demonstrates that, even when we control for the slower clock speed of ``inference only hardware'' compared to hardware marketed for training, that models trained using the ``inference only'' devices are more robust for image classification tasks than models built on hardware designed for training.}
 \end{itemize}
 
 Section~\ref{background} defines the terminology used throughout the paper. Section~\ref{aft} outlines the training and evaluation methodology presented in this paper.  Section ~\ref{cost} discusses the resulting cost analysis framework, arising from the methodology in the previous section. Section~\ref{experiments} outlines the software components and specific experiments that were conducted, while Section~\ref{results} contains the results and discussions of those experiments. Section~\ref{considerations} and Section~\ref{conclusion} reveal the caveats and the conclusions respectively.
@@ -208,8 +208,8 @@ In this paper, we evaluate a comprehensive methodology for evaluating model robu
 
 
 ML pipelines play a crucial role in the development and deployment of robust and accurate models. However, managing complex pipelines across diverse \acrfull{cpu} and \acrfull{gpu}  architectures, ensuring robustness against adversarial attacks, and understanding the relationship between computational cost, model loss, and prediction accuracy remain ongoing challenges.
-One popular solution is using a network of interconnected services~\cite{panchal2024reusable,hasselbring2017microservice,zhou2022online,singh2023load} where a \textit{service} is the smallest component of a ``cloud-native" software stack. In the context of ML, that might be some software component meant for training, inference, pre-processing, sampling, or any other arbitrarily small part of the data pipeline.
-A service \textit{mesh} typically consists of a set of interconnected components or proxies deployed alongside the services within the system.  These components facilitate various capabilities and functionalities essential for managing the communication between services. Kubernetes has become one of the largest open source projects on the code-sharing website Github~\cite{k8s-size} and provides a framework for managing, monitoring, and networking a self-scaling set of tools across arbitrary software and hardware architectures using a service mesh. For ML applications, these services are often divided into ``training" and ``inference" configurations that often have distinct hardware and software configurations~\cite{wang2019benchmarking}. In this work, we leveraged Kubernetes~\cite{k8s} to manage a multi-stage ML pipeline (see Figure~\ref{fig:experiments}) and measure the power and cost of training and evaluating the pipeline (see Figure~\ref{fig:architecture}) across a variety of different hardware architectures (see Table~\ref{tab:hardware}).
+One popular solution is using a network of interconnected services~\cite{panchal2024reusable,hasselbring2017microservice,zhou2022online,singh2023load} where a \textit{service} is the smallest component of a ``cloud-native'' software stack. In the context of ML, that might be some software component meant for training, inference, pre-processing, sampling, or any other arbitrarily small part of the data pipeline.
+A service \textit{mesh} typically consists of a set of interconnected components or proxies deployed alongside the services within the system.  These components facilitate various capabilities and functionalities essential for managing the communication between services. Kubernetes has become one of the largest open source projects on the code-sharing website Github~\cite{k8s-size} and provides a framework for managing, monitoring, and networking a self-scaling set of tools across arbitrary software and hardware architectures using a service mesh. For ML applications, these services are often divided into ``training'' and ``inference'' configurations that often have distinct hardware and software configurations~\cite{wang2019benchmarking}. In this work, we leveraged Kubernetes~\cite{k8s} to manage a multi-stage ML pipeline (see Figure~\ref{fig:experiments}) and measure the power and cost of training and evaluating the pipeline (see Figure~\ref{fig:architecture}) across a variety of different hardware architectures (see Table~\ref{tab:hardware}).
 
 
 \subsection{ML Pipelines}
@@ -234,7 +234,7 @@ where the gradient is approximated using $b$ samples per mini-batch and $\eta$ i
 \subsection{Learning Rate Selection}
 \label{learning_rate}
 
-Choosing a good learning rate is critical for model performance --- greatly effecting both the accuracy and the training cost. A small learning rate will more accurately approximate the class boundaries~\cite{cao2019generalization}, but will converge slower, all other things being equal. Of course `small` is arbitrarily defined, but the scale of the optimal learning rate will vary with \textit{e.g.}, the mini-batch size, number of epochs, dimensionality of the input data, \textit{etc.}~\cite{granziol2022learning}. GPUs with larger amounts of VRAM are able to hold more data in memory at a time, increasing the effective mini-batch size, and reducing the number of model-tuning steps per epoch. A ``good" learning rate will allow a model to converge quickly~\cite{smith2019super,granziol2022learning} and the ideal mini-batch size will be determined by the memory bandwidth of the GPU and the size of the model and the size and dimensionality of the data. However, since cloud infrastructure is virtualized and shared with other users, the available bandwidth will not necessarily match the peak available bandwidth specified by the manufacturer~\cite{sajid2013cloud}, so researchers must evaluate this \textit{in situ}. Furthermore, since hardware is typically billed by the hour on public clouds, optimising the training and inference times allows a model-builder to minimize the cost of deployment. ~\cm{To optimize for training time as well as robustness (both $\lambda_{ben}$ and $\lambda_{adv}$), the \acrshort{tpe} optimization was used (see:~Section~\ref{optimisation}). However, it is first necessary to define robustness.}
+Choosing a good learning rate is critical for model performance --- greatly effecting both the accuracy and the training cost. A small learning rate will more accurately approximate the class boundaries~\cite{cao2019generalization}, but will converge slower, all other things being equal. Of course `small` is arbitrarily defined, but the scale of the optimal learning rate will vary with \textit{e.g.}, the mini-batch size, number of epochs, dimensionality of the input data, \textit{etc.}~\cite{granziol2022learning}. GPUs with larger amounts of VRAM are able to hold more data in memory at a time, increasing the effective mini-batch size, and reducing the number of model-tuning steps per epoch. A ``good'' learning rate will allow a model to converge quickly~\cite{smith2019super,granziol2022learning} and the ideal mini-batch size will be determined by the memory bandwidth of the GPU and the size of the model and the size and dimensionality of the data. However, since cloud infrastructure is virtualized and shared with other users, the available bandwidth will not necessarily match the peak available bandwidth specified by the manufacturer~\cite{sajid2013cloud}, so researchers must evaluate this \textit{in situ}. Furthermore, since hardware is typically billed by the hour on public clouds, optimising the training and inference times allows a model-builder to minimize the cost of deployment. ~\cm{To optimize for training time as well as robustness (both $\lambda_{ben}$ and $\lambda_{adv}$), the \acrshort{tpe} optimization was used (see:~Section~\ref{optimisation}). However, it is first necessary to define robustness.}
 
 
 \subsection{Adversarial Attacks}
@@ -270,7 +270,7 @@ In the case of safety- or security-critical domains, considering the worst-case 
 We propose a methodology for model training and verification using accelerated failure-time (AFT) models, drawn from the field of \textit{survival analysis}, with a focus on cost-efficient evaluation methods.
 AFT models are statistical models used to analyze multivariate effects on the observed failure rate to predict the time-to-failure across a wide variety of circumstances~\cite{aft_models,kleinbaum1996survival}. In medical science, these models are used to make claims like ``smokers are twice as likely to die from lung cancer'' or used to set the operating limits of manufactured components. This methodology can be used to map the relationship between various model tuning parameters and their effect on model performance.
 The next section outlines the methodology for modelling the effect of model hyper-parameters during routine training procedures. We precisely outline the methodology for using survival analysis during the training of machine learning methods.
-% First, we present the proposed procedure in Algorithm~\ref{fig:alg} and a visual diagram of it in Figure~\ref{fig:experiments}. Then, in the sections below, we define accuracy (Section~\ref{acc}) and failure rate (Section~\ref{failure_rate}) in the context of survival analysis to make the concept of survival time clear (Section~\ref{survival_time}). We then discuss the importance of the ``acceleration assumption" (Section~\ref{accelerated}), the optimisation algorithm (Section~\ref{optimisation}), and the advantages of this approach (Section~\ref{advantages}).
+% First, we present the proposed procedure in Algorithm~\ref{fig:alg} and a visual diagram of it in Figure~\ref{fig:experiments}. Then, in the sections below, we define accuracy (Section~\ref{acc}) and failure rate (Section~\ref{failure_rate}) in the context of survival analysis to make the concept of survival time clear (Section~\ref{survival_time}). We then discuss the importance of the ``acceleration assumption'' (Section~\ref{accelerated}), the optimisation algorithm (Section~\ref{optimisation}), and the advantages of this approach (Section~\ref{advantages}).
 
 
 % \begin{algorithm}[h!]
@@ -357,9 +357,9 @@ For medical applications, this is used to model the effect of demographic charac
 For machine learning, this means inducing failures during training to measure generalization performance.
 
 The point of this is to model the \textit{survival time}, $S_{\theta}(t)$, as a function of the time, $t$,  and some set of model parameters, $\theta$ such that,
-$$
+\[
     S_{\theta}(t) = p(T>t  \mid \theta) = \exp\left(-\int_0^t h_{\theta}(u) \, du\right)
-$$
+\]
 where $p(T>t)$ is the probability that a model has not failed by time $t$ (``survives'' beyond time $t$). The expected survival time is
 \begin{equation}
 	\mathbb{E}_{S_\theta}[T] = \int_0^{t^*}  S_\theta(u) \,du,
@@ -382,9 +382,9 @@ In the language of accelerated failure time models, this can be expressed in ter
 \cm{
 where $\phi$ is some acceleration factor described by the joint effect of the covariates, such that
 }
-$$
+\[
     \phi_{\theta}(x) = \exp{ \left( \theta_0 x_0 + \theta_1 x_1 + \cdots + \theta_n x_i \right) },
-$$
+\]
 \cm{
 and where $x_0 \cdots x_n$ are covariates and $\theta_0, \ldots, \theta_n$ describe the fitted parameters  $\varepsilon$ is used as one of the covariates. That is, when the adversarial noise increases, it will shorten the expected survival time of a sample proportionally.
 }
@@ -426,18 +426,18 @@ In order to estimate the number of failures in a given time period, we measured 
 \subsection{Training Time}
 
 The training time, $T_t$, is the time it takes to evaluate $n$ samples when $t_t$ is the training time per sample. It is defined as
-$$
+\[
     T_t := t_t \cdot n  \cdot m,
-$$
+\]
 where $m$ is the number of epochs.
 
 
 \subsection{Latency}
 
 Latency is the time it takes to respond to a query. We assume that latency per sample is
-$$
+\[
     T_i := t_i \cdot n,
-$$
+\]
 which will be driven by the memory bandwidth (measured in bits/second) of a given \acrshort{cpu} or \acrshort{gpu} and the size~\cite{vgg} and complexity~\cite{resnet} of a given neural network architecture.
 
 
@@ -460,17 +460,17 @@ In reality, the attack time will not be drawn from a uniform distribution and pr
 
 Furthermore, we approach the cost of deployment at two scales. Firstly, we consider the cloud-rental scale, where a small-business might test and deploy a model using \textit{e.g.}, the Google Cloud Platform\footnote{\href{https://cloud.google.com}{https://cloud.google.com}} (GCP) compute costs as a measure of total cost. However, at a certain scale or with certain applications, it is  more appropriate to talk about cost in terms of power (\textit{e.g.}, to deploy a self-driving car with a useful operating range). Finally, we define best-case and worst-case success metrics that provide an efficient way to minimize the latency, cost of deployment, and
 maximize the generalized performance of a model. We define the training cost as
-$$
+\[
     C_t = C_h \cdot T_t,
-$$
+\]
 the cost of model inference time as,
-$$
+\[
     C_i = C_h \cdot T_i,
-$$
+\]
 and the cost of an attack as,
-$$
+\[
     C_a = C_h \cdot T_a.
-$$
+\]
 where $C_h$ is the cost per unit time for the hardware, $T_t$ is the training time, $T_i$ is the inference time, and $T_a$ is the attack generation time, as defined above.
 
 \subsection{TRASH Score}
@@ -485,20 +485,20 @@ With an estimate of the expected survival time in hand,  quantify the cost-norma
 \subsubsection{Power}
 
 The power consumption for a particular piece of hardware, $P_h$, measured in Watts (Joules per second), can be thought of similarly such that the total power consumption of model training is
-$$
+\[
     P_t = P_h \cdot T_t,
     \label{eq:power_training}
-$$
+\]
 the power consumption during model inference is
-$$
+\[
     P_i = P_h \cdot T_i,
     \label{eq:power_inference}
-$$
+\]
 and the power consumption during attack generation is
-$$
+\[
     P_a = P_h \cdot T_a,
     \label{eq:power_attack}
-$$
+\]
 where $P_h$ is the cost per unit time for the hardware, $T_t$ is the training time, $T_i$ is the inference time, and $T_a$ is the attack generation time, as defined above.
 
 
@@ -520,7 +520,7 @@ This section outlines specific implementation details for the evaluation of the 
 
 
 \subsection{Cloud Platform and Hardware}
-To conduct the experiments and have access to different types of hardware, we utilized \acrshort{gcp}. Six virtual machines running container optimised operating system provided by GCP constituted the test-bed. Using Google Kubernetes Engine 1.27.3 and Containerd 1.7.0, a cluster consisting of six worker nodes was created. Three worker nodes were responsible for running the monitoring platforms-- Prometheus 2.47.2 and Grafana 10.2.0. These nodes were of the ``e2-medium" instance type provided by GCP. In total, three GPU architectures were used--the Nvidia P100, V100, and L4. For P100 and V100 GPUs, the ``n1-standard-2'' type was used for the nodes and for L4 GPUs the ``g2-standard-4'' was used.
+To conduct the experiments and have access to different types of hardware, we utilized \acrshort{gcp}. Six virtual machines running container optimised operating system provided by GCP constituted the test-bed. Using Google Kubernetes Engine 1.27.3 and Containerd 1.7.0, a cluster consisting of six worker nodes was created. Three worker nodes were responsible for running the monitoring platforms-- Prometheus 2.47.2 and Grafana 10.2.0. These nodes were of the ``e2-medium'' instance type provided by GCP. In total, three GPU architectures were used--the Nvidia P100, V100, and L4. For P100 and V100 GPUs, the ``n1-standard-2'' type was used for the nodes and for L4 GPUs the ``g2-standard-4'' was used.
 
 To assess the energy consumption of the experiments, \Gls{kepler} deployed on a was used to measure the power consumption of each experiment~\cite{amaral2023kepler}. This approach enables gathering energy consumption data on granular levels as it runs in Kubernetes cluster and capable of collecting energy consumption of Kubernetes components. In essence, KEPLER uses extended Berkeley Packet Filter to probe energy-related system stats and exports them as Prometheus metrics. This filter can be described as a lightweight and sandboxed virtual machine (VM) in kernel space. The filter programs are invoked by the kernel when certain events occur. Examples of such events include system calls or network activity. These processes enable deep analysis and full control over different events with low overhead~\cite{sedghpour@ebpf}. A diagram of the cloud architecture can be found in Figure~\ref{fig:architecture}. Finally, for a cost-effective model evaluation technique, all of the experiments were restricted to a single one-thousand United States dollar budget (a research grant from Google). Approximately 10\% of this was used for development and 90\% was used for the evaluations.
 \cm{Over the course of the evaluations, 6\% of the budget went to the storage, 6\% to the monitoring, and the remaining 88\% went the GPUs.}
@@ -677,7 +677,7 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
     \begin{subfigure}{\textwidth}
         \includegraphics[width=.8\textwidth]{plots/combined/log_logistic_aft.pdf}
     \end{subfigure}
-    \caption{Coefficients of the Covariates for the Weibull, Log-Normal, and Log-Logistic AFT models. Here, "Random State" is used as a control variable that should be (and is) close to 0. \cm{A positive value indicates that covariate increases the survival time and negative value indicates that covariate decreases the survival time. The symbols $T_i$ and $T_t$ refer training and inference time for all samples, while \textit{Ben. Accuracy} refers to the benign accuracy (accuracy on the un-altered samples), and $\varepsilon$ is the noise distance.}}
+    \caption{Coefficients of the Covariates for the Weibull, Log-Normal, and Log-Logistic AFT models. Here, ``Random State'' is used as a control variable that should be (and is) close to 0. \cm{A positive value indicates that covariate increases the survival time and negative value indicates that covariate decreases the survival time. The symbols $T_i$ and $T_t$ refer training and inference time for all samples, while \textit{Ben. Accuracy} refers to the benign accuracy (accuracy on the un-altered samples), and $\varepsilon$ is the noise distance.}}
     \label{fig:aft}
 \end{figure*}
 \subsection{AFT Models}
@@ -721,7 +721,7 @@ Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effec
 In security analysis, it is  routine to think in optimistic terms for both the attacker and defender. In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken").
 Using \acrshort{aft}, one can model the Pareto front --- the set of points that are superior to all others in the search space --- for all objectives~\cite{zitzler2008quality}.
 By using a whitebox attack to generate the failures, we ensure that our defender operates under the worst case scenario while the attacker operates under their best case scenario to yield a worst-case failure rate.
-As such, we center our analysis on the whitebox Fast Gradient Method~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}. If the cost to a model builder is much larger than the cost to an attacker, then it is  clear that the model is ``broken" in this cryptographic sense and can be discarded as ineffective~\cite{meyers_aft}. \cm{TODO. Discuss the TRASH SCORE plots.}
+As such, we center our analysis on the whitebox Fast Gradient Method~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}. If the cost to a model builder is much larger than the cost to an attacker, then it is  clear that the model is ``broken'' in this cryptographic sense and can be discarded as ineffective~\cite{meyers_aft}. \cm{TODO. Discuss the TRASH SCORE plots.}
 
 
 \subsection{Advantages of this Methodology}
