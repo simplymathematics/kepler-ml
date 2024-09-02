@@ -42,7 +42,6 @@ weibull:
     "cifar100" : "CIFAR100"
     "cifar" : "CIFAR10"
     "mnist" : "MNIST"
-    "cifar100" : "CIFAR100"
     "device_id_": "nvidia-"
     "tesla-v100" : "V100"
     "tesla-p100" : "P100"

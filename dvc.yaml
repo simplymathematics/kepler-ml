@@ -1,11 +1,11 @@
 vars:
-  - ../conf/plots.yaml:line_plot
-  - ../conf/plots.yaml:scatter_plot
-  # - ../conf/plots.yaml:cat_plot
-  - ../conf/clean.yaml:attacks
-  - ../conf/clean.yaml:defences
-  - ../conf/clean.yaml:params
-  - ../conf/clean.yaml:fillna
+  - conf/plots.yaml:line_plot
+  - conf/plots.yaml:scatter_plot
+  # - conf/plots.yaml:cat_plot
+  - conf/clean.yaml:attacks
+  - conf/clean.yaml:defences
+  - conf/clean.yaml:params
+  - conf/clean.yaml:fillna
 stages:
   # compile:
   #   foreach: # iterates through each stage
@@ -16,7 +16,7 @@ stages:
   #     - bit_depth/cifar/
   #     - bit_depth/cifar100/
   #   do:
-  #     cmd: python -m deckard.layers.compile --report_folder /result/${item}/reports/attack/ --results_file raw.csv --results_folder data/${item} --config "../conf/compile.yaml"
+  #     cmd: python -m deckard.layers.compile --report_folder /result/${item}/reports/attack/ --results_file raw.csv --results_folder data/${item} --config "conf/compile.yaml"
   #     deps:
   #      - /result/${item}/reports/attack/
   #     outs:
@@ -42,15 +42,15 @@ stages:
        - cifar
        - cifar100
     do:
-      cmd : python merge.py  --big_dir data/bit_depth/${item} --little_dir data/${item} --config ../conf/afr.yaml --data_file power.csv --output_folder ${item}/ --output_file merged.csv
+      cmd : python merge.py  --big_dir data/bit_depth/${item} --little_dir data/${item} --config conf/afr.yaml --data_file power.csv --output_folder ${item}/ --output_file merged.csv
       deps:
         -  data/bit_depth/${item}/power.csv
         -  data/${item}/power.csv
-        - ../conf/clean.yaml
+        - conf/clean.yaml
       outs:
         - ${item}/merged.csv
       params:
-        - ../conf/clean.yaml:
+        - conf/clean.yaml:
           - fillna
   clean:
     foreach:
@@ -58,14 +58,14 @@ stages:
       - cifar
       - cifar100
     do:
-      cmd: python -m deckard.layers.clean_data --i ${item}/merged.csv --o ${item}/clean.csv --config "../conf/clean.yaml"
+      cmd: python -m deckard.layers.clean_data --i ${item}/merged.csv --o ${item}/clean.csv --config "conf/clean.yaml"
       deps:
         - ${item}/merged.csv
-        - ../conf/clean.yaml
+        - conf/clean.yaml
       outs:
         - ${item}/clean.csv
       params:
-        - ../conf/clean.yaml:
+        - conf/clean.yaml:
           - attacks
           - defences
           - params
@@ -76,10 +76,10 @@ stages:
        - cifar
        - cifar100
     do:
-      cmd: python -m deckard.layers.afr --dataset ${item} --data_file ${item}/clean.csv --config_file "../conf/afr.yaml" --plots_folder ${item}/ --target adv_failures --duration_col adv_fit_time
+      cmd: python -m deckard.layers.afr --dataset ${item} --data_file ${item}/clean.csv --config_file "conf/afr.yaml" --plots_folder ${item}/ --target adv_failures --duration_col adv_fit_time
       deps:
         - ${item}/clean.csv
-        - ../conf/afr.yaml
+        - conf/afr.yaml
       plots:
         - ${item}/weibull_aft.pdf # You can also define them manually
         - ${item}/weibull_epochs_partial_effect.pdf
@@ -108,23 +108,23 @@ stages:
        - combined/cost.pdf
        - combined/power.pdf
   combined_clean:
-    cmd: python -m deckard.layers.clean_data --i data/combined/combined.csv --o combined/clean.csv --config "../conf/clean.yaml"
+    cmd: python -m deckard.layers.clean_data --i data/combined/combined.csv --o combined/clean.csv --config "conf/clean.yaml"
     deps:
       - data/combined/combined.csv
-      - ../conf/clean.yaml
+      - conf/clean.yaml
     outs:
      - combined/clean.csv
     params:
-     - ../conf/clean.yaml:
+     - conf/clean.yaml:
        - attacks
        - defences
        - params
        - fillna
   combined_afr:
-    cmd: python -m deckard.layers.afr --dataset Combined --data_file combined/clean.csv --config_file "../conf/combined_afr.yaml" --plots_folder combined/ --target adv_failures --duration_col adv_fit_time
+    cmd: python -m deckard.layers.afr --dataset Combined --data_file combined/clean.csv --config_file "conf/combined_afr.yaml" --plots_folder combined/ --target adv_failures --duration_col adv_fit_time
     deps:
       - combined/clean.csv
-      - ../conf/combined_afr.yaml
+      - conf/combined_afr.yaml
     plots:
       - combined/weibull_aft.pdf # You can also define them manually
       - combined/weibull_qq.pdf
@@ -139,14 +139,12 @@ stages:
       - combined/weibull_summary.csv
     outs:
       - combined/aft_comparison.tex
-  copy:
-    foreach:
-      - mnist
-      - cifar
-      - cifar100
-      - combined
-    do:
-      cmd: >-
-        rm -rf ~/kepler-ml/plots/${item}/ && mkdir -p ~/kepler-ml/plots/${item}/ && cp -r ${item}/* ~/kepler-ml/plots/${item}/
-      deps:
-        - ${item}/
+  pre-commmit:
+    cmd: pre-commit run --all-files  && chktex -q -V main.tex -n 24 -n 8 -n 1 # Suppresses warnings 8 (dash length), 24 (\labels inside floats), and 1 (trailing whitespace following and command)
+    deps:
+      - main.tex
+      - sn-bibliography.bib
+      - mnist/
+      - cifar/
+      - cifar100/
+      - combined/
