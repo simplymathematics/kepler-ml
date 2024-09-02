@@ -22,6 +22,8 @@ stages:
       - main.aux
       - main.log
       - main.out
+      - main.glo
+      - main.ist
   big_run:
     cmd: pdflatex main.tex && bibtex main && pdflatex  main.tex && pdflatex  main.tex 
     deps:
@@ -32,6 +34,8 @@ stages:
       - main.log
       - main.out
       - main.bbl
+      - main.glo
+      - main.ist
     outs:
       - main.pdf
   arxiv:

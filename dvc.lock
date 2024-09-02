@@ -593,12 +593,20 @@ stages:
     outs:
     - path: main.aux
       hash: md5
-      md5: 8298fdf9a7b386229393a68295600b7b
-      size: 28465
+      md5: 85248268784ce50e99446b4cb288c745
+      size: 23965
+    - path: main.glo
+      hash: md5
+      md5: d2b32beb2dde1f66a3e1eb70fcecdf36
+      size: 3359
+    - path: main.ist
+      hash: md5
+      md5: 3cfbf759c74b27ecbddce3def0592cbc
+      size: 891
     - path: main.log
       hash: md5
-      md5: b85141e1f9e0246794c67743c5fea3ca
-      size: 65929
+      md5: f30e9a26b54513125b599a527ac34fb6
+      size: 63957
     - path: main.out
       hash: md5
       md5: ca0030add4335128834fbd3e33d727de
@@ -614,9 +622,17 @@ stages:
       hash: md5
       md5: 61ebe564edcde8d7a90270ad2800052c
       size: 35078
+    - path: main.glo
+      hash: md5
+      md5: 9aa205b9519e24b220f01d9094f6506c
+      size: 3359
+    - path: main.ist
+      hash: md5
+      md5: 3cfbf759c74b27ecbddce3def0592cbc
+      size: 891
     - path: main.log
       hash: md5
-      md5: 78ad768c15193de618f7defbdc53f369
+      md5: 3cac53fca7c4bf25af108bb83a0b5f9b
       size: 44322
     - path: main.out
       hash: md5
@@ -638,7 +654,7 @@ stages:
     outs:
     - path: main.pdf
       hash: md5
-      md5: 6687e63f63c4068a79039e39235560a5
+      md5: 591226c76d7e5b1370f35cfef7392e1a
       size: 821601
   arxiv:
     cmd: python arxiv.py --directories plots generate_plots data conf data_backup
