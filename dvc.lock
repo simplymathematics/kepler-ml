@@ -560,3 +560,34 @@ stages:
       md5: 994086e194d01eddd0fe9564ffa5b38f.dir
       size: 37564319
       nfiles: 17
+  pre-commmit:
+    cmd: pre-commit run --all-files  && chktex -q -V main.tex -n 24 -n 8 -n 1
+    deps:
+    - path: cifar/
+      hash: md5
+      md5: d44ff2bfbad092ed61c1700bfa718354.dir
+      size: 24885294
+      nfiles: 21
+    - path: cifar100/
+      hash: md5
+      md5: 25fbf8b1a28420d418465802324e706a.dir
+      size: 29695310
+      nfiles: 21
+    - path: combined/
+      hash: md5
+      md5: 6a5341d89329f6023bfda2cef46f52f5.dir
+      size: 37564319
+      nfiles: 17
+    - path: main.tex
+      hash: md5
+      md5: d6595257abc75ba79cc913eb752d29bd
+      size: 76498
+    - path: mnist/
+      hash: md5
+      md5: 9fbe74cd89cb138a651ec2a573d56bdf.dir
+      size: 24978383
+      nfiles: 21
+    - path: sn-bibliography.bib
+      hash: md5
+      md5: fa2609d03de73663f8c092c1f6407c60
+      size: 107931

@@ -529,11 +529,12 @@ This section outlines specific implementation details for the evaluation of the 
 
 
 \subsection{Cloud Platform and Hardware}
-To conduct the experiments and have access to different types of hardware, we utilized \acrshort{gcp}\@. 
-Six virtual machines running container optimised operating system provided by GCP constituted the test-bed. 
-Using Google Kubernetes Engine 1.27.3 and Containerd 1.7.0, a cluster consisting of six worker nodes was created. 
-Three worker nodes were responsible for running the monitoring platforms-- Prometheus 2.47.2 and Grafana 10.2.0. 
-These nodes were of the ``e2-medium'' instance type provided by GCP. In total, three GPU architectures were used--the Nvidia P100, V100, and L4. 
+To conduct the experiments and have access to different types of hardware, we utilized \acrshort{gcp}\@.
+Six virtual machines running container optimised operating system provided by GCP constituted the test-bed.
+Using Google Kubernetes Engine 1.27.3 and Containerd 1.7.0, a cluster consisting of six worker nodes was created.
+Three worker nodes were responsible for running the monitoring platforms-- Prometheus 2.47.2 and Grafana 10.2.0.
+These nodes were of the ``e2-medium'' instance type provided by GCP\@.
+In total, three GPU architectures were used--the Nvidia P100, V100, and L4\@.
 For P100 and V100 GPUs, the ``n1-standard-2'' type was used for the nodes and for L4 GPUs the ``g2-standard-4'' was used.
 
 To assess the energy consumption of the experiments, \Gls{kepler} deployed on a was used to measure the power consumption of each experiment~\cite{amaral2023kepler}. This approach enables gathering energy consumption data on granular levels as it runs in Kubernetes cluster and capable of collecting energy consumption of Kubernetes components. In essence, KEPLER uses extended Berkeley Packet Filter to probe energy-related system stats and exports them as Prometheus metrics. This filter can be described as a lightweight and sandboxed virtual machine (VM) in kernel space. The filter programs are invoked by the kernel when certain events occur. Examples of such events include system calls or network activity. These processes enable deep analysis and full control over different events with low overhead~\cite{sedghpour@ebpf}. A diagram of the cloud architecture can be found in Figure~\ref{fig:architecture}. Finally, for a cost-effective model evaluation technique, all of the experiments were restricted to a single one-thousand United States dollar budget (a research grant from Google). Approximately 10\% of this was used for development and 90\% was used for the evaluations.
@@ -646,7 +647,11 @@ The monetary cost for each dataset and each piece of hardware is shown in Figure
 
 \begin{table}
 \centering
-\caption{Comparison of AFT Models across all hardware and datasets. \cm{\acrshort{aic} and \acrshort{bic} are measures of goodness-of-fit, with a smaller value being preferred. Concordance (Conc) is a value between 0 and 1 that reflects how what proportion of events (failures) can be explained by the model. \acrshort{ici} measures the average error between a cubic-spline and the model and \acrshort{e50} measures the median error between the spline and the model. These measured on both the train and test sets of the collected data, with the latter being denoted ``Test''.}}
+\caption{Comparison of AFT Models across all hardware and datasets.
+\cm{\acrshort{aic} and \acrshort{bic} are measures of goodness-of-fit, with a smaller value being preferred.
+Concordance (Conc) is a value between 0 and 1 that reflects how what proportion of events (failures) can be explained by the model.
+\acrshort{ici} measures the average error between a cubic-spline and the model and \acrshort{e50} measures the median error between the spline and the model.
+These measured on both the train and test sets of the collected data, with the latter being denoted ``Test''.}}
 \label{tab:aft_results}
 \begin{tabular}{lrrrrrrrr}
 \toprule
@@ -695,7 +700,10 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
         \centering
         \includegraphics[width=.57\textwidth]{plots/combined/log_logistic_aft.pdf}
     \end{subfigure}
-    \caption{Coefficients of the Covariates for the Weibull, Log-Normal, and Log-Logistic AFT models. Here, ``Random State'' is used as a control variable that should be (and is) close to 0. \cm{A positive value indicates that covariate increases the survival time and negative value indicates that covariate decreases the survival time. The symbols $T_i$ and $T_t$ refer training and inference time for all samples, while \textit{Ben. Accuracy} refers to the benign accuracy (accuracy on the un-altered samples), and $\varepsilon$ is the noise distance.}}
+    \caption{Coefficients of the Covariates for the Weibull, Log-Normal, and Log-Logistic AFT models.
+    Here, ``Random State'' is used as a control variable that should be (and is) close to 0.
+    \cm{A positive value indicates that covariate increases the survival time and negative value indicates that covariate decreases the survival time.
+    The symbols $T_i$ and $T_t$ refer training and inference time for all samples, while \textit{Ben.~Accuracy} refers to the benign accuracy (accuracy on the un-altered samples), and $\varepsilon$ is the noise distance.}}
     \label{fig:aft}
 \end{figure*}
 \subsection{AFT Models}
@@ -740,7 +748,10 @@ Using the $S_{\theta}(t)$ described in Section~\ref{aft}, we can model the effec
 In security analysis, it is  routine to think in optimistic terms for both the attacker and defender. In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken'').
 Using \acrshort{aft}, one can model the Pareto front --- the set of points that are superior to all others in the search space --- for all objectives~\cite{zitzler2008quality}.
 By using a whitebox attack to generate the failures, we ensure that our defender operates under the worst case scenario while the attacker operates under their best case scenario to yield a worst-case failure rate.
-As such, we center our analysis on the whitebox Fast Gradient Method (\acrshort{fgm})~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}. If the cost to a model builder is much larger than the cost to an attacker, then it is  clear that the model is ``broken'' in this cryptographic sense and can be discarded as ineffective~\cite{meyers_aft}. \cm{Figure~\ref{fig:trash} depicts the TRASH score defined in Equation~\ref{eq:cost}, that quantifies the per-sample ratio of training to attack time. It is clear that even with the reduced GPU bandwidth (Table~\ref{tab:hardware}), that the L4 model is not only superior in terms of cost (Table~\ref{tab:hardware}), but also in terms of robustness (Table~\ref{tab:hardware}), presumably since the extra bit-depth provided by the P100 and V100 ends up being useless noise anyway when operating on 8-bit images like MNIST and CIFAR.}
+As such, we center our analysis on the whitebox Fast Gradient Method (\acrshort{fgm})~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}.
+If the cost to a model builder is much larger than the cost to an attacker, then it is  clear that the model is ``broken'' in this cryptographic sense and can be discarded as ineffective~\cite{meyers_aft}.
+\cm{Figure~\ref{fig:trash} depicts the TRASH score defined in Equation~\ref{eq:cost}, that quantifies the per-sample ratio of training to attack time.
+It is clear that even with the reduced GPU bandwidth (Table~\ref{tab:hardware}), that the L4 model is not only superior in terms of cost (Table~\ref{tab:hardware}), but also in terms of robustness (Table~\ref{tab:hardware}), presumably since the extra bit-depth provided by the P100 and V100 ends up being useless noise anyway when operating on 8-bit images like MNIST and CIFAR.}
 
 
 \subsection{Advantages of this Methodology}
@@ -773,7 +784,7 @@ Using this technique, it is clear that reduced run-times with newer and/or large
 \cm{The experiments conducted confirm that this methodology is both sound and cost-effective. While 88\% of the cloud budget went to GPU rentals, the data show how cutting that cost by 75\% and using less power-intensive hardware designed for 8-bit image processing would be \textit{more} effective than using the 32-bit datacenter \acrshort{gpu}s (V100 and P100) for typical image classification tasks. Using \acrshort{kepler} proved to be a cost-effective as real-time monitoring only used a fraction of the budget (6\%).
 Figure~\ref{fig:acc} confirms the efficacy of the~\acrshort{tpe} algorithm discussed in Section~\ref{optimisation}, allowing a infrastructure engineer to ignore the intricacies of learning rate optimization while tuning the model to a particular piece of hardware.
 Additionally, Table~\ref{tab:aft_results} and Figure~\ref{fig:qq} show that \acrshort{aft} models are an effective way to model the survival time across hardware variants.
-By comparing the training, inference, and attack  times, costs, and power consumption across different hardware devices (Figure~\ref{fig:costs}, it is clear that attacks generally cost less than training, even when we ignore the fact that attacks are consistently effective using a small number of samples while training relies on many thousands (see: Figures~\ref{fig:experiments}~\&~\ref{fig:acc}).
+By comparing the training, inference, and attack  times, costs, and power consumption across different hardware devices (Figure~\ref{fig:costs}), it is clear that attacks generally cost less than training, even when we ignore the fact that attacks are consistently effective using a small number of samples while training relies on many thousands (see: Figures~\ref{fig:experiments}~\&~\ref{fig:acc}).
 This analysis is further confirmed by examining the coefficients of the AFT models in Figure~\ref{fig:aft} wherein it is evident that neither training time ($T_t$) nor the number of epochs have noticeable effect on the survival time, but that model latency ($T_i$) does.}
 
 \cm{
