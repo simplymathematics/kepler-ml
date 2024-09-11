@@ -103,7 +103,7 @@
 
 \author[1]{\fnm{Mohammad} \sur{Reza Saleh Sedghpour}}\email{msaleh@cs.umu.se}
 
-\author[1]{\fnm{Tommy} \sur{L\"{o}fstedt}}\email{tommy@cs.umu.se}
+\author[1]{\fnm{Tommy} \sur{L\''{o}fstedt}}\email{tommy@cs.umu.se}
 
 \author[1,2]{\fnm{Erik} \sur{Elmroth}}\email{elmroth@cs.umu.se}
 
@@ -189,7 +189,7 @@ To tackle the problems of minimizing deployment cost while maximizing the model 
     % \item Extends survival analysis to the realm of neural networks,
     \item Demonstrates a scalable and effective method to train a model while simultaneously estimating the effect of various hyper-parameters, and
     \item Measures the power and monetary cost of deploying a model across different hardware architectures to model the trade-offs between deployment hardware and robustness.
-    \item Demonstrates that, even when we separately measure the effect of the slower clock speed of "inference only hardware" compared to hardware tailored for training, that models trained using the "inference only" devices are more robust for image classification tasks than models built on hardware designed for training.
+    \item Demonstrates that, even when we separately measure the effect of the slower clock speed of ``inference only hardware'' compared to hardware tailored for training, that models trained using the ``inference only'' devices are more robust for image classification tasks than models built on hardware designed for training.
 \end{itemize}
 
 Section~\ref{background} defines the terminology used throughout the paper. Section~\ref{aft} outlines the training and evaluation methodology presented in this paper.  Section~\ref{cost} discusses the resulting cost analysis framework, arising from the methodology in the previous section. Section~\ref{experiments} outlines the software components and specific experiments that were conducted, while Section~\ref{results} contains the results and discussions of those experiments. Section~\ref{considerations} and Section~\ref{conclusion} reveal the caveats and the conclusions respectively.
@@ -238,7 +238,7 @@ where the gradient is approximated using $b$ samples per mini-batch and $\eta$ i
 \subsection{Learning Rate Selection}
 \label{learning_rate}
 
-Choosing a good learning rate is critical for model performance --- greatly effecting both the accuracy and the training cost. A small learning rate will more accurately approximate the class boundaries~\cite{cao2019generalization}, but will converge slower, all other things being equal. Of course `small` is arbitrarily defined, but the scale of the optimal learning rate will vary with \textit{e.g.}, the mini-batch size, number of epochs, dimensionality of the input data, \textit{etc.}~\cite{granziol2022learning}. GPUs with larger amounts of VRAM are able to hold more data in memory at a time, increasing the effective mini-batch size, and reducing the number of model-tuning steps per epoch. A ``good" learning rate will allow a model to converge quickly~\cite{smith2019super,granziol2022learning} and the ideal mini-batch size will be determined by the memory bandwidth of the GPU and the size of the model and the size and dimensionality of the data. However, since cloud infrastructure is virtualized and shared with other users, the available bandwidth will not necessarily match the peak available bandwidth specified by the manufacturer~\cite{sajid2013cloud}, so researchers must evaluate this \textit{in situ}. Furthermore, since hardware is typically billed by the hour on public clouds, optimising the training and inference times allows a model-builder to minimize the cost of deployment. To optimize for training time as well as robustness (both $\lambda_{ben}$ and $\lambda_{adv}$), the \acrshort{tpe} optimization was used (see:~Section~\ref{optimisation}). However, before progressing any further, it is first necessary to define robustness.
+Choosing a good learning rate is critical for model performance --- greatly effecting both the accuracy and the training cost. A small learning rate will more accurately approximate the class boundaries~\cite{cao2019generalization}, but will converge slower, all other things being equal. Of course `small` is arbitrarily defined, but the scale of the optimal learning rate will vary with \textit{e.g.}, the mini-batch size, number of epochs, dimensionality of the input data, \textit{etc.}~\cite{granziol2022learning}. GPUs with larger amounts of VRAM are able to hold more data in memory at a time, increasing the effective mini-batch size, and reducing the number of model-tuning steps per epoch. A ``good'' learning rate will allow a model to converge quickly~\cite{smith2019super,granziol2022learning} and the ideal mini-batch size will be determined by the memory bandwidth of the GPU and the size of the model and the size and dimensionality of the data. However, since cloud infrastructure is virtualized and shared with other users, the available bandwidth will not necessarily match the peak available bandwidth specified by the manufacturer~\cite{sajid2013cloud}, so researchers must evaluate this \textit{in situ}. Furthermore, since hardware is typically billed by the hour on public clouds, optimising the training and inference times allows a model-builder to minimize the cost of deployment. To optimize for training time as well as robustness (both $\lambda_{ben}$ and $\lambda_{adv}$), the \acrshort{tpe} optimization was used (see:~Section~\ref{optimisation}). However, before progressing any further, it is first necessary to define robustness.
 
 
 \subsection{Adversarial Attacks}
@@ -662,7 +662,7 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
         \includegraphics[width=.49\textwidth]{plots/combined/weibull_aft.pdf}
         \includegraphics[width=.49\textwidth]{plots/combined/log_normal_aft.pdf}
         \includegraphics[width=.49\textwidth]{plots/combined/log_logistic_aft.pdf}
-    \caption{Coefficients of the Covariates for the Weibull, Log-Normal, and Log-Logistic AFT models. Here, "Random State" is used as a control variable that should be (and is) close to 0. A positive value indicates that covariate increases the survival time and negative value indicates that covariate decreases the survival time. The symbols $T_i$ and $T_t$ refer training and inference time for all samples, while \textit{Ben. Accuracy} refers to the benign accuracy (accuracy on the un-altered samples), and $\varepsilon$ is the noise distance.}
+    \caption{Coefficients of the Covariates for the Weibull, Log-Normal, and Log-Logistic AFT models. Here, ``Random Stat'' is used as a control variable that should be (and is) close to 0. A positive value indicates that covariate increases the survival time and negative value indicates that covariate decreases the survival time. The symbols $T_i$ and $T_t$ refer training and inference time for all samples, while \textit{Ben. Accuracy} refers to the benign accuracy (accuracy on the un-altered samples), and $\varepsilon$ is the noise distance.}
     \label{fig:aft}
 \end{figure*}
 \subsection{AFT Models}
@@ -698,7 +698,7 @@ In security analysis, it is  routine to think in optimistic terms for both the a
 Using \acrshort{aft}, one can model the Pareto front --- the set of points that are superior to all others in the search space --- for all objectives~\cite{zitzler2008quality}.
 By using a whitebox attack to generate the failures, we ensure that our defender operates under the worst case scenario while the attacker operates under their best case scenario to yield a worst-case failure rate.
 As such, we center our analysis on the whitebox Fast Gradient Method (\acrshort{fgm})~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}.
-If the cost to a model builder is much larger than the cost to an attacker, then it is  clear that the model is ``broken" in this cryptographic sense and can be discarded as ineffective~\cite{meyers_aft}.
+If the cost to a model builder is much larger than the cost to an attacker, then it is  clear that the model is ``broken'' in this cryptographic sense and can be discarded as ineffective~\cite{meyers_aft}.
 Figure~\ref{fig:trash} depicts the TRASH score defined in Equation~\ref{eq:cost}, that quantifies the per-sample ratio of training to attack time.
 It is clear that even with the reduced GPU bandwidth (Table~\ref{tab:hardware}), that the L4 model is not only superior in terms of cost (Table~\ref{tab:hardware}), but also in terms of robustness (Table~\ref{tab:hardware}), presumably since the extra bit-depth provided by the P100 and V100 ends up being useless noise anyway when operating on 8-bit images like MNIST and CIFAR.
 
@@ -743,7 +743,7 @@ This analysis is further confirmed by examining the coefficients of the AFT mode
 
 Regardless of which AFT model is chosen, the model suggests that the P100 decreases the survival time compared to the V100 and the L4 increases the survival time (both compared to the V100, which has no significant effect).
 Furthermore, the coefficients again confirm an inverse relationship between test set (benign) accuracy and the adversarial robustness (\textit{i.e.}, survival time).
-Finally, even when we account for the reduced GPU bandwidth (see Table~\ref{tab:hardware}) and increased training time (see Figure~\ref{fig:time}), it is clear the the L4 model is superior in terms of robustness and cost-effectiveness (see Figure~\ref{fig:trash}), despite it being advertised as ``inference only" by the manufacturer.
+Finally, even when we account for the reduced GPU bandwidth (see Table~\ref{tab:hardware}) and increased training time (see Figure~\ref{fig:time}), it is clear the the L4 model is superior in terms of robustness and cost-effectiveness (see Figure~\ref{fig:trash}), despite it being advertised as ``inference only'' by the manufacturer.
 Furthermore, the data demonstrate the un-advertised training capability of the Nvidia L4 GPU which yields a 20\% increase in survival time while costing 75\% less than the V100 that's been typical in the literature over the last several years.
 
 % no keywords
