@@ -379,9 +379,9 @@ In the language of accelerated failure time models, this can be expressed in ter
     S_\theta(t) = S_0 \left( \frac{t}{\phi_\theta(x)} \right),
 \end{equation}
 where $\phi_\theta$ is the acceleration factor, described by the joint effect of the covariates, such that
-$$
+\[
     \phi_{\theta}(x) = \exp{ \left( \theta_{0} x_{0} + \theta_{1} x_{1} + \cdots + \theta_{n} x_{n} \right) },
-$$
+\]
 and where $x=(x_0, \ldots, x_n)$ is a vector of covariates and $\theta=(\theta_0, \ldots, \theta_n)$ describe the fitted parameters, and  $\varepsilon$ is used as one of the covariates. That is, when the adversarial noise level changes, it will also alter the expected survival time of a sample.
 This assumption means we can evaluate the generalization performance using a small number of adversarial samples with our precision coming from careful time measurements rather than massive test sets~\cite{kleinbaum1996survival,meyers_aft}.
 However, in order to find the best AFT model, one must compare the tested models using the techniques outlined below.
