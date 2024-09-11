@@ -187,7 +187,7 @@ To tackle the problems of minimizing deployment cost while maximizing the model 
 \begin{itemize}
     \item Optimises for benign and adversarial accuracy simultaneously,
     % \item Extends survival analysis to the realm of neural networks,
-    \item Demonstrates a scalable and effective method to train a model while simultaneously estimating the effect of various hyperparameters, and
+    \item Demonstrates a scalable and effective method to train a model while simultaneously estimating the effect of various hyper-parameters, and
     \item Measures the power and monetary cost of deploying a model across different hardware architectures to model the trade-offs between deployment hardware and robustness.
     \item Demonstrates that, even when we separately measure the effect of the slower clock speed of "inference only hardware" compared to hardware tailored for training, that models trained using the "inference only" devices are more robust for image classification tasks than models built on hardware designed for training.
 \end{itemize}
@@ -214,7 +214,7 @@ A service \textit{mesh} typically consists of a set of interconnected components
 
 \subsection{ML Pipelines}
 \label{ml_pipelines}
-ML pipelines are often long-running and complex software tool-chains with many tunable hyperparameters. 
+ML pipelines are often long-running and complex software tool-chains with many tunable hyper-parameters. 
 Managing, tracking, and controlling for various parameters is non trivial, but many management tools are available~\cite{dvc,hydra,k8s}. 
 In general, a dataset is split into \textit{training} and \textit{test} sets. 
 The test set is then used to determine the best configuration of a given model architecture on a given hardware architecture with the expectation that it will generalize both on the withheld test set and on new data generated and submitted by users. 
