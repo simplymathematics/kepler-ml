@@ -636,7 +636,7 @@ The monetary cost for each dataset and each piece of hardware is shown in Figure
 
 \begin{table}
 \centering
-\caption{Comparison of AFT Models across all hardware and datasets. \acrshort{aic} and \acrshort{bic} are measures of goodness-of-fit, with a smaller value being preferred. Concordance (Conc) is a value between 0 and 1 that reflects how what proportion of events (failures) can be explained by the model. \acrshort{ici} measures the average error between a cubic-spline and the model and \acrshort{e50} measures the median error between the spline and the model. These measured on both the train and test sets of the collected data, with the latter being denoted ``Test''.}
+\caption{Comparison of AFT Models across all hardware and datasets. \acrshort{aic}~and~\acrshort{bic} are measures of goodness-of-fit, with a smaller value being preferred. Concordance (Conc) is a value between 0 and 1 that reflects how what proportion of events (failures) can be explained by the model. \acrshort{ici} measures the average error between a cubic-spline and the model and \acrshort{e50} measures the median error between the spline and the model. These measured on both the train and test sets of the collected data, with the latter being denoted ``Test''.}
 \label{tab:aft_summary}
 \begin{tabular}{lrrrrrrrr}
 \toprule
@@ -700,7 +700,7 @@ By using a whitebox attack to generate the failures, we ensure that our defender
 As such, we center our analysis on the whitebox Fast Gradient Method (\acrshort{fgm})~\cite{fgm} (see Eq.~\ref{eq:fgm}) which is both effective and fast~\cite{meyers}.
 If the cost to a model builder is much larger than the cost to an attacker, then it is  clear that the model is ``broken'' in this cryptographic sense and can be discarded as ineffective~\cite{meyers_aft}.
 Figure~\ref{fig:trash} depicts the TRASH score defined in Equation~\ref{eq:cost}, that quantifies the per-sample ratio of training to attack time.
-It is clear that even with the reduced GPU bandwidth (Table~\ref{tab:hardware}), that the L4 model is not only superior in terms of cost (Table~\ref{tab:hardware}), but also in terms of robustness (Table~\ref{tab:hardware}), presumably since the extra bit-depth provided by the P100 and V100 ends up being useless noise anyway when operating on 8-bit images like MNIST and CIFAR.
+It is clear that even with the reduced GPU bandwidth (Table~\ref{tab:hardware}), that the L4 model is not only superior in terms of cost (Table~\ref{tab:hardware}), but also in terms of robustness (Table~\ref{tab:hardware}), presumably since the extra bit-depth provided by the P100 and V100 ends up being useless noise anyway when operating on 8-bit images like MNIST and CIFAR\@.
 
 
 \subsection{Advantages of this Methodology}
