@@ -186,7 +186,7 @@ stages:
       - combined
     do:
       cmd: >-
-        rm -rf ../plots/${item}/ && mkdir -p ../plots/${item}/ && mv  ${item}/*.pdf  ../plots/${item}/ && mv  ${item}/*.csv  ../plots/${item}/ && mv  ${item}/*.tex  ../plots/${item}/
+        rm -rf ../plots/${item}/ && mkdir -p ../plots/${item}/ && cp ${item}/*.pdf  ../plots/${item}/ && cp ${item}/*.csv  ../plots/${item}/ && cp ${item}/*.tex  ../plots/${item}/
       deps:
         - ${item}/
       

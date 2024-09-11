@@ -689,38 +689,38 @@ stages:
       size: 150471370
       nfiles: 29
   move@mnist:
-    cmd: rm -rf ../plots/mnist/ && mkdir -p ../plots/mnist/ && mv  mnist/*.pdf  ../plots/mnist/
-      && mv  mnist/*.csv  ../plots/mnist/ && mv  mnist/*.tex  ../plots/mnist/
+    cmd: rm -rf ../plots/mnist/ && mkdir -p ../plots/mnist/ && cp mnist/*.pdf  ../plots/mnist/
+      && cp mnist/*.csv  ../plots/mnist/ && cp mnist/*.tex  ../plots/mnist/
     deps:
     - path: mnist/
       hash: md5
-      md5: 3cc8eb94374a2aa214df57dfc9a4a2ca.dir
-      size: 279
-      nfiles: 1
+      md5: 9fe87f37eb0d5e5dee89d00c3ee5571b.dir
+      size: 30553596
+      nfiles: 22
   move@cifar:
-    cmd: rm -rf ../plots/cifar/ && mkdir -p ../plots/cifar/ && mv  cifar/*.pdf  ../plots/cifar/
-      && mv  cifar/*.csv  ../plots/cifar/ && mv  cifar/*.tex  ../plots/cifar/
+    cmd: rm -rf ../plots/cifar/ && mkdir -p ../plots/cifar/ && cp cifar/*.pdf  ../plots/cifar/
+      && cp cifar/*.csv  ../plots/cifar/ && cp cifar/*.tex  ../plots/cifar/
     deps:
     - path: cifar/
       hash: md5
-      md5: 3cc8eb94374a2aa214df57dfc9a4a2ca.dir
-      size: 279
-      nfiles: 1
+      md5: 4ba9153b314ec312ca85d28e462f1e1a.dir
+      size: 24954329
+      nfiles: 21
   move@cifar100:
-    cmd: rm -rf ../plots/cifar100/ && mkdir -p ../plots/cifar100/ && mv  cifar100/*.pdf  ../plots/cifar100/
-      && mv  cifar100/*.csv  ../plots/cifar100/ && mv  cifar100/*.tex  ../plots/cifar100/
+    cmd: rm -rf ../plots/cifar100/ && mkdir -p ../plots/cifar100/ && cp cifar100/*.pdf  ../plots/cifar100/
+      && cp cifar100/*.csv  ../plots/cifar100/ && cp cifar100/*.tex  ../plots/cifar100/
     deps:
     - path: cifar100/
       hash: md5
-      md5: 3cc8eb94374a2aa214df57dfc9a4a2ca.dir
-      size: 279
-      nfiles: 1
+      md5: 0de7c5aa69dfe57a0135d6fb5653b6a7.dir
+      size: 29741632
+      nfiles: 21
   move@combined:
-    cmd: rm -rf ../plots/combined/ && mkdir -p ../plots/combined/ && mv  combined/*.pdf  ../plots/combined/
-      && mv  combined/*.csv  ../plots/combined/ && mv  combined/*.tex  ../plots/combined/
+    cmd: rm -rf ../plots/combined/ && mkdir -p ../plots/combined/ && cp combined/*.pdf  ../plots/combined/
+      && cp combined/*.csv  ../plots/combined/ && cp combined/*.tex  ../plots/combined/
     deps:
     - path: combined/
       hash: md5
-      md5: 88f6f83c816b136d9a47fe7ebe3f1e93.dir
-      size: 30998935
-      nfiles: 2
+      md5: 2bd50affae31d80b178d32c0d98d4bb0.dir
+      size: 182095956
+      nfiles: 30

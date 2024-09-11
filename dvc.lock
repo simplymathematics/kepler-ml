@@ -565,18 +565,18 @@ stages:
     deps:
     - path: generate_plots/
       hash: md5
-      md5: e9acfaad026a38dc52b8f07510ec4298.dir
-      size: 420659967
-      nfiles: 117
+      md5: e5aeffef19f8a5518898fb38dab69a46.dir
+      size: 420659996
+      nfiles: 118
     - path: main.tex
       hash: md5
       md5: 6d164a5d7b928835e58e941e71a6a4fd
       size: 76604
     - path: plots/
       hash: md5
-      md5: 314cbda9eb17aeee441fbf1bb533def0.dir
-      size: 248025725
-      nfiles: 66
+      md5: 9769fbd5681575cac1c1470278701398.dir
+      size: 230964854
+      nfiles: 90
     - path: sn-bibliography.bib
       hash: md5
       md5: e17e55f29ce7a4fcbaf64cd91e21cf4c
@@ -628,7 +628,7 @@ stages:
       size: 892
     - path: main.log
       hash: md5
-      md5: b94ec9e43846b63d704c24b051487144
+      md5: 7163c61342d4011226231e4fc905b68c
       size: 43562
     - path: main.out
       hash: md5
@@ -640,9 +640,9 @@ stages:
       size: 76604
     - path: plots/
       hash: md5
-      md5: 314cbda9eb17aeee441fbf1bb533def0.dir
-      size: 248025725
-      nfiles: 66
+      md5: 9769fbd5681575cac1c1470278701398.dir
+      size: 230964854
+      nfiles: 90
     - path: sn-bibliography.bib
       hash: md5
       md5: e17e55f29ce7a4fcbaf64cd91e21cf4c
@@ -650,31 +650,40 @@ stages:
     outs:
     - path: main.pdf
       hash: md5
-      md5: e45a008dcf8a523c4c6ca49c4b875966
-      size: 842253
+      md5: 970de952524b834954a7e7c003f14353
+      size: 809458
   arxiv:
-    cmd: python arxiv.py --directories plots generate_plots data conf data_backup
-      --extensions py yaml csv --title "Power, Compute, and Cloud"
+    cmd: rm -rf tmp/ || true &&  python arxiv.py  --directories plots/combined plots
+      --delete_these_dirs generate_plots/ tmp conf bst --extensions py yaml csv  --title
+      "A Cost-Aware Approach to Adversarial Robustness in Neural Networks" --delete_these_files
+      ".dvcignore" "main.aux" "main.blg" "main.out"  "main.pdf" "main.bbl" "main.glo"
+      "main.ist" "main.log" "cover_letter.tex"  "arxiv.log" "deckard.log" --temporary_directory
+      tmp
     deps:
     - path: arxiv.py
       hash: md5
-      md5: f5bb6d08229986ad1aef6393da99720d
-      size: 6958
+      md5: 6424cda58e8cdd02be453250908f8df5
+      size: 7776
     - path: main.pdf
       hash: md5
-      md5: 3d8923c1eebbfd4affd314e140f5cc74
-      size: 821600
+      md5: 970de952524b834954a7e7c003f14353
+      size: 809458
     - path: plots/
       hash: md5
-      md5: 29dcf234251190105170168d5d036630.dir
-      size: 229776355
-      nfiles: 60
+      md5: 9769fbd5681575cac1c1470278701398.dir
+      size: 230964854
+      nfiles: 90
     outs:
-    - path: Power, Compute, and Cloud.zip
+    - path: A Cost-Aware Approach to Adversarial Robustness in Neural Networks.zip
       hash: md5
-      md5: 0e4a49aeaa2aeaf912cdd8c3f621b11b
-      size: 1032347
+      md5: 1775b467b62e20eb9c2bc5639a6218d4
+      size: 563120
     - path: arxiv.log
       hash: md5
-      md5: 75e48333fc7bfd004d1d2790a98cfeae
-      size: 4902
+      md5: 47aca5fa23d33dd32f70fc162cc4ad8a
+      size: 3893
+    - path: tmp/
+      hash: md5
+      md5: 3947f8b648aaf55182a92ee07500cc07.dir
+      size: 938053
+      nfiles: 28

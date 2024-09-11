@@ -8,7 +8,7 @@ vars:
   - conf/clean.yaml:fillna
 stages:
   pre-commmit:
-    cmd: pre-commit run --all-files  && chktex -q -V main.tex -n 24 -n 8 -n 1 # Suppresses warnings 8 (dash length), 24 (\labels inside floats), and 1 (trailing whitespace following and command)
+    cmd: pre-commit run --all-files  && chktex -q -V main.tex -n 24 -n 8 -n 1 # Suppresses warnings 8 (dash length), 24 (\labels inside floats), and 1 (trailing whitespace following a command)
     deps:
       - main.tex
       - sn-bibliography.bib
@@ -37,12 +37,21 @@ stages:
       - main.ist
     outs:
       - main.pdf
-  # arxiv: # Commented this out for now because /tmp doesn't have enough space to generate the plots on itchy and I don't need to run this anyway.
-  #   cmd: python arxiv.py --directories plots generate_plots data conf data_backup --extensions py yaml csv --title "Power, Compute, and Cloud"
-  #   deps:
-  #     - arxiv.py
-  #     - plots/
-  #     - main.pdf
-  #   outs:
-  #     - "Power, Compute, and Cloud.zip"
-  #     - arxiv.log
+  arxiv: # Commented this out for now because /tmp doesn't have enough space to generate the plots on itchy and I don't need to run this anyway.
+    cmd: >-
+      rm -rf tmp/ || true && 
+      python arxiv.py 
+      --directories plots/combined plots
+      --delete_these_dirs generate_plots/ tmp conf bst
+      --extensions py yaml csv 
+      --title "A Cost-Aware Approach to Adversarial Robustness in Neural Networks"
+      --delete_these_files ".dvcignore" "main.aux" "main.blg" "main.out"  "main.pdf" "main.bbl" "main.glo" "main.ist" "main.log" "cover_letter.tex"  "arxiv.log" "deckard.log"
+      --temporary_directory tmp
+    deps:
+      - arxiv.py
+      - plots/
+      - main.pdf
+    outs:
+      - "A Cost-Aware Approach to Adversarial Robustness in Neural Networks.zip"
+      - arxiv.log
+      - tmp/
