@@ -113,36 +113,6 @@
 \affil[2]{\orgname{Elastisys AB},  \country{Sweden}}
 
 
-% author names and affiliations
-% use a multiple column layout for up to three different
-% affiliations
-% \author{\IEEEauthorblockN{1\textsuperscript{st} Charles Meyers}
-% \IEEEauthorblockA{\textit{Dept. of Computing Science} \\
-% \textit{Ume\aa University}\\
-% Ume\aa, Sweden \\
-% cmeyers@cs.umu.se}
-% \and
-% \IEEEauthorblockN{2\textsuperscript{nd} Mohammad Reza}
-% \IEEEauthorblockA{\textit{Elastisys} \\
-% % \textit{Ume\aa University}\\
-% % Lund, Sweden \\
-% mohammad.saleh@elastisys.com}
-% \and
-% \IEEEauthorblockN{3\textsuperscript{rd} Tommy Löfstedt}
-% \IEEEauthorblockA{\textit{Dept. of Computing Science} \\
-% \textit{Ume\aa University}\\
-% Ume\aa, Sweden \\
-% tommy@cs.umu.se}
-% \and
-% \IEEEauthorblockN{4\textsuperscript{th} Erik Elmroth}
-% \IEEEauthorblockA{\textit{Dept. of Computing Science} \\
-% \textit{Ume\aa University}\\
-% Ume\aa, Sweden \\
-% elmroth@cs.umu.se}
-% }
-
-
-
 \abstract{
 Considering the growing prominence of production-level AI and the threat of adversarial attacks that can evade a model at run-time, evaluating the robustness of models to these evasion attacks is of critical importance.
 Additionally, testing model changes likely means deploying the models to (\textit{e.g.} a car or a medical imaging device), or a drone to see how it affects performance, making un-tested changes a public problem that reduces development speed, increases cost of development, and makes it difficult (if not impossible) to parse cause from effect.
@@ -641,10 +611,10 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
 \subsection{AFT Models}
 \label{res:aft}
 
-Table~\ref{tab:aft_summary} shows the performance metrics for all three AFT models, as outlined in Section~\ref{survival_time}. A total 75\% of the available data were used to build the AFT models and 25\% were withheld for evaluation. 
-The concordance is both strong ($>0.5$) and similar for all three AFT models and both the train and test sets. We observed no more than 1\% mean absolute error in the probabilities \acrshort{ici} and no error in the median probability \acrshort{e50} across all three AFT models. 
-Figure~\ref{fig:qq} depicts the observed and predicted probabilities for all three AFT models. All three models have strong predictive power (see Table:~\ref{tab:aft_summary}), with an average test error of around 1\% \acrshort{ici} and a similar error for the median sample \acrshort{e50}. 
-We also see that these metrics are  functionally identical across all AFT models as well as between the test and train set of each model. 
+Table~\ref{tab:aft_summary} shows the performance metrics for all three AFT models, as outlined in Section~\ref{survival_time}. A total 75\% of the available data were used to build the AFT models and 25\% were withheld for evaluation.
+The concordance is both strong ($>0.5$) and similar for all three AFT models and both the train and test sets. We observed no more than 1\% mean absolute error in the probabilities \acrshort{ici} and no error in the median probability \acrshort{e50} across all three AFT models.
+Figure~\ref{fig:qq} depicts the observed and predicted probabilities for all three AFT models. All three models have strong predictive power (see Table:~\ref{tab:aft_summary}), with an average test error of around 1\% \acrshort{ici} and a similar error for the median sample \acrshort{e50}.
+We also see that these metrics are  functionally identical across all AFT models as well as between the test and train set of each model.
 
 Figure~\ref{fig:aft} shows the log-scale coefficients for the AFT model. It shows that epochs, batch size, and training time have no effect on the survival time.
 Additionally, the covariate value of 0 for random state indicates that random permutations of the training and test data have no effect on the survival time, which is expected.
