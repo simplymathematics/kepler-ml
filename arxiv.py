@@ -94,16 +94,14 @@ def flatten_directories(directories):
             logger.info(directory + ' does not exist.')
             logger.info('Current working directory: ' + os.getcwd())
             logger.info('Contents of current working directory: ' + str(os.listdir()))
-            input('Press enter to continue.')
-            exit()
         else:
             logger.info('Flattening ' + directory + ' directory.')
-        for filename in os.listdir(directory):
-            if os.path.isfile(os.path.join(directory, filename)):
-                new_name = str(Path(Path(directory).parent, Path(directory).name + '_' + filename).resolve())
-                shutil.copy(os.path.join(directory, filename), new_name)
-            else:
-                logger.info(filename + ' is a directory.')
+            for filename in os.listdir(directory):
+                if os.path.isfile(os.path.join(directory, filename)):
+                    new_name = str(Path(Path(directory).parent, Path(directory).name + '_' + filename).resolve())
+                    shutil.copy(os.path.join(directory, filename), new_name)
+                else:
+                    logger.info(filename + ' is a directory.')
 
 
 def replace_contents(directories, tex_files):

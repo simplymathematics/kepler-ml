@@ -565,22 +565,22 @@ stages:
     deps:
     - path: generate_plots/
       hash: md5
-      md5: b5cab8a0c711b6cddc149c995c2c08e9.dir
-      size: 413825273
-      nfiles: 85
+      md5: e9acfaad026a38dc52b8f07510ec4298.dir
+      size: 420659967
+      nfiles: 117
     - path: main.tex
       hash: md5
-      md5: d6595257abc75ba79cc913eb752d29bd
-      size: 76498
+      md5: 6d164a5d7b928835e58e941e71a6a4fd
+      size: 76604
     - path: plots/
       hash: md5
-      md5: 29dcf234251190105170168d5d036630.dir
-      size: 229776355
-      nfiles: 60
+      md5: 314cbda9eb17aeee441fbf1bb533def0.dir
+      size: 248025725
+      nfiles: 66
     - path: sn-bibliography.bib
       hash: md5
-      md5: fa2609d03de73663f8c092c1f6407c60
-      size: 107931
+      md5: e17e55f29ce7a4fcbaf64cd91e21cf4c
+      size: 101844
   generate_plots:
     cmd: cd generate_plots && dvc repro && cd ..
   first_run:
@@ -588,25 +588,25 @@ stages:
     deps:
     - path: main.tex
       hash: md5
-      md5: d6595257abc75ba79cc913eb752d29bd
-      size: 76498
+      md5: 6d164a5d7b928835e58e941e71a6a4fd
+      size: 76604
     outs:
     - path: main.aux
       hash: md5
-      md5: 8298fdf9a7b386229393a68295600b7b
-      size: 28465
+      md5: 55e3453b669ac6b0ea4001eb8094c217
+      size: 30677
     - path: main.glo
       hash: md5
-      md5: d2b32beb2dde1f66a3e1eb70fcecdf36
+      md5: 2fabd1fbd798d8aece97268e12547e1e
       size: 3359
     - path: main.ist
       hash: md5
-      md5: 3cfbf759c74b27ecbddce3def0592cbc
-      size: 891
+      md5: 1515fafced0972f2ce09d039f788987e
+      size: 892
     - path: main.log
       hash: md5
-      md5: 80eb8d694c2d4b26db36e77d1d034446
-      size: 65929
+      md5: ef82408bdae8fc8aa7faeec442d5e942
+      size: 65108
     - path: main.out
       hash: md5
       md5: ca0030add4335128834fbd3e33d727de
@@ -616,42 +616,42 @@ stages:
     deps:
     - path: main.aux
       hash: md5
-      md5: 35c7e254cf9a7023d0c051167a8ca1d3
-      size: 28465
+      md5: 9dc175dde3a73cbd53b18cfcf69ecc72
+      size: 30675
     - path: main.glo
       hash: md5
-      md5: 9aa205b9519e24b220f01d9094f6506c
+      md5: 412b00d234fc4916ed71667411494067
       size: 3359
     - path: main.ist
       hash: md5
-      md5: 3cfbf759c74b27ecbddce3def0592cbc
-      size: 891
+      md5: 1515fafced0972f2ce09d039f788987e
+      size: 892
     - path: main.log
       hash: md5
-      md5: 6b8acf8e6bc5db915cfe5c95668dfde9
-      size: 44322
+      md5: b94ec9e43846b63d704c24b051487144
+      size: 43562
     - path: main.out
       hash: md5
       md5: ca0030add4335128834fbd3e33d727de
       size: 5616
     - path: main.tex
       hash: md5
-      md5: d6595257abc75ba79cc913eb752d29bd
-      size: 76498
+      md5: 6d164a5d7b928835e58e941e71a6a4fd
+      size: 76604
     - path: plots/
       hash: md5
-      md5: 29dcf234251190105170168d5d036630.dir
-      size: 229776355
-      nfiles: 60
+      md5: 314cbda9eb17aeee441fbf1bb533def0.dir
+      size: 248025725
+      nfiles: 66
     - path: sn-bibliography.bib
       hash: md5
-      md5: fa2609d03de73663f8c092c1f6407c60
-      size: 107931
+      md5: e17e55f29ce7a4fcbaf64cd91e21cf4c
+      size: 101844
     outs:
     - path: main.pdf
       hash: md5
-      md5: 3d8923c1eebbfd4affd314e140f5cc74
-      size: 821600
+      md5: e45a008dcf8a523c4c6ca49c4b875966
+      size: 842253
   arxiv:
     cmd: python arxiv.py --directories plots generate_plots data conf data_backup
       --extensions py yaml csv --title "Power, Compute, and Cloud"
