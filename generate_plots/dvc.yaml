@@ -76,7 +76,7 @@ stages:
        - cifar
        - cifar100
     do:
-      cmd: python -m deckard.layers.afr --dataset ${item} --data_file ${item}/clean.csv --config_file "../conf/afr.yaml" --plots_folder ${item}/ --target adv_failures --duration_col adv_fit_time
+      cmd: python -m deckard.layers.afr --dataset ${item} --data_file ${item}/clean.csv --config_file "../conf/afr.yaml" --plots_folder ${item}/ --target adv_accuracy --duration_col adv_fit_time
       deps:
         - ${item}/clean.csv
         - ../conf/afr.yaml
@@ -123,7 +123,7 @@ stages:
        - params
        - fillna
   combined_afr:
-    cmd: python -m deckard.layers.afr --dataset Combined --data_file combined/clean.csv --config_file "../conf/combined_afr.yaml" --plots_folder combined/ --target adv_failures --duration_col adv_fit_time
+    cmd: python -m deckard.layers.afr --dataset Combined --data_file combined/clean.csv --config_file "../conf/combined_afr.yaml" --plots_folder combined/ --target adv_accuracy --duration_col adv_fit_time
     deps:
       - combined/clean.csv
       - ../conf/combined_afr.yaml
@@ -152,7 +152,7 @@ stages:
         --data combined/clean.csv 
         --config_file ../conf/combined_afr.yaml 
         --model ${item}
-        --target adv_failures 
+        --target adv_accuracy 
         --duration_col adv_fit_time
         --output combined/${item}.csv
       deps:

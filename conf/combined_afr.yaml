@@ -9,9 +9,6 @@ covariates:
   - dataset
   - device_id
   - adv_fit_time
-  - adv_failures
-  - dataset
-  - device_id
 fillna:
   model.trainer.nb_epoch: 20
   model.trainer.batch_size: 1024

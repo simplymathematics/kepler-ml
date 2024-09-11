@@ -7,7 +7,6 @@ covariates:
   - data.sample.random_state
   - adv_fit_time
   - attack.init.eps
-  - adv_failures
   - device_id
 fillna:
   model.trainer.nb_epoch: 20
