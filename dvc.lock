@@ -570,8 +570,8 @@ stages:
       nfiles: 118
     - path: main.tex
       hash: md5
-      md5: 6d164a5d7b928835e58e941e71a6a4fd
-      size: 76604
+      md5: ce8dfacd3347efdd1c06db69a4194d6d
+      size: 74231
     - path: plots/
       hash: md5
       md5: 9769fbd5681575cac1c1470278701398.dir
@@ -588,13 +588,13 @@ stages:
     deps:
     - path: main.tex
       hash: md5
-      md5: 6d164a5d7b928835e58e941e71a6a4fd
-      size: 76604
+      md5: ce8dfacd3347efdd1c06db69a4194d6d
+      size: 74231
     outs:
     - path: main.aux
       hash: md5
-      md5: 55e3453b669ac6b0ea4001eb8094c217
-      size: 30677
+      md5: 4d21faee984d2d7f79d498d9789e0b7a
+      size: 30674
     - path: main.glo
       hash: md5
       md5: 2fabd1fbd798d8aece97268e12547e1e
@@ -605,19 +605,19 @@ stages:
       size: 892
     - path: main.log
       hash: md5
-      md5: ef82408bdae8fc8aa7faeec442d5e942
-      size: 65108
+      md5: 9b6f72f2e1240e34826647157b88f162
+      size: 64954
     - path: main.out
       hash: md5
-      md5: ca0030add4335128834fbd3e33d727de
-      size: 5616
+      md5: 2000f48b84a2c3325b76ae8d9a77c34e
+      size: 5559
   big_run:
     cmd: pdflatex main.tex && bibtex main && pdflatex  main.tex && pdflatex  main.tex
     deps:
     - path: main.aux
       hash: md5
-      md5: 9dc175dde3a73cbd53b18cfcf69ecc72
-      size: 30675
+      md5: bbd9408261dc74bc56da3fce9cbe7c64
+      size: 30672
     - path: main.glo
       hash: md5
       md5: 412b00d234fc4916ed71667411494067
@@ -628,16 +628,16 @@ stages:
       size: 892
     - path: main.log
       hash: md5
-      md5: 7163c61342d4011226231e4fc905b68c
-      size: 43562
+      md5: 26341d9906a39bcfc19f1a3a7aa2097c
+      size: 43176
     - path: main.out
       hash: md5
-      md5: ca0030add4335128834fbd3e33d727de
-      size: 5616
+      md5: 2000f48b84a2c3325b76ae8d9a77c34e
+      size: 5559
     - path: main.tex
       hash: md5
-      md5: 6d164a5d7b928835e58e941e71a6a4fd
-      size: 76604
+      md5: ce8dfacd3347efdd1c06db69a4194d6d
+      size: 74231
     - path: plots/
       hash: md5
       md5: 9769fbd5681575cac1c1470278701398.dir
@@ -650,14 +650,14 @@ stages:
     outs:
     - path: main.pdf
       hash: md5
-      md5: 970de952524b834954a7e7c003f14353
-      size: 809458
+      md5: abf63677ff1c60bda1cf5bcf669fbd40
+      size: 807745
   arxiv:
-    cmd: rm -rf tmp/ || true &&  python arxiv.py  --directories plots/combined plots
-      --delete_these_dirs generate_plots/ tmp conf bst --extensions py yaml csv  --title
-      "A Cost-Aware Approach to Adversarial Robustness in Neural Networks" --delete_these_files
-      ".dvcignore" "main.aux" "main.blg" "main.out"  "main.pdf" "main.bbl" "main.glo"
-      "main.ist" "main.log" "cover_letter.tex"  "arxiv.log" "deckard.log" --temporary_directory
+    cmd: rm -rf tmp/ &&  python arxiv.py  --directories plots/combined plots --delete_these_dirs
+      generate_plots/ tmp conf bst --extensions py yaml csv  --title "A Cost-Aware
+      Approach to Adversarial Robustness in Neural Networks" --delete_these_files
+      ".dvcignore" "main.aux" "main.blg" "main.out"  "main.pdf" "main.glo" "main.ist"
+      "main.log" "cover_letter.tex"  "arxiv.log" "deckard.log" --temporary_directory
       tmp
     deps:
     - path: arxiv.py
@@ -666,8 +666,8 @@ stages:
       size: 7776
     - path: main.pdf
       hash: md5
-      md5: 970de952524b834954a7e7c003f14353
-      size: 809458
+      md5: abf63677ff1c60bda1cf5bcf669fbd40
+      size: 807745
     - path: plots/
       hash: md5
       md5: 9769fbd5681575cac1c1470278701398.dir
@@ -676,14 +676,14 @@ stages:
     outs:
     - path: A Cost-Aware Approach to Adversarial Robustness in Neural Networks.zip
       hash: md5
-      md5: 1775b467b62e20eb9c2bc5639a6218d4
-      size: 563120
+      md5: 06083deddafc4c9ab8fb15a3a9b36e3b
+      size: 571814
     - path: arxiv.log
       hash: md5
-      md5: 47aca5fa23d33dd32f70fc162cc4ad8a
-      size: 3893
+      md5: 8c62e860522d0ef503535203f0a846ac
+      size: 3881
     - path: tmp/
       hash: md5
-      md5: 3947f8b648aaf55182a92ee07500cc07.dir
-      size: 938053
-      nfiles: 28
+      md5: 1feb8bd3a15f8bbfc439a78c6b87b41f.dir
+      size: 971110
+      nfiles: 29

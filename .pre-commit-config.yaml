@@ -33,5 +33,3 @@ repos:
     hooks:
       - id: check-merge-conflict
       - id: check-yaml
-      - id: trailing-whitespace
-        files: ".*\\.(?:tex|py)$"
