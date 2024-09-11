@@ -101,14 +101,14 @@
 
 \author*[1]{\fnm{Charles} \sur{Meyers}}\email{cmeyers@cs.umu.se}
 
-\author[1]{\fnm{Mohammad} \sur{Reza Saleh Sedghpour}}\email{msaleh@cs.umu.se}
+\author[2]{\fnm{Mohammad} \sur{Reza Saleh Sedghpour}}\email{mohammad.saleh@elastisys.com}
 
 \author[1]{\fnm{Tommy} \sur{L\"{o}fstedt}}\email{tommy@cs.umu.se}
 
 \author[1,2]{\fnm{Erik} \sur{Elmroth}}\email{elmroth@cs.umu.se}
 
-\affil*[1]{\orgdiv{Department of Computing Science}, \orgname{Ume\aa ~University},
-\city{Ume\aa}, \postcode{901 87}, \country{Sweden}}
+\affil*[1]{\orgdiv{Department of Computing Science}, \orgname{Ume\aa{} University},
+\city{Ume\aa{}}, \postcode{901 87}, \country{Sweden}}
 
 \affil[2]{\orgname{Elastisys AB},  \country{Sweden}}
 
@@ -185,9 +185,9 @@ In this work, we used accelerated failure-time methods to predict model performa
 \subsection{Contributions}
 To tackle the problems of minimizing deployment cost while maximizing the model performance on both the test set and in the presence of adversarial noise we present a scalable and effective methodology (see  Figure~\ref{fig:experiments}) and software framework (see Figure~\ref{fig:architecture}) for the training (see Section~\ref{aft}) and evaluation (see Section~\ref{cost}) of ML models that:
 \begin{itemize}
-    \item Optimises for benign and adversarial accuracy simultaneously,
+    \item Optimises for benign and adversarial accuracy simultaneously.
     % \item Extends survival analysis to the realm of neural networks, 
-    \item Demonstrates a scalable and effective method to train a model while simultaneously estimating the effect of various hyperparameters, and
+    \item Demonstrates a scalable and effective method to train a model while simultaneously estimating the effect of various hyperparameters.
     \item Measures the power and monetary cost of deploying a model across different hardware architectures to model the trade-offs between deployment hardware and robustness.
     \item Demonstrates that, even when we separately measure the effect of the slower clock speed of "inference only hardware" compared to hardware tailored for training, that models trained using the "inference only" devices are more robust for image classification tasks than models built on hardware designed for training.
 \end{itemize}
@@ -565,6 +565,9 @@ Several hardware configurations were tested, that had various hourly costs, peak
 
 In addition to the optimisation criteria of benign/adversarial accuracy and training time, prediction times, attack times, power consumption, batch size, and number of epochs were also collected to be used as covariates in the AFT model, $S_{\theta}(t)$. To fit the AFT model and to plot the effect of the covariates, the \texttt{lifelines} Python package was used~\cite{lifelines}. The Weibull, Log Logistic, and Log Normal AFT models (see Section~\ref{aft}) were also compared. 
 
+\subsection{Availability of Data and Materials}
+The source code for conducting the experiments is available in the \texttt{deckard} \href{https://github.com/simplymathematics/deckard/tree/main/examples/power}{ repository} and the pretrained \texttt{pytorch} version of ResNet18 was used to conduct the experiments. Requirements and dependencies are listed within the repository, which is distributed under the GNU Public License version 3. The compiled data and the Python source code for this document are available \href{https://github.com/simplymathematics/kepler-ml}{here}. The source code has been tested on Windows and various Linux distributions and should work on MacOS, but has not been tested there.
+
 
 \section{Results and Discussion}
 \label{results}
@@ -731,20 +734,17 @@ Furthermore, the coefficients again confirm an inverse relationship between test
 Finally, even when we account for the reduced GPU bandwidth (see Table~\ref{tab:hardware}) and increased training time (see Figure~\ref{fig:time}), it is clear the the L4 model is superior in terms of robustness and cost-effectiveness (see Figure~\ref{fig:trash}), despite it being advertised as ``inference only" by the manufacturer. 
 Furthermore, the data demonstrate the un-advertised training capability of the Nvidia L4 GPU which yields a 20\% increase in survival time while costing 75\% less than the V100 that's been typical in the literature over the last several years.
 
-% no keywords
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
-\clearpage
-\section{Availability of Data and Materials}
-The source code for conducting the experiments is available in the \texttt{deckard} \href{https://github.com/simplymathematics/deckard/tree/main/examples/power}{ repository} and the pretrained \texttt{pytorch} version of ResNet18 was used to conduct the experiments. Requirements and dependencies are listed within the repository, which is distributed under the GNU Public License version 3. The compiled data and the Python source code for this document are available \href{https://github.com/simplymathematics/kepler-ml}{here}. The source code has been tested on Windows and various Linux distributions and should work on MacOS, but has not been tested there.
+
+
+
+
+% \clearpage
+
+
+
+
 \printglossary
-\clearpage
+% \clearpage
 \bibliography{sn-bibliography}
 
 \end{document}
