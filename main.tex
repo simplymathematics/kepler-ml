@@ -63,7 +63,7 @@
 \usepackage{manyfoot}%
 \usepackage{booktabs}%
 %%%%
-
+\renewcommand{\glossarysection}[2][]{}
 %%%%%=============================================================================%%%%
 %%%%  Remarks: This template is provided to aid authors with the preparation
 %%%%  of original research articles intended for submission to journals published
@@ -101,7 +101,7 @@
 
 \author*[1]{\fnm{Charles} \sur{Meyers}}\email{cmeyers@cs.umu.se}
 
-\author[1]{\fnm{Mohammad} \sur{Reza Saleh Sedghpour}}\email{msaleh@cs.umu.se}
+\author[2,1]{\fnm{Mohammad} \sur{Reza Saleh Sedghpour}}\email{msaleh@cs.umu.se}
 
 \author[1]{\fnm{Tommy} \sur{L\''{o}fstedt}}\email{tommy@cs.umu.se}
 
@@ -145,9 +145,13 @@
 
 \abstract{
 Considering the growing prominence of production-level AI and the threat of adversarial attacks that can evade a model at run-time, evaluating the robustness of models to these evasion attacks is of critical importance.
-Additionally, testing model changes likely means deploying the models to \textit{e.g.}, a car, a medical imaging device, or a drone to see how it affects performance, making un-tested changes a public problem that reduces development speed, increases cost of development, and makes it difficult (if not impossible) to parse cause from effect.
+Additionally, testing model changes likely means deploying the models to (\textit{e.g.} a car or a medical imaging device), or a drone to see how it affects performance, making un-tested changes a public problem that reduces development speed, increases cost of development, and makes it difficult (if not impossible) to parse cause from effect.
 In this work, we used survival analysis as a cloud-native, time-efficient and precise method for predicting model performance in the presence of adversarial noise.
-For neural networks in particular, the relationships between the learning rate, batch size, training time, convergence time, and deployment cost are highly complex, so researchers generally rely on benchmark datasets to assess the ability of a model to generalize beyond the training data. However, in practice, this means that each model configuration needs to be evaluated against real-world deployment samples which can be prohibitively expensive or time-consuming to collect --- especially when other parts of the software or hardware stack are developed in parallel. To address this, we propose using accelerated failure time models to measure the effect of hardware choice, batch size, number of epochs, and test-set accuracy by using adversarial attacks to induce failures on a reference model architecture before deploying the model to the real world. We evaluate several GPU types and use the Tree Parzen Estimator to maximize model robustness and minimize model run-time simultaneously. This provides a way to evaluate the model and optimise it in a single step, while simultaneously allowing us to model the effect of model parameters on training time, prediction time, and accuracy. Using this technique, we demonstrate that newer, more-powerful hardware does decrease the training time, but with a monetary and power cost that far outpaces the marginal gains in accuracy.
+For neural networks in particular, the relationships between the learning rate, batch size, training time, convergence time, and deployment cost are highly complex, so researchers generally rely on benchmark datasets to assess the ability of a model to generalize beyond the training data. However, in practice, this means that each model configuration needs to be evaluated against real-world deployment samples which can be prohibitively expensive or time-consuming to collect --- especially when other parts of the software or hardware stack are developed in parallel. 
+To address this, we propose using accelerated failure time models to measure the effect of hardware choice, batch size, number of epochs, and test-set accuracy by using adversarial attacks to induce failures on a reference model architecture before deploying the model to the real world. 
+We evaluate several GPU types and use the Tree Parzen Estimator to maximize model robustness and minimize model run-time simultaneously. 
+This provides a way to evaluate the model and optimise it in a single step, while simultaneously allowing us to model the effect of model parameters on training time, prediction time, and accuracy. 
+Using this technique, we demonstrate that newer, more-powerful hardware does decrease the training time, but with a monetary and power cost that far outpaces the marginal gains in accuracy.
 }
 
 \keywords{artificial intelligence, machine learning, adversarial AI, optimisation, compliance}
@@ -158,14 +162,6 @@ For neural networks in particular, the relationships between the learning rate, 
 
 \section{Introduction}
 \subsection{Motivation}
-% \begin{itemize}
-%     % \item \textit{BIG} Data is the trend
-%     % \item Costs are astronomical
-%     \item Prevailing regulatory framework is clear about the robustness requirements, documented software changes, and explainable processes.
-%     \item Other work relies on unreliable test/train split methodology
-%     \item Which means that cars, medical equipment is tested in the wild
-% \end{itemize}
-
 Recently, \acrfull{ml} using deep neural networks has become a popular way to classify large amounts of data --- with applications ranging from medical imaging~\cite{ai_medical_imaging} to aviation~\cite{ai_aviation} and from security~\cite{ai_security,ai_luggage,ai_prison} to self-driving cars~\cite{ai_automotive}.
 Statistical learning theory~\cite{vcdimension,shalev2014understanding} provides us no guarantees about the generalization performance of deep neural networks due to the massive number of tunable parameters.
 To overcome this, neural networks need large amounts of data~\cite{desislavov2021compute,bailly2022effects} to train ever-larger model~\cite{desislavov2021compute}, which has yielded increasingly marginal gains on test-set accuracy~\cite{sun2017revisiting}.
@@ -186,7 +182,6 @@ In this work, we used accelerated failure-time methods to predict model performa
 To tackle the problems of minimizing deployment cost while maximizing the model performance on both the test set and in the presence of adversarial noise we present a scalable and effective methodology (see  Figure~\ref{fig:experiments}) and software framework (see Figure~\ref{fig:architecture}) for the training (see Section~\ref{aft}) and evaluation (see Section~\ref{cost}) of ML models that:
 \begin{itemize}
     \item Optimises for benign and adversarial accuracy simultaneously,
-    % \item Extends survival analysis to the realm of neural networks,
     \item Demonstrates a scalable and effective method to train a model while simultaneously estimating the effect of various hyper-parameters, and
     \item Measures the power and monetary cost of deploying a model across different hardware architectures to model the trade-offs between deployment hardware and robustness.
     \item Demonstrates that, even when we separately measure the effect of the slower clock speed of ``inference only hardware'' compared to hardware tailored for training, that models trained using the ``inference only'' devices are more robust for image classification tasks than models built on hardware designed for training.
@@ -202,8 +197,6 @@ Section~\ref{background} defines the terminology used throughout the paper. Sect
 
 In this paper, we evaluate a comprehensive methodology for evaluating model robustness during training time and model the asymptotic effect of the various parameters in the hyper-parameter search space. For the sake of the reader, we provide a section for definitions and requisite background information below.
 
-
-% Our experiments and analysis provide valuable insights into the trade-offs and considerations when deploying ML models under varying computational and adversarial constraints.
 \subsection{Cloud Architectures}
 
 
@@ -225,8 +218,6 @@ To verify the training process, the test set is validated against the \textit{in
 
 We consider ML classifiers, $K(x; \theta)$ with model parameters, $\theta$. The true labels are denoted by $y$, and the model predictions by $\hat{y} = K(x; \theta)$ where $x$ is a mini-batch of size $N$ of data samples. The loss function, the measure of discrepancy between the true label and the predicted label, is denoted by $L(y, \hat{y})$.
 Because of the complexity of modern \acrshort{ml} models, researchers rely on numerical optimisation, and one popular choice of optimisation algorithm is \textit{stochastic gradient descent}, which updates the model parameters by taking a step in the negative gradient direction, where the gradient is computed using a subset (a mini-batch) of the training samples instead of all training samples.
-% selects the next $N$ samples from the training set before adjusting the model parameters, $\theta$, in the direction that decreases the loss.
-% This is in the direction of the negative gradient of the loss, $-\nabla L(y, K(x, \theta))$.
 This procedure is repeated for some number of \textit{epochs} (iterations through the entire training set). Every iteration takes a step,
 \begin{equation}
     \theta^{(i+1)} = \theta^{(i)} - \eta \nabla_{\theta^{(i)}} L(y, K(x, \theta^{(i)}))
@@ -281,37 +272,6 @@ In the case of safety- or security-critical domains, considering the worst-case 
 We propose a methodology for model training and verification using accelerated failure-time (AFT) models, drawn from the field of \textit{survival analysis}, with a focus on cost-efficient evaluation methods.
 AFT models are statistical models used to analyze multivariate effects on the observed failure rate to predict the time-to-failure across a wide variety of circumstances~\cite{aft_models,kleinbaum1996survival}. In medical science, these models are used to make claims like ``smokers are twice as likely to die from lung cancer'' or used to set the operating limits of manufactured components. This methodology can be used to map the relationship between various model tuning parameters and their effect on model performance.
 The next section outlines the methodology for modelling the effect of model hyper-parameters during routine training procedures. We precisely outline the methodology for using survival analysis during the training of \acrshort{ml} methods.
-% First, we present the proposed procedure in Algorithm~\ref{fig:alg} and a visual diagram of it in Figure~\ref{fig:experiments}. Then, in the sections below, we define accuracy (Section~\ref{acc}) and failure rate (Section~\ref{failure_rate}) in the context of survival analysis to make the concept of survival time clear (Section~\ref{survival_time}). We then discuss the importance of the ``acceleration assumption'' (Section~\ref{accelerated}), the optimisation algorithm (Section~\ref{optimisation}), and the advantages of this approach (Section~\ref{advantages}).
-
-
-% \begin{algorithm}[tph!]
-%     \caption{Survival Analysis for ML}
-%     \label{fig:alg}
-% \begin{algorithmic}
-%     \Require Samples $x$ of size $N$, model parameters $\theta$, loss function $L(y, \hat{y})$, classifier $K(x; \theta)$, and the number of trials, $n$, where the subscripts $t,i,a$ refer to the respective value for either the train, test, and/or attack sets, \textit{e.g.}, $N_t$ is size of the training set.
-%     \State Initialize classifier $K(x, \theta)$, training/inference/attack generation time arrays $T_t/T_i/T_a$, benign/adversarial accuracy arrays, $\lambda_{ben}/ \lambda_{adv}$
-%     \State $i = 0$
-%     \While{ $i < n$}
-%     \State \textbf{Initialize:} Random State, $R$ and split the classification data into the training set $x_t$ and the inference set $x_i$.
-%     \State \textbf{Optimise $L(y, \hat{y})$:} over $x_t, \theta$ according to some method (e.g Eq.~\ref{eq:sgd}) with a given batch size, $b$, and number of epochs, $m$.
-%     \State  $T_t[i] \gets$ Training Time.
-%     \State  $ \hat{y_i} = K(x_i, \theta) $.
-%     \State  $ T_i[i] \gets $  Inference Time.
-%     \State  $\lambda_{ben}[i] \gets $  Benign Accuracy (Eq.~\ref{eq:acc}).
-%     \State find $x_a$ with Eq.~\ref{eq:fgm}.
-%     \State  $T_a[i] \gets$ attack generation time.
-%     \State  $ \hat{y}_a = K(x_a, \theta) $.
-%     \State  $\lambda_{adv}[i] \gets $  Adversarial Accuracy (Eq.~\ref{eq:acc})
-%     \EndWhile
-%     \State $S_{\theta}(T_a) \approx \phi N_a \cdot \lambda_{adv}$ with $\lambda_{ben}$, $T_t$, $T_i$, $m$, $b$, $R$ \\
-%     % used as covariates to some acceleration factor, $\phi$ and  $N_a$ is the attack size array.
-%     \Return $S_{\theta}$
-% \end{algorithmic}
-% \end{algorithm}
-
-
-
-
 
 \subsection{Accuracy}
 \label{acc}
@@ -681,7 +641,10 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
 \subsection{AFT Models}
 \label{res:aft}
 
-Table~\ref{tab:aft_results} shows the performance metrics for all three AFT models, as outlined in Section~\ref{survival_time}. A total 75\% of the available data were used to build the AFT models and 25\% were withheld for evaluation. The concordance is both strong ($>0.5$) and similar for all three AFT models and both the train and test sets. We observed no more than 1\% mean absolute error in the probabilities \acrshort{ici} and no error in the median probability \acrshort{e50} across all three AFT models. Figure~\ref{fig:qq} depicts the observed and predicted probabilities for all three AFT models. For further analysis, we chose the Weibull AFT due to its superior fit in Figure~\ref{fig:qq}, and average test error of 1\% \acrshort{ici} and 0 error for the median sample \acrshort{e50}. We also see that these metrics are  functionally identical across all AFT models as well as between the test and train set of each model.
+Table~\ref{tab:aft_summary} shows the performance metrics for all three AFT models, as outlined in Section~\ref{survival_time}. A total 75\% of the available data were used to build the AFT models and 25\% were withheld for evaluation. 
+The concordance is both strong ($>0.5$) and similar for all three AFT models and both the train and test sets. We observed no more than 1\% mean absolute error in the probabilities \acrshort{ici} and no error in the median probability \acrshort{e50} across all three AFT models. 
+Figure~\ref{fig:qq} depicts the observed and predicted probabilities for all three AFT models. All three models have strong predictive power (see Table:~\ref{tab:aft_summary}), with an average test error of around 1\% \acrshort{ici} and a similar error for the median sample \acrshort{e50}. 
+We also see that these metrics are  functionally identical across all AFT models as well as between the test and train set of each model. 
 
 Figure~\ref{fig:aft} shows the log-scale coefficients for the AFT model. It shows that epochs, batch size, and training time have no effect on the survival time.
 Additionally, the covariate value of 0 for random state indicates that random permutations of the training and test data have no effect on the survival time, which is expected.
@@ -733,7 +696,7 @@ Additionally, since AFT models have strong predictive power for untested hyper-p
 We have taken much care to conduct all timing measurements as carefully as possible.
 Primarily, to minimize timing jitter and account for GPU parallelization, we assumed that the time-to-failure during the benign and adversarial accuracy measurements was uniform across the samples in each trial.
 While it is very possible (if not altogether guaranteed) that some classes or samples are easier to attack than others, we assume that this averages out over the 100 samples given to each attack. Further work examining, for example, the effect of imbalanced datasets on the the distribution of survival times across classes is outside the scope of this work, though the methodology would remain identical. Similarly, one could examine survival times for samples near the class boundary and compare them with prototypical samples near the center of the class cluster.
-However, given the strong results and uniformity across AFT functions in Table~\ref{tab:aft_results}, the uniform time assumption appears to be insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexplained variance.
+However, given the strong results and uniformity across AFT functions in Table~\ref{tab:aft_summary}, the uniform time assumption appears to be insignificant, though accounting for the failure rate per sample or class is likely to account for some of the remaining unexplained variance.
 Additionally, we chose a model and set of datasets small enough to fit entirely in GPU memory to minimize the confounding factors around parallelized, distributed, and/or federated learning as well as the complexities around storage hardware, file systems, and various access mechanisms.
 Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth, but the 48GB of VRAM provided by the L40 should be more than sufficient for vision tasks based on 8-bit images standard in the literature (\textit{e.g.} MNIST, CIFAR10, CIFAR100). Furthermore, the attack batch size and the training batch size were set to be the same for every trial for each dataset and piece of hardware so that the attack timing would mimic the usage of regular users.
 If anything, the smaller sample size of the attacks means that proportionally more parallelization overhead is needed per sample, leading to an underestimate of the attack efficacy compared to the benign measurements. Furthermore, while \acrshort{fgm} is fast, it is not guaranteed to find failures as quickly as possible, meaning that the survival time estimate is likely to be overestimated.
@@ -758,21 +721,29 @@ Regardless of which AFT model is chosen, the model suggests that the P100 decrea
 Furthermore, the coefficients again confirm an inverse relationship between test set (benign) accuracy and the adversarial robustness (\textit{i.e.}, survival time).
 Finally, even when we account for the reduced GPU bandwidth (see Table~\ref{tab:hardware}) and increased training time (see Figure~\ref{fig:time}), it is clear the the L4 model is superior in terms of robustness and cost-effectiveness (see Figure~\ref{fig:trash}), despite it being advertised as ``inference only'' by the manufacturer.
 Furthermore, the data demonstrate the un-advertised training capability of the Nvidia L4 GPU which yields a 20\% increase in survival time while costing 75\% less than the V100 that's been typical in the literature over the last several years.
+% Prepared according to:
+% https://journalofcloudcomputing.springeropen.com/submission-guidelines/preparing-your-manuscript/research-article
+\subsection{List of Abbreviations}
+\printglossary[title={}]
 
-% no keywords
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
-\clearpage
-\section{Availability of Data and Materials}
-The source code for conducting the experiments is available in the \texttt{deckard} \href{https://github.com/simplymathematics/deckard/tree/main/examples/power}{ repository} and the pretrained \texttt{pytorch} version of ResNet18 was used to conduct the experiments. Requirements and dependencies are listed within the repository, which is distributed under the GNU Public License version 3. The compiled data and the Python source code for this document are available \href{https://github.com/simplymathematics/kepler-ml}{here}. The source code has been tested on Windows and various Linux distributions and should work on MacOS, but has not been tested there.
-\printglossary
-\clearpage
+% \section{Declarations}
+
+% \subsection{Availability of Data and Materials}
+% The source code for conducting the experiments is available in the \texttt{deckard} git repository located at \href{https://github.com/simplymathematics/deckard/tree/main/examples/power}{https://github.com/simplymathematics/deckard/tree/main/examples/power}.
+% The pretrained \texttt{pytorch} version of ResNet18 was used to conduct the experiments. Requirements and dependencies are listed within the repository, which is distributed under the GNU Public License version 3. The compiled data and the Python source code for this document are available \href{https://github.com/simplymathematics/kepler-ml}{here}. The source code has been tested on Windows and various Linux distributions and should work on MacOS, but has not been tested there.
+
+
+
+% \subsection{Competing Interests}
+% The authors have no conflict of interest regarding the content of this work.
+
+% \subsection{Funding}
+% Financial support has been provided in part by the Knut and Alice Wallenberg Foundation grant number 2019.0352 and by the eSSENCE Programme under the Swedish Government's Strategic Research Initiative.
+
+% \subsection{Author's Contributions}
+% CM wrote most of the manuscript, except the portions focused on cloud architectures, which were authored by MRSS. The math sections were clarified and edited by TL. CM prepared all figures. Source code was mostly written by CM, except the cloud architecture components, which were written by MRSS. EE provided guidance on narrative, pedagogy, and clarity. All authors reviewed the manuscript.
+% \subsection{Acknowledgements}
+
+
 \bibliography{sn-bibliography}
-
 \end{document}
