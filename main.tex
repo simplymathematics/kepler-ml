@@ -218,7 +218,7 @@ ML pipelines are often long-running and complex software tool-chains with many t
 Managing, tracking, and controlling for various parameters is non trivial, but many management tools are available~\cite{dvc,hydra,k8s}.
 In general, a dataset is split into \textit{training} and \textit{test} sets.
 The test set is then used to determine the best configuration of a given model architecture on a given hardware architecture with the expectation that it will generalize both on the withheld test set and on new data generated and submitted by users.
-Since different hardware devices have differing amounts of ~\acrfull{vram}, the resulting models will have differing optimal configurations if both robustness and training cost are considered.
+Since different hardware devices have differing amounts of \acrfull{vram}, the resulting models will have differing optimal configurations if both robustness and training cost are considered.
 To verify the training process, the test set is validated against the \textit{inference} configuration of a model which may run on different hardware than the \textit{training} configuration to reduce cost, latency, or power consumption. Likewise, Nvidia offers hardware that is marketed as either for training (\textit{e.g.}, v100 and p100) or only for inference (\textit{e.g.}, l4).
 
 \subsection{Classifiers}
