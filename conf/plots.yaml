@@ -45,6 +45,7 @@ scatter_plot:
   hue_order:
   - "Nvidia Tesla V100"
   - "Nvidia Tesla P100"
+  - "Nvidia L4"
 - x: train_time_per_sample
   y: failure_rate
   hue: device_id
@@ -60,4 +61,4 @@ scatter_plot:
   hue_order:
   - "Nvidia Tesla V100"
   - "Nvidia Tesla P100"
-  - 
+  - "Nvidia L4"

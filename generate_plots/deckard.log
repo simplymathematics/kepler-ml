@@ -1121,3 +1121,904 @@
 2024-09-02 16:49 [INFO] deckard.layers.afr: Shape of data data: (7908, 15)
 2024-09-02 16:49 [INFO] deckard.layers.afr: Trying to initialize model log_logistic with {}
 2024-09-02 16:49 [INFO] deckard.layers.afr: Fitted log_logistic model
+2024-09-06 17:46 [INFO] deckard.layers.compile: Saving data to mnist/merged.csv
+2024-09-06 17:46 [INFO] deckard.layers.compile: Saving data to cifar/merged.csv
+2024-09-06 17:46 [INFO] deckard.layers.compile: Saving data to cifar100/merged.csv
+2024-09-06 17:46 [INFO] deckard.layers.compile: Loading data from mnist/merged.csv
+2024-09-06 17:46 [INFO] deckard.layers.compile: Saving data to mnist/clean.csv
+2024-09-06 17:46 [INFO] deckard.layers.compile: Loading data from cifar/merged.csv
+2024-09-06 17:46 [INFO] deckard.layers.compile: Saving data to cifar/clean.csv
+2024-09-06 17:46 [INFO] deckard.layers.compile: Loading data from cifar100/merged.csv
+2024-09-06 17:46 [INFO] deckard.layers.compile: Saving data to cifar100/clean.csv
+2024-09-06 17:46 [INFO] deckard.layers.compile: Loading data from mnist/clean.csv
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'adv_failures', 'device_id']
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:46 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.compile: Loading data from mnist/clean.csv
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'adv_failures', 'device_id']
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:51 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.compile: Loading data from mnist/clean.csv
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'adv_failures', 'device_id']
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 17:52 [INFO] deckard.layers.compile: Saving data to mnist/weibull_summary.csv
+2024-09-06 17:52 [INFO] deckard.layers.compile: Saving data to mnist/cox_summary.csv
+2024-09-06 17:52 [INFO] deckard.layers.compile: Saving data to mnist/log_logistic_summary.csv
+2024-09-06 17:52 [INFO] deckard.layers.compile: Saving data to mnist/log_normal_summary.csv
+2024-09-06 17:52 [INFO] deckard.layers.compile: Loading data from cifar/clean.csv
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'adv_failures', 'device_id']
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 17:52 [INFO] deckard.layers.compile: Saving data to cifar/weibull_summary.csv
+2024-09-06 17:52 [INFO] deckard.layers.compile: Saving data to cifar/cox_summary.csv
+2024-09-06 17:52 [INFO] deckard.layers.compile: Saving data to cifar/log_logistic_summary.csv
+2024-09-06 17:52 [INFO] deckard.layers.compile: Saving data to cifar/log_normal_summary.csv
+2024-09-06 17:52 [INFO] deckard.layers.compile: Loading data from cifar100/clean.csv
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'adv_failures', 'device_id']
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 17:52 [INFO] deckard.layers.compile: Saving data to cifar100/weibull_summary.csv
+2024-09-06 17:52 [INFO] deckard.layers.compile: Saving data to cifar100/cox_summary.csv
+2024-09-06 17:53 [INFO] deckard.layers.compile: Saving data to cifar100/log_logistic_summary.csv
+2024-09-06 17:53 [INFO] deckard.layers.compile: Saving data to cifar100/log_normal_summary.csv
+2024-09-06 17:53 [INFO] deckard.layers.compile: Loading data from data/combined/combined.csv
+2024-09-06 17:53 [INFO] deckard.layers.compile: Saving data to combined/clean.csv
+2024-09-06 17:53 [INFO] deckard.layers.compile: Loading data from combined/clean.csv
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'attack.init.eps', 'data.sample.random_state', 'dataset', 'device_id', 'adv_fit_time', 'adv_failures']
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Dropping frames without results for dataset
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 17:53 [INFO] deckard.layers.compile: Saving data to combined/weibull_summary.csv
+2024-09-06 17:53 [INFO] deckard.layers.compile: Saving data to combined/cox_summary.csv
+2024-09-06 17:53 [INFO] deckard.layers.compile: Saving data to combined/log_logistic_summary.csv
+2024-09-06 17:54 [INFO] deckard.layers.compile: Saving data to combined/log_normal_summary.csv
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'attack.init.eps', 'data.sample.random_state', 'dataset', 'device_id', 'adv_fit_time', 'adv_failures']
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for dataset
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.afr: Shape of dirty data: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.afr: Covariates : ['accuracy', 'attack.init.eps', 'adv_fit_time', 'model.trainer.nb_epoch', 'predict_proba_time', 'adv_failures', 'data.sample.random_state', 'device_id', 'train_time', 'model.trainer.batch_size', 'dataset']
+2024-09-06 17:54 [INFO] deckard.layers.afr: Shape of data data: (7908, 15)
+2024-09-06 17:54 [INFO] deckard.layers.afr: Trying to initialize model weibull with {}
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'attack.init.eps', 'data.sample.random_state', 'dataset', 'device_id', 'adv_fit_time', 'adv_failures']
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for dataset
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.afr: Shape of dirty data: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.afr: Covariates : ['train_time', 'model.trainer.nb_epoch', 'dataset', 'adv_fit_time', 'model.trainer.batch_size', 'predict_proba_time', 'attack.init.eps', 'data.sample.random_state', 'device_id', 'accuracy', 'adv_failures']
+2024-09-06 17:54 [INFO] deckard.layers.afr: Shape of data data: (7908, 15)
+2024-09-06 17:54 [INFO] deckard.layers.afr: Trying to initialize model log_normal with {}
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'attack.init.eps', 'data.sample.random_state', 'dataset', 'device_id', 'adv_fit_time', 'adv_failures']
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for dataset
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.afr: Shape of dirty data: (7908, 266)
+2024-09-06 17:54 [INFO] deckard.layers.afr: Covariates : ['model.trainer.nb_epoch', 'adv_fit_time', 'adv_failures', 'device_id', 'data.sample.random_state', 'predict_proba_time', 'model.trainer.batch_size', 'train_time', 'accuracy', 'attack.init.eps', 'dataset']
+2024-09-06 17:54 [INFO] deckard.layers.afr: Shape of data data: (7908, 15)
+2024-09-06 17:54 [INFO] deckard.layers.afr: Trying to initialize model log_logistic with {}
+2024-09-06 18:01 [INFO] deckard.layers.compile: Loading data from mnist/clean.csv
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'adv_failures', 'device_id']
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.compile: Loading data from mnist/clean.csv
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'adv_failures', 'device_id']
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:01 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.compile: Loading data from mnist/clean.csv
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'adv_failures', 'device_id']
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 242)
+2024-09-06 18:04 [INFO] deckard.layers.compile: Saving data to mnist/weibull_summary.csv
+2024-09-06 18:04 [INFO] deckard.layers.compile: Saving data to mnist/cox_summary.csv
+2024-09-06 18:04 [INFO] deckard.layers.compile: Saving data to mnist/log_logistic_summary.csv
+2024-09-06 18:04 [INFO] deckard.layers.compile: Saving data to mnist/log_normal_summary.csv
+2024-09-06 18:04 [INFO] deckard.layers.compile: Loading data from cifar/clean.csv
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'adv_failures', 'device_id']
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 245)
+2024-09-06 18:04 [INFO] deckard.layers.compile: Saving data to cifar/weibull_summary.csv
+2024-09-06 18:04 [INFO] deckard.layers.compile: Saving data to cifar/cox_summary.csv
+2024-09-06 18:04 [INFO] deckard.layers.compile: Saving data to cifar/log_logistic_summary.csv
+2024-09-06 18:04 [INFO] deckard.layers.compile: Saving data to cifar/log_normal_summary.csv
+2024-09-06 18:05 [INFO] deckard.layers.compile: Loading data from cifar100/clean.csv
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'adv_failures', 'device_id']
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 253)
+2024-09-06 18:05 [INFO] deckard.layers.compile: Saving data to cifar100/weibull_summary.csv
+2024-09-06 18:05 [INFO] deckard.layers.compile: Saving data to cifar100/cox_summary.csv
+2024-09-06 18:05 [INFO] deckard.layers.compile: Saving data to cifar100/log_logistic_summary.csv
+2024-09-06 18:05 [INFO] deckard.layers.compile: Saving data to cifar100/log_normal_summary.csv
+2024-09-06 18:05 [INFO] deckard.layers.compile: Loading data from combined/clean.csv
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'attack.init.eps', 'data.sample.random_state', 'dataset', 'device_id', 'adv_fit_time', 'adv_failures']
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for dataset
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:05 [INFO] deckard.layers.compile: Saving data to combined/weibull_summary.csv
+2024-09-06 18:05 [INFO] deckard.layers.compile: Saving data to combined/cox_summary.csv
+2024-09-06 18:06 [INFO] deckard.layers.compile: Saving data to combined/log_logistic_summary.csv
+2024-09-06 18:06 [INFO] deckard.layers.compile: Saving data to combined/log_normal_summary.csv
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'attack.init.eps', 'data.sample.random_state', 'dataset', 'device_id', 'adv_fit_time', 'adv_failures']
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for dataset
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.afr: Shape of dirty data: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.afr: Covariates : ['adv_fit_time', 'dataset', 'adv_accuracy', 'model.trainer.nb_epoch', 'train_time', 'model.trainer.batch_size', 'accuracy', 'data.sample.random_state', 'adv_failures', 'device_id', 'attack.init.eps', 'predict_proba_time']
+2024-09-06 18:06 [INFO] deckard.layers.afr: Shape of data data: (7908, 16)
+2024-09-06 18:06 [INFO] deckard.layers.afr: Trying to initialize model weibull with {}
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'attack.init.eps', 'data.sample.random_state', 'dataset', 'device_id', 'adv_fit_time', 'adv_failures']
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for dataset
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.afr: Shape of dirty data: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.afr: Covariates : ['attack.init.eps', 'adv_fit_time', 'dataset', 'adv_accuracy', 'accuracy', 'device_id', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_failures', 'model.trainer.nb_epoch', 'predict_proba_time', 'train_time']
+2024-09-06 18:06 [INFO] deckard.layers.afr: Shape of data data: (7908, 16)
+2024-09-06 18:06 [INFO] deckard.layers.afr: Trying to initialize model log_normal with {}
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'attack.init.eps', 'data.sample.random_state', 'dataset', 'device_id', 'adv_fit_time', 'adv_failures']
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for dataset
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_failures
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.afr: Shape of dirty data: (7908, 266)
+2024-09-06 18:06 [INFO] deckard.layers.afr: Covariates : ['dataset', 'accuracy', 'device_id', 'adv_failures', 'attack.init.eps', 'model.trainer.batch_size', 'train_time', 'adv_accuracy', 'data.sample.random_state', 'model.trainer.nb_epoch', 'adv_fit_time', 'predict_proba_time']
+2024-09-06 18:06 [INFO] deckard.layers.afr: Shape of data data: (7908, 16)
+2024-09-06 18:06 [INFO] deckard.layers.afr: Trying to initialize model log_logistic with {}
+2024-09-06 18:07 [INFO] deckard.layers.compile: Loading data from mnist/clean.csv
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'device_id']
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3050, 241)
+2024-09-06 18:07 [INFO] deckard.layers.compile: Saving data to mnist/weibull_summary.csv
+2024-09-06 18:07 [INFO] deckard.layers.compile: Saving data to mnist/cox_summary.csv
+2024-09-06 18:07 [INFO] deckard.layers.compile: Saving data to mnist/log_logistic_summary.csv
+2024-09-06 18:07 [INFO] deckard.layers.compile: Saving data to mnist/log_normal_summary.csv
+2024-09-06 18:07 [INFO] deckard.layers.compile: Loading data from cifar/clean.csv
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'device_id']
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3021, 244)
+2024-09-06 18:07 [INFO] deckard.layers.compile: Saving data to cifar/weibull_summary.csv
+2024-09-06 18:07 [INFO] deckard.layers.compile: Saving data to cifar/cox_summary.csv
+2024-09-06 18:08 [INFO] deckard.layers.compile: Saving data to cifar/log_logistic_summary.csv
+2024-09-06 18:08 [INFO] deckard.layers.compile: Saving data to cifar/log_normal_summary.csv
+2024-09-06 18:08 [INFO] deckard.layers.compile: Loading data from cifar100/clean.csv
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'data.sample.random_state', 'adv_fit_time', 'attack.init.eps', 'device_id']
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (3814, 252)
+2024-09-06 18:08 [INFO] deckard.layers.compile: Saving data to cifar100/weibull_summary.csv
+2024-09-06 18:08 [INFO] deckard.layers.compile: Saving data to cifar100/cox_summary.csv
+2024-09-06 18:08 [INFO] deckard.layers.compile: Saving data to cifar100/log_logistic_summary.csv
+2024-09-06 18:08 [INFO] deckard.layers.compile: Saving data to cifar100/log_normal_summary.csv
+2024-09-06 18:08 [INFO] deckard.layers.compile: Loading data from combined/clean.csv
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'attack.init.eps', 'data.sample.random_state', 'dataset', 'device_id', 'adv_fit_time']
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for dataset
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 264)
+2024-09-06 18:08 [INFO] deckard.layers.compile: Saving data to combined/weibull_summary.csv
+2024-09-06 18:09 [INFO] deckard.layers.compile: Saving data to combined/cox_summary.csv
+2024-09-06 18:09 [INFO] deckard.layers.compile: Saving data to combined/log_logistic_summary.csv
+2024-09-06 18:09 [INFO] deckard.layers.compile: Saving data to combined/log_normal_summary.csv
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'attack.init.eps', 'data.sample.random_state', 'dataset', 'device_id', 'adv_fit_time']
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for dataset
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.afr: Shape of dirty data: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.afr: Covariates : ['model.trainer.nb_epoch', 'adv_accuracy', 'attack.init.eps', 'accuracy', 'model.trainer.batch_size', 'adv_fit_time', 'predict_proba_time', 'device_id', 'data.sample.random_state', 'dataset', 'train_time']
+2024-09-06 18:09 [INFO] deckard.layers.afr: Shape of data data: (7908, 15)
+2024-09-06 18:09 [INFO] deckard.layers.afr: Trying to initialize model weibull with {}
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'attack.init.eps', 'data.sample.random_state', 'dataset', 'device_id', 'adv_fit_time']
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for dataset
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.afr: Shape of dirty data: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.afr: Covariates : ['model.trainer.batch_size', 'train_time', 'adv_fit_time', 'dataset', 'predict_proba_time', 'adv_accuracy', 'device_id', 'attack.init.eps', 'data.sample.random_state', 'model.trainer.nb_epoch', 'accuracy']
+2024-09-06 18:09 [INFO] deckard.layers.afr: Shape of data data: (7908, 15)
+2024-09-06 18:09 [INFO] deckard.layers.afr: Trying to initialize model log_normal with {}
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for ['accuracy', 'train_time', 'predict_proba_time', 'model.trainer.nb_epoch', 'model.trainer.batch_size', 'attack.init.eps', 'data.sample.random_state', 'dataset', 'device_id', 'adv_fit_time']
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for accuracy
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for train_time
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for predict_proba_time
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.nb_epoch
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for model.trainer.batch_size
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for attack.init.eps
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for data.sample.random_state
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for dataset
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for device_id
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Dropping frames without results for adv_fit_time
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data before data before dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.clean_data: Shape of data after data after dropping na: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.afr: Shape of dirty data: (7908, 265)
+2024-09-06 18:09 [INFO] deckard.layers.afr: Covariates : ['model.trainer.batch_size', 'data.sample.random_state', 'accuracy', 'model.trainer.nb_epoch', 'dataset', 'attack.init.eps', 'device_id', 'predict_proba_time', 'adv_fit_time', 'train_time', 'adv_accuracy']
+2024-09-06 18:09 [INFO] deckard.layers.afr: Shape of data data: (7908, 15)
+2024-09-06 18:09 [INFO] deckard.layers.afr: Trying to initialize model log_logistic with {}
