@@ -10,8 +10,28 @@
 \usepackage{subcaption}
 \usepackage{glossaries}
 \newcommand{\cm}[1]{\textit{{\color{blue}#1}}}
-\input{glossary}
+\newacronym{aft}{AFT}{Accelerated Failure Time}
+\newacronym{cpu}{CPU}{central processing unit}
+\newacronym{e50}{E50}{error at 50th percentile}
+\newacronym{fgm}{FGM}{Fast Gradient Method}
+\newacronym{aic}{AIC}{Akaike Information Criterion}
+\newacronym{gcp}{GCP}{Google Cloud Platform}
+\newacronym{gpu}{GPU}{graphics processing unit}
+\newacronym{ici}{ICI}{integrated calibration index}
+\newacronym{bic}{BIC}{Bayesian Information Criteria}
+\newacronym{trash}{TRASH}{training rate and survival heuristic}
+\newglossaryentry{kepler}
+{
+name=KEPLER,
+description={Kubernetes Efficient Power Level Exporter}
+}
+\newacronym{ml}{ML}{machine learning}
+\newacronym{tpe}{TPE}{Tree-structured Parzen Estimator}
+\newacronym{vram}{VRAM}{video random access memory}
+
 \makeglossaries
+
+
 %Version 3 October 2023
 % See section 11 of the User Manual for version history
 %
@@ -87,7 +107,7 @@
 %%\unnumbered% uncomment this for unnumbered level heads
 
 \begin{document}
-
+\pagenumbering{gobble}
 \title[Article Title]{A Cost-Aware Approach to Adversarial Robustness in Neural Networks}
 
 %%=============================================================%%
@@ -103,9 +123,11 @@
 
 \author[2,1]{\fnm{Mohammad} \sur{Reza Saleh Sedghpour}}\email{msaleh@cs.umu.se}
 
-\author[1]{\fnm{Tommy} \sur{L\''{o}fstedt}}\email{tommy@cs.umu.se}
 
 \author[1,2]{\fnm{Erik} \sur{Elmroth}}\email{elmroth@cs.umu.se}
+
+% \pagestyle{empty}
+\author[1]{\fnm{Tommy} \sur{L\"{o}fstedt}}\email{tommy@cs.umu.se}
 
 \affil*[1]{\orgdiv{Department of Computing Science}, \orgname{Ume\aa{}~University},
 \city{Ume\aa}, \postcode{901 87}, \country{Sweden}}
@@ -635,7 +657,7 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
         \includegraphics[width=.49\textwidth]{plots/combined/weibull_aft.pdf}
         \includegraphics[width=.49\textwidth]{plots/combined/log_normal_aft.pdf}
         \includegraphics[width=.49\textwidth]{plots/combined/log_logistic_aft.pdf}
-    \caption{Coefficients of the Covariates for the Weibull, Log-Normal, and Log-Logistic AFT models. Here, ``Random Stat'' is used as a control variable that should be (and is) close to 0. A positive value indicates that covariate increases the survival time and negative value indicates that covariate decreases the survival time. The symbols $T_i$ and $T_t$ refer training and inference time for all samples, while \textit{Ben. Accuracy} refers to the benign accuracy (accuracy on the un-altered samples), and $\varepsilon$ is the noise distance.}
+    \caption{Coefficients of the Covariates for the Weibull, Log-Normal, and Log-Logistic AFT models. Here, ``Random State'' is used as a control variable that should be (and is) close to 0. A positive value indicates that covariate increases the survival time and negative value indicates that covariate decreases the survival time. The symbols $T_i$ and $T_t$ refer training and inference time for all samples, while \textit{Ben. Accuracy} refers to the benign accuracy (accuracy on the un-altered samples), and $\varepsilon$ is the noise distance.}
     \label{fig:aft}
 \end{figure*}
 \subsection{AFT Models}
@@ -723,26 +745,30 @@ Finally, even when we account for the reduced GPU bandwidth (see Table~\ref{tab:
 Furthermore, the data demonstrate the un-advertised training capability of the Nvidia L4 GPU which yields a 20\% increase in survival time while costing 75\% less than the V100 that's been typical in the literature over the last several years.
 % Prepared according to:
 % https://journalofcloudcomputing.springeropen.com/submission-guidelines/preparing-your-manuscript/research-article
+\pagebreak
 \subsection{List of Abbreviations}
 \printglossary[title={}]
 
-% \section{Declarations}
+\section{Declarations}
 
-% \subsection{Availability of Data and Materials}
-% The source code for conducting the experiments is available in the \texttt{deckard} git repository located at \href{https://github.com/simplymathematics/deckard/tree/main/examples/power}{https://github.com/simplymathematics/deckard/tree/main/examples/power}.
-% The pretrained \texttt{pytorch} version of ResNet18 was used to conduct the experiments. Requirements and dependencies are listed within the repository, which is distributed under the GNU Public License version 3. The compiled data and the Python source code for this document are available \href{https://github.com/simplymathematics/kepler-ml}{here}. The source code has been tested on Windows and various Linux distributions and should work on MacOS, but has not been tested there.
+\subsection{Ethics Approval and Consent to Participate}
+Not Applicable
 
+\subsection{Consent for Publication}
+All authors consent for this manuscript to be published under the terms specified by the \textit{Journal of Cloud Computing}.
 
+\subsection{Funding}
+Financial support has been provided in part by the Knut and Alice Wallenberg Foundation grant number 2019.0352 and by the eSSENCE Programme under the Swedish Government's Strategic Research Initiative.
 
+\subsection{Acknowledgements}
+Not Applicable
 % \subsection{Competing Interests}
 % The authors have no conflict of interest regarding the content of this work.
-
-% \subsection{Funding}
-% Financial support has been provided in part by the Knut and Alice Wallenberg Foundation grant number 2019.0352 and by the eSSENCE Programme under the Swedish Government's Strategic Research Initiative.
-
+% \subsection{Availability of Data and Materials}
+% The source code for conducting the experiments is available in the \texttt{deckard} git repository located \href{https://github.com/simplymathematics/deckard/tree/main/examples/power}{here}.
+% The pretrained \texttt{pytorch} version of ResNet18 was used to conduct the experiments. Requirements and dependencies are listed within the repository, which is distributed under the GNU Public License version 3. The compiled data and the Python source code for this document are available \href{https://github.com/simplymathematics/kepler-ml}{here}. The source code has been tested on Windows and various Linux distributions and should work on MacOS, but has not been tested there.
 % \subsection{Author's Contributions}
 % CM wrote most of the manuscript, except the portions focused on cloud architectures, which were authored by MRSS. The math sections were clarified and edited by TL. CM prepared all figures. Source code was mostly written by CM, except the cloud architecture components, which were written by MRSS. EE provided guidance on narrative, pedagogy, and clarity. All authors reviewed the manuscript.
-% \subsection{Acknowledgements}
 
 
 \bibliography{sn-bibliography}
