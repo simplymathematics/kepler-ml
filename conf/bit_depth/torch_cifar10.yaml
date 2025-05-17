@@ -13,13 +13,11 @@ stage : '???'
 direction : 
   - maximize
   - minimize
-  - minimize
-  - minimize
+  - maximize
 optimizers: 
    - accuracy
    - train_time
    - adv_accuracy
-   - adv_fit_time
 _target_ : deckard.base.experiment.Experiment
 hydra:
   run:
