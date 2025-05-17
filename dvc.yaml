@@ -22,7 +22,7 @@ stages:
       - main.aux
       - main.log
       - main.out
-      - main.glo
+      - main,log
       - main.ist
   big_run:
     cmd: pdflatex main.tex && bibtex main && pdflatex  main.tex && pdflatex  main.tex 
@@ -33,7 +33,7 @@ stages:
       - main.aux
       - main.log
       - main.out
-      - main.glo
+      - main,log
       - main.ist
     outs:
       - main.pdf
@@ -45,7 +45,7 @@ stages:
       --delete_these_dirs generate_plots/ tmp conf bst
       --extensions py yaml csv 
       --title "A Cost-Aware Approach to Adversarial Robustness in Neural Networks"
-      --delete_these_files ".dvcignore" "main.aux" "main.blg" "main.out"  "main.pdf" "main.glo" "main.ist" "main.log" "cover_letter.tex"  "arxiv.log" "deckard.log"
+      --delete_these_files ".dvcignore" "main.aux" "main.blg" "main.out"  "main.pdf" "main,log" "main.ist" "main.log" "cover_letter.tex"  "arxiv.log" "deckard.log"
       --temporary_directory tmp
     deps:
       - arxiv.py
