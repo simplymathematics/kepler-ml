@@ -38,7 +38,7 @@ stages:
       size: 918
       isexec: true
     - path: main.log
-      md5: 680f40fa656e2d5140092b303bba9b5a
+      md5: 90a78350093b7a83232503be50303e2c
       size: 43281
       isexec: true
     - path: main.out
@@ -57,7 +57,7 @@ stages:
       size: 101844
     outs:
     - path: main.pdf
-      md5: 0a8be4c3807af87a5a3a50ff617232af
+      md5: 1ba31859132fbded6a60c8440bd2599c
       size: 808090
       isexec: true
   arxiv:
