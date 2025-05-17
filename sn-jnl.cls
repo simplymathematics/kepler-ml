@@ -536,12 +536,12 @@
 \if@corauemail%
    \g@addto@macro\corrauthemail{%
    \setcounter{footnote}{0}%
-   \textcolor{blue}{#1};\ %
+   \textcolor{gray}{#1};\ %
    }%
 \else%
    \g@addto@macro\authemail{%
    \setcounter{footnote}{0}%
-   \textcolor{blue}{#1};\ %
+   \textcolor{gray}{#1};\ %
    }%
 \fi}
 
@@ -1456,12 +1456,12 @@
 %    \burl@defifstructure
 %
 \hypersetup{%
-        colorlinks,
+        % colorlinks,
         breaklinks=true,
         plainpages=false,%
-        citecolor=blue,
-        linkcolor=blue,
-        urlcolor=blue,
+        % citecolor=gray,
+        % linkcolor=gray,
+        % urlcolor=gray,
         bookmarksopen=true,%
         bookmarksnumbered=false,%
         bookmarksdepth=5%
@@ -1771,7 +1771,7 @@ $\kern\wd\@ne\kern -\@tempdima\left\@firstoftwo#1%
 \usepackage{vruler}%
 %
 %%\setvruler[<SCALE>][<INITIAL_COUNT>][<STEP>][<DIGITS>][<MODE>][<ODD_HSHIFT]>][<EVEN_HSHIFT>][<VSHIFT>][<HEIGHT>]
-\def\linenoon{%%\definecolor{blue}{gray}{0}% 
+\def\linenoon{%%\definecolor{gray}{gray}{0}% 
 \def\tiny{\normalsize\color{black}}%
 \setvruler[12bp][1][1][3][1][1.18\textwidth][26pt][-7pt][0.99\textheight]% for even pages: left side; for odd pages: right side;
 %%\linkbluecolor
