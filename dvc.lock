@@ -4,43 +4,43 @@ stages:
     cmd: pdflatex  main.tex
     deps:
     - path: main.tex
-      md5: 8ed34bf4be046cd9f345fb89672015c7
-      size: 73343
+      md5: c72a80256e4f8c0be1cd2e04151f02f7
+      size: 74300
     outs:
     - path: main.aux
-      md5: e2421af392eb0c135db96affac2165f2
-      size: 26312
+      md5: 3e8e916949dee1f3694d729d3696a71d
+      size: 31276
     - path: main.ist
-      md5: c2a151d37004c699b4dc97592389b2f9
+      md5: b3a94fc1d8e3e817291e16bc4f945422
       size: 918
     - path: main.log
-      md5: 8eeb0d33099e5163a0d6d2179d07ef9d
-      size: 63804
+      md5: 15e71d66c794086db684e1b098b52107
+      size: 70314
     - path: main.out
-      md5: 2000f48b84a2c3325b76ae8d9a77c34e
-      size: 5559
+      md5: 71cf0f13d270d3577d2b6148f74d819c
+      size: 6351
   big_run:
     cmd: pdflatex main.tex && bibtex main && pdflatex  main.tex && pdflatex  main.tex
     deps:
     - path: main.aux
-      md5: 9f99a845184bfdbce094b60752bfd9da
-      size: 30810
+      md5: 7bdfdeb6061fb1230d9307152f45e988
+      size: 31276
       isexec: true
     - path: main.ist
-      md5: b3a94fc1d8e3e817291e16bc4f945422
+      md5: 0668faca0d620c6c03db3d822bc1a1f3
       size: 918
       isexec: true
     - path: main.log
-      md5: 75dd8348ddcff5f4047690b215d79604
-      size: 43281
+      md5: 799c82d79aa5a6fb2340d2547d0c14f6
+      size: 48930
       isexec: true
     - path: main.out
-      md5: 2000f48b84a2c3325b76ae8d9a77c34e
-      size: 5559
+      md5: 71cf0f13d270d3577d2b6148f74d819c
+      size: 6351
       isexec: true
     - path: main.tex
-      md5: 8ed34bf4be046cd9f345fb89672015c7
-      size: 73343
+      md5: c72a80256e4f8c0be1cd2e04151f02f7
+      size: 74300
     - path: plots/
       md5: 36ed6747573b9d7b6f293f81ffa723e7.dir
       size: 230964848
@@ -50,8 +50,8 @@ stages:
       size: 101844
     outs:
     - path: main.pdf
-      md5: 382a3733cf7c1f5148496ac08c42bffb
-      size: 808090
+      md5: 969feb7dd12fcba6008552fccadc8a01
+      size: 806679
       isexec: true
   arxiv:
     cmd: rm -rf tmp/ &&  python arxiv.py  --directories plots/combined plots --delete_these_dirs
@@ -64,24 +64,24 @@ stages:
       md5: 6424cda58e8cdd02be453250908f8df5
       size: 7776
     - path: main.pdf
-      md5: 382a3733cf7c1f5148496ac08c42bffb
-      size: 808090
+      md5: 969feb7dd12fcba6008552fccadc8a01
+      size: 806679
     - path: plots/
       md5: 36ed6747573b9d7b6f293f81ffa723e7.dir
       size: 230964848
       nfiles: 90
     outs:
     - path: A Cost-Aware Approach to Adversarial Robustness in Neural Networks.zip
-      md5: 20bab0fc1c58b6ac46fa13c67a6863e3
-      size: 571258
+      md5: 7d2b35b1bb8100e8eb92e74dcc7bdf44
+      size: 571606
       isexec: true
     - path: arxiv.log
-      md5: b14e87c53ae298a0ae839edd6c570c1b
+      md5: 6f36f98dc30a985313f4ac302154eaa7
       size: 3822
       isexec: true
     - path: tmp/
-      md5: f00a11fb4d6e547af9887993c3be8a85.dir
-      size: 975982
+      md5: a131eb8593f6c361d5bba695421997d7.dir
+      size: 976832
       nfiles: 33
   pre-commmit:
     cmd: pre-commit run --all-files  && chktex -q -V main.tex -n 24 -n 8 -n 1
@@ -91,8 +91,8 @@ stages:
       size: 137178569
       nfiles: 28
     - path: main.tex
-      md5: 8ed34bf4be046cd9f345fb89672015c7
-      size: 73343
+      md5: c72a80256e4f8c0be1cd2e04151f02f7
+      size: 74300
     - path: plots/
       md5: 36ed6747573b9d7b6f293f81ffa723e7.dir
       size: 230964848
