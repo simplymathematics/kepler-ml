@@ -11,7 +11,7 @@ stages:
     cmd: pre-commit run --all-files  && chktex -q -V main.tex -n 24 -n 8 -n 1 # Suppresses warnings 8 (dash length), 24 (\labels inside floats), and 1 (trailing whitespace following a command)
     deps:
       - main.tex
-      - sn-bibliography.bib
+      - bibliography.bib
       - generate_plots/
       - plots/
   first_run:
@@ -27,7 +27,7 @@ stages:
     cmd: pdflatex main.tex && bibtex main && pdflatex  main.tex && pdflatex  main.tex 
     deps:
       - main.tex
-      - sn-bibliography.bib
+      - bibliography.bib
       - plots/
       - main.aux
       - main.log
