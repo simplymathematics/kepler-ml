@@ -22,7 +22,6 @@ stages:
       - main.aux
       - main.log
       - main.out
-      - main.ist
   big_run:
     cmd: pdflatex main.tex && bibtex main && pdflatex  main.tex && pdflatex  main.tex 
     deps:
@@ -32,7 +31,6 @@ stages:
       - main.aux
       - main.log
       - main.out
-      - main.ist
     outs:
       - main.pdf
   arxiv: # Commented this out for now because /tmp doesn't have enough space to generate the plots on itchy and I don't need to run this anyway.

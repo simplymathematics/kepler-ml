@@ -17,7 +17,6 @@
 
 % Added by us
 \usepackage{hyperref}
-\usepackage{glossaries}
 
 \begin{document}
 
@@ -402,7 +401,7 @@ These nodes were of the ``e2-medium'' instance type provided by GCP\@.
 In total, three GPU architectures were used --- the Nvidia P100, V100, and L4\@.
 For P100 and V100 GPUs, the ``n1-standard-2'' type was used for the nodes and for L4 GPUs the ``g2-standard-4'' was used.
 
-To assess the energy consumption of the experiments, \Gls{kepler} was deployed on each node to measure the power consumption of each experiment~\cite{amaral2023kepler}.
+To assess the energy consumption of the experiments, KEPLER was deployed on each node to measure the power consumption of each experiment~\cite{amaral2023kepler}.
 KEPLER collects per-pod energy metrics within the Kubernetes cluster and exports them as Prometheus metrics~\cite{sedghpour@ebpf}. 
 A diagram of the cloud architecture can be found in Figure~\ref{fig:architecture}. 
 Finally, all of the experiments were restricted to a \$1,000 budget (a research grant from Google). Approximately 10\% was used for development and 90\% for the evaluations.
@@ -604,7 +603,7 @@ Figure~\ref{fig:aft} further shows that hardware choice has a relatively small e
 
 In security analysis, it is routine to think in optimistic terms for both the attacker and defender. In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.} whether or not a given cryptographic method should be considered ``broken'').
 By using a whitebox attack to generate the failures, we ensure that our defender operates under the worst-case scenario while the attacker operates under their best-case scenario to yield a worst-case failure rate.
-As such, we centre our analysis on the whitebox Fast Gradient Sign Method (\FGSM)~\cite{fgm} (see Eq.~\ref{eq:fgm}), which is both effective and fast~\cite{meyers}.
+As such, we centre our analysis on the whitebox Fast Gradient Sign Method (FGSM)~\cite{fgm} (see Eq.~\ref{eq:fgm}), which is both effective and fast~\cite{meyers}.
 If the cost to a model builder is much larger than the cost to an attacker, then it is clear that the model is ``broken'' in this cryptographic sense and can be discarded as ineffective~\cite{meyers_aft}.
 Figure~\ref{fig:trash} depicts the TRASH score defined in Equation~\ref{eq:cost}, which quantifies the per-sample ratio of training to attack time.
 Even with the reduced GPU bandwidth (Table~\ref{tab:hardware}), the L4 model is superior in terms of both cost (Table~\ref{tab:hardware}) and robustness (Figure~\ref{fig:aft}), presumably since the extra bit-depth provided by the P100 and V100 ends up being useless noise on 8-bit images like MNIST and CIFAR\@.
