@@ -203,7 +203,7 @@ is the probability of a false classification within a small (half-open) interval
 
 \begin{figure*}
     \centering
-    \includegraphics[width=.8t\textwidth]{plots/experiment.pdf}
+    \includegraphics[width=.8\textwidth]{plots/experiment.pdf}
     \caption{For each dataset and hardware combination, a state parameter was chosen at random to decide the train and validation sets. 
     Next, model parameters and attack parameters are chosen at random. After 128 random trials, the Tree-Pazen Estimator (TPE) algorithm attempts to maximise both benign and adversarial accuracy while minimising training time by tuning the model batch-size and learning rate. 
     The random seed for the data split and the attack parameters are sampled independently from this optimisation, which is why they are coloured differently. The model tuning (blue-box) is discussed in Section~\ref{optimisation}. 
@@ -220,7 +220,7 @@ is the probability of a false classification within a small (half-open) interval
 ML models are typically trained by examining the effect of the entire parameter space on the resulting accuracy. 
 However, the number of possible parameter configurations is often infinite or at least exponential in the number of parameters,
 making it infeasible to exhaustively evaluate the entire parameter search space. 
-Additionally, the goals of accuracy and adversarial accuracy are often at odds --- with several researchers noting an inverse relationship between model accuracy and model robustness (adversarial accuracy) ~\cite{carlini_towards_2017,meyers,dohmatob_generalized_2019}. 
+Additionally, the goals of accuracy and adversarial accuracy are often at odds --- with several researchers noting an inverse relationship between model accuracy and model robustness (adversarial accuracy)~\cite{carlini_towards_2017,meyers,dohmatob_generalized_2019}. 
 Therefore, a proper search would keep this dual-objective in mind.
 In addition, we attempt to minimise the training time for each piece of hardware since the optimal batch size and, therefore, the learning rate will be determined by the the available VRAM, the bit depth of the data as well as the size and bit depth of the model.
 To maximise adversarial and benign accuracy simultaneously while minimising training time, we propose to use the Tree-Parzen Estimator for tuning the batch size and learning rate because it has been shown to converge over hundreds of trials rather than the thousands of trials typical of other multi-objective optimisation algorithms like CMAES or NSGA-II~\cite{ozaki2020multiobjective,optuna,tpe_params}.
@@ -415,7 +415,7 @@ Over the course of the evaluations, 6\% of the budget went to storage, 6\% to mo
 
 \subsection{AFT Models}
 
-For each hardware configuration and dataset (see Section \ref{datasets}), the TPE algorithm was used to select the parameters~\cite{ozaki2020multiobjective,zitzler2008quality}, and it was iterated for 1,000 trials (including 128 random startup trials used to initialise the TPE surrogate model).
+For each hardware configuration and dataset (see Section~\ref{datasets}), the TPE algorithm was used to select the parameters~\cite{ozaki2020multiobjective,zitzler2008quality}, and it was iterated for 1,000 trials (including 128 random startup trials used to initialise the TPE surrogate model).
 We used three optimisation criteria: benign accuracy, training time, and adversarial accuracy, seeking to maximise both benign and adversarial accuracy while minimising training time (and therefore deployment cost). 
 We selected a set of parameters as per the TPE algorithm and trained on 80\% of the samples for each of the MNIST, CIFAR10, and CIFAR100 datasets. Of the remaining samples, 100 were withheld to be attacked and used to evaluate the adversarial accuracy. Figure~\ref{fig:experiments} illustrates this methodology. 
 For each dataset, we tested this on 10 random splits of the data to create 10 unique train/validation pairs. For each trial, we recorded attack generation time, model training time, model inference time, benign accuracy and adversarial accuracy, and the size of the training set, validation set, and attack set. 

@@ -5,21 +5,21 @@ stages:
     deps:
     - path: main.tex
       hash: md5
-      md5: a565ebdfe281b058ff5f858e4e650b25
-      size: 54864
+      md5: ed7e7f90044f7915184c3b8829f2b2f1
+      size: 55947
     outs:
     - path: main.aux
       hash: md5
-      md5: ce65969197741dba0a3847b24cc699c2
-      size: 25362
+      md5: cca2a8550091d56390a381b5ca78eb7d
+      size: 25679
     - path: main.log
       hash: md5
-      md5: c67504801e40335643c218e75c784912
-      size: 45731
+      md5: c54ef69f4ee4b1885416cd49c7d1b258
+      size: 46204
     - path: main.out
       hash: md5
-      md5: a88ea59ed8913198ff266ded68c75818
-      size: 5888
+      md5: ad4fd099b892ecdf30e002d522bb69f5
+      size: 5931
   big_run:
     cmd: pdflatex main.tex && bibtex main && pdflatex  main.tex && pdflatex 
       main.tex
@@ -30,20 +30,20 @@ stages:
       size: 102320
     - path: main.aux
       hash: md5
-      md5: ce65969197741dba0a3847b24cc699c2
-      size: 25362
+      md5: cca2a8550091d56390a381b5ca78eb7d
+      size: 25679
     - path: main.log
       hash: md5
-      md5: a848aba77c7ae4c338735f83bbad19d2
-      size: 29124
+      md5: bdc6bcb6cf30ec5cd9d83cccd7c42931
+      size: 29352
     - path: main.out
       hash: md5
-      md5: a88ea59ed8913198ff266ded68c75818
-      size: 5888
+      md5: ad4fd099b892ecdf30e002d522bb69f5
+      size: 5931
     - path: main.tex
       hash: md5
-      md5: a565ebdfe281b058ff5f858e4e650b25
-      size: 54864
+      md5: ed7e7f90044f7915184c3b8829f2b2f1
+      size: 55947
     - path: plots/
       hash: md5
       md5: adce451bedd4716b5be77fb2f397b554.dir
@@ -52,8 +52,8 @@ stages:
     outs:
     - path: main.pdf
       hash: md5
-      md5: d2366d24df880deed876718b9f5e854b
-      size: 681661
+      md5: c625f5b7072e8c6131c704a46c2b0fe0
+      size: 684143
   arxiv:
     cmd: rm -rf tmp/ &&  python arxiv.py  --directories plots/combined plots 
       --delete_these_dirs generate_plots/ tmp conf bst --extensions py yaml csv  
@@ -66,8 +66,8 @@ stages:
       size: 7776
     - path: main.pdf
       hash: md5
-      md5: d2366d24df880deed876718b9f5e854b
-      size: 681661
+      md5: c625f5b7072e8c6131c704a46c2b0fe0
+      size: 684143
     - path: plots/
       hash: md5
       md5: adce451bedd4716b5be77fb2f397b554.dir
@@ -77,19 +77,20 @@ stages:
     - path: A Cost-Aware Approach to Adversarial Robustness in Neural 
         Networks.zip
       hash: md5
-      md5: 50f52978d1cc3545c533cbb36fdc642a
-      size: 605160
+      md5: 642f9fd62b50231beb35c96f22f0d4f4
+      size: 605563
     - path: arxiv.log
       hash: md5
-      md5: 7d1b1c1616a80c1b42e0a9c11bfa0f02
+      md5: fc36838dc5f76aba73cd1468e75eff94
       size: 3822
     - path: tmp/
       hash: md5
-      md5: 198ff47ad5c3dc496790b75a73f7b80d.dir
-      size: 1100102
+      md5: 722f097c43b02bf1176339ccaa19995f.dir
+      size: 1101218
       nfiles: 30
   pre-commmit:
-    cmd: pre-commit run --all-files  && chktex -q -V main.tex -n 24 -n 8 -n 1
+    cmd: pre-commit run --all-files  && chktex -q -V main.tex -n 24 -n 8 -n 1 -n
+      9 -n 17
     deps:
     - path: bibliography.bib
       hash: md5
@@ -102,8 +103,8 @@ stages:
       nfiles: 33
     - path: main.tex
       hash: md5
-      md5: a565ebdfe281b058ff5f858e4e650b25
-      size: 54864
+      md5: ed7e7f90044f7915184c3b8829f2b2f1
+      size: 55947
     - path: plots/
       hash: md5
       md5: adce451bedd4716b5be77fb2f397b554.dir
