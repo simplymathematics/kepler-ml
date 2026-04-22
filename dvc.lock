@@ -34,7 +34,7 @@ stages:
       size: 25679
     - path: main.log
       hash: md5
-      md5: 4be14af8169388ec24ed404d51c34bfd
+      md5: 7bf795653eed4d8eb6bf67c9837723a8
       size: 29352
     - path: main.out
       hash: md5
@@ -52,7 +52,7 @@ stages:
     outs:
     - path: main.pdf
       hash: md5
-      md5: 069b2a49105a7f28bbf284684e904449
+      md5: dde7c39f28b18b56dc03e4f27341e717
       size: 684143
   arxiv:
     cmd: 'rm -rf tmp/ &&  python arxiv.py  --directories plots/combined plots --delete_these_dirs
@@ -66,7 +66,7 @@ stages:
       size: 7776
     - path: main.pdf
       hash: md5
-      md5: 069b2a49105a7f28bbf284684e904449
+      md5: dde7c39f28b18b56dc03e4f27341e717
       size: 684143
     - path: plots/
       hash: md5
@@ -77,15 +77,15 @@ stages:
     - path: 'Survival of the Cheapest: Cost-Aware Hardware Adaptation for Adversarial
         Robustness.zip'
       hash: md5
-      md5: 9c753f3e29d90392dcb4932866effec9
-      size: 1819897
+      md5: f913782e573b327e2600bc66592683a1
+      size: 1819898
     - path: arxiv.log
       hash: md5
-      md5: 101586e7ea056bf6da1533ff42c52391
+      md5: ab757ff9ddb65ef90310f68c4b038d5d
       size: 3615
     - path: tmp/
       hash: md5
-      md5: 948788d5ffe507016a34ecfb13d5fd1f.dir
+      md5: 413d9bdb496ba1dccd37e72773bae184.dir
       size: 2798352
       nfiles: 60
   pre-commmit:
