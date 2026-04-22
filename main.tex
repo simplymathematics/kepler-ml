@@ -203,7 +203,7 @@ is the probability of a false classification within a small (half-open) interval
 
 \begin{figure*}
     \centering
-    \includegraphics[width=.8t\textwidth]{plots/experiment.pdf}
+    \includegraphics[width=.8\textwidth]{plots/experiment.pdf}
     \caption{For each dataset and hardware combination, a state parameter was chosen at random to decide the train and validation sets. 
     Next, model parameters and attack parameters are chosen at random. After 128 random trials, the Tree-Pazen Estimator (TPE) algorithm attempts to maximise both benign and adversarial accuracy while minimising training time by tuning the model batch-size and learning rate. 
     The random seed for the data split and the attack parameters are sampled independently from this optimisation, which is why they are coloured differently. The model tuning (blue-box) is discussed in Section~\ref{optimisation}. 
