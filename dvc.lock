@@ -5,8 +5,8 @@ stages:
     deps:
     - path: main.tex
       hash: md5
-      md5: 7514b5f6019818ebddd676ad6e41f41b
-      size: 56079
+      md5: a565ebdfe281b058ff5f858e4e650b25
+      size: 54864
     outs:
     - path: main.aux
       hash: md5
@@ -14,8 +14,8 @@ stages:
       size: 25362
     - path: main.log
       hash: md5
-      md5: 8224b19c09710d9bcc8bbb8ad6e33872
-      size: 45730
+      md5: c67504801e40335643c218e75c784912
+      size: 45731
     - path: main.out
       hash: md5
       md5: a88ea59ed8913198ff266ded68c75818
@@ -34,25 +34,26 @@ stages:
       size: 25362
     - path: main.log
       hash: md5
-      md5: b06569b8f61666b1e6a229dde7adf12f
-      size: 29123
+      md5: a848aba77c7ae4c338735f83bbad19d2
+      size: 29124
     - path: main.out
       hash: md5
       md5: a88ea59ed8913198ff266ded68c75818
       size: 5888
     - path: main.tex
       hash: md5
-      md5: 7514b5f6019818ebddd676ad6e41f41b
-      size: 56079
+      md5: a565ebdfe281b058ff5f858e4e650b25
+      size: 54864
     - path: plots/
-      md5: 36ed6747573b9d7b6f293f81ffa723e7.dir
-      size: 230964848
+      hash: md5
+      md5: adce451bedd4716b5be77fb2f397b554.dir
+      size: 230966926
       nfiles: 90
     outs:
     - path: main.pdf
       hash: md5
-      md5: 84fb60c175f5705adc2949b0a8700477
-      size: 680670
+      md5: d2366d24df880deed876718b9f5e854b
+      size: 681661
   arxiv:
     cmd: rm -rf tmp/ &&  python arxiv.py  --directories plots/combined plots 
       --delete_these_dirs generate_plots/ tmp conf bst --extensions py yaml csv  
@@ -65,26 +66,27 @@ stages:
       size: 7776
     - path: main.pdf
       hash: md5
-      md5: 84fb60c175f5705adc2949b0a8700477
-      size: 680670
+      md5: d2366d24df880deed876718b9f5e854b
+      size: 681661
     - path: plots/
-      md5: 36ed6747573b9d7b6f293f81ffa723e7.dir
-      size: 230964848
+      hash: md5
+      md5: adce451bedd4716b5be77fb2f397b554.dir
+      size: 230966926
       nfiles: 90
     outs:
     - path: A Cost-Aware Approach to Adversarial Robustness in Neural 
         Networks.zip
       hash: md5
-      md5: 065a62f4f7604f795f8e0db510bcca1e
-      size: 603426
+      md5: 50f52978d1cc3545c533cbb36fdc642a
+      size: 605160
     - path: arxiv.log
       hash: md5
-      md5: 1156c42f5b93f1da1ec0a86ce0c72d14
+      md5: 7d1b1c1616a80c1b42e0a9c11bfa0f02
       size: 3822
     - path: tmp/
       hash: md5
-      md5: dfd5bc08ff1be99a502fca5b71f4df65.dir
-      size: 1099164
+      md5: 198ff47ad5c3dc496790b75a73f7b80d.dir
+      size: 1100102
       nfiles: 30
   pre-commmit:
     cmd: pre-commit run --all-files  && chktex -q -V main.tex -n 24 -n 8 -n 1
@@ -94,14 +96,16 @@ stages:
       md5: ff03cad3a2dc10725424e3c67e54d018
       size: 102320
     - path: generate_plots/
-      md5: 7c70ba26d5b9ccd6503d172c43de3b82.dir
-      size: 137178569
-      nfiles: 28
+      hash: md5
+      md5: cb404029ea63f31968f4a1982a423075.dir
+      size: 189976692
+      nfiles: 33
     - path: main.tex
       hash: md5
-      md5: 7514b5f6019818ebddd676ad6e41f41b
-      size: 56079
+      md5: a565ebdfe281b058ff5f858e4e650b25
+      size: 54864
     - path: plots/
-      md5: 36ed6747573b9d7b6f293f81ffa723e7.dir
-      size: 230964848
+      hash: md5
+      md5: adce451bedd4716b5be77fb2f397b554.dir
+      size: 230966926
       nfiles: 90
