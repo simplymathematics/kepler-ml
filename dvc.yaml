@@ -40,14 +40,14 @@ stages:
       --directories plots/combined plots
       --delete_these_dirs generate_plots/ tmp conf bst
       --extensions py yaml csv 
-      --title "A Cost-Aware Approach to Adversarial Robustness in Neural Networks"
-      --delete_these_files ".dvcignore" "main.aux" "main.blg" "main.out"  "main.pdf" "main.log"  "arxiv.log"
+      --title "Survival of the Cheapest: Cost-Aware Hardware Adaptation for Adversarial Robustness"
+      --delete_these_files ".dvcignore" "main.aux" "main.blg" "main.out"  "main.pdf" "main.log"  "arxiv.log" "deckard.log"
       --temporary_directory tmp
     deps:
       - arxiv.py
       - plots/
       - main.pdf
     outs:
-      - "A Cost-Aware Approach to Adversarial Robustness in Neural Networks.zip"
+      - "Survival of the Cheapest: Cost-Aware Hardware Adaptation for Adversarial Robustness.zip"
       - arxiv.log
       - tmp/

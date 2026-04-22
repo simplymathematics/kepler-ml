@@ -1,0 +1,448 @@
+\begin{thebibliography}{10}
+
+\bibitem{safetyframework}
+PV~Srinivas Acharyulu and P~Seetharamaiah.
+\newblock A framework for safety automation of safety-critical systems
+  operations.
+\newblock {\em Safety Science}, 77:133--142, 2015.
+
+\bibitem{optuna}
+Takuya Akiba, Shotaro Sano, Toshihiko Yanase, Takeru Ohta, and Masanori Koyama.
+\newblock Optuna: A next-generation hyperparameter optimization framework.
+\newblock In {\em Proceedings of the 25th ACM SIGKDD international conference
+  on knowledge discovery \& data mining}, pages 2623--2631, 2019.
+
+\bibitem{alom2018history}
+Md~Zahangir Alom, Tarek~M Taha, Christopher Yakopcic, Stefan Westberg, Paheding
+  Sidike, Mst~Shamima Nasrin, Brian~C Van~Esesn, Abdul A~S Awwal, and Vijayan~K
+  Asari.
+\newblock The history began from alexnet: A comprehensive survey on deep
+  learning approaches.
+\newblock {\em arXiv preprint arXiv:1803.01164}, 2018.
+
+\bibitem{amaral2023kepler}
+Marcelo Amaral, Huamin Chen, Tatsuhiro Chiba, Rina Nakazawa, Sunyanan
+  Choochotkaew, Eun~Kyung Lee, and Tamar Eilam.
+\newblock Kepler: A framework to calculate the energy consumption of
+  containerized applications.
+\newblock In {\em 2023 IEEE 16th International Conference on Cloud Computing
+  (CLOUD)}, pages 69--71, 2023.
+
+\bibitem{ai_security}
+Daniel Arp, Erwin Quiring, Feargus Pendlebury, Alexander Warnecke, Fabio
+  Pierazzi, Christian Wressnegger, Lorenzo Cavallaro, and Konrad Rieck.
+\newblock Dos and don'ts of machine learning in computer security.
+\newblock In {\em 31st USENIX Security Symposium (USENIX Security 22)}, pages
+  3971--3988, 2022.
+
+\bibitem{ici}
+Peter~C Austin, Frank~E Harrell~Jr, and David van Klaveren.
+\newblock Graphical calibration curves and the integrated calibration index
+  ({ICI}) for survival models.
+\newblock {\em Statistics in Medicine}, 39(21):2714--2742, 2020.
+
+\bibitem{aviation_software}
+C~Warren Axelrod.
+\newblock Applying lessons from safety-critical systems to security-critical
+  software.
+\newblock In {\em 2011 IEEE Long Island Systems, Applications and Technology
+  Conference}, pages 1--6. IEEE, 2011.
+
+\bibitem{bailly2022effects}
+Alexandre Bailly, Corentin Blanc, {\'E}lie Francis, Thierry Guillotin, Fadi
+  Jamal, B{\'e}chara Wakim, and Pascal Roy.
+\newblock Effects of dataset size and interactions on the prediction
+  performance of logistic regression and deep learning models.
+\newblock {\em Computer Methods and Programs in Biomedicine}, 213:106504, 2022.
+
+\bibitem{biggio_evasion_2013}
+Battista Biggio, Igino Corona, Davide Maiorca, Blaine Nelson, Nedim
+  {\v{S}}rndi{\'c}, Pavel Laskov, Giorgio Giacinto, and Fabio Roli.
+\newblock Evasion attacks against machine learning at test time.
+\newblock In {\em Machine Learning and Knowledge Discovery in Databases:
+  European Conference, ECML PKDD 2013, Prague, Czech Republic, September 23-27,
+  2013, Proceedings, Part III 13}, pages 387--402. Springer, 2013.
+
+\bibitem{biggio_poisoning_2013}
+Battista Biggio, Blaine Nelson, and Pavel Laskov.
+\newblock Poisoning {Attacks} against {Support} {Vector} {Machines}.
+\newblock {\em arXiv:1206.6389 [cs, stat]}, March 2013.
+
+\bibitem{ai_automotive}
+Mariusz Bojarski, Davide Del~Testa, Daniel Dworakowski, Bernhard Firner, Beat
+  Flepp, Prasoon Goyal, Lawrence~D Jackel, Mathew Monfort, Urs Muller, Jiakai
+  Zhang, et~al.
+\newblock End to end learning for self-driving cars.
+\newblock {\em arXiv preprint arXiv:1604.07316}, 2016.
+
+\bibitem{aft_models}
+Mike~J Bradburn, Taane~G Clark, Sharon~B Love, and Douglas~Graham Altman.
+\newblock Survival analysis part {II}: multivariate data analysis--an
+  introduction to concepts and methods.
+\newblock {\em British journal of cancer}, 89(3):431--436, 2003.
+
+\bibitem{adversarialpatch}
+Tom~B Brown, Dandelion Man{\'e}, Aurko Roy, Mart{\'\i}n Abadi, and Justin
+  Gilmer.
+\newblock Adversarial patch.
+\newblock {\em arXiv:1712.09665}, 2017.
+
+\bibitem{carlini_towards_2017}
+N.~Carlini and D.~Wagner.
+\newblock Towards evaluating the robustness of neural networks.
+\newblock In {\em 2017 IEEE Symposium on Security and Privacy (SP)}, pages
+  39--57, 2017.
+
+\bibitem{chakraborty2018adversarial}
+Anirban Chakraborty, Manaar Alam, Vishal Dey, Anupam Chattopadhyay, and Debdeep
+  Mukhopadhyay.
+\newblock Adversarial attacks and defences: A survey.
+\newblock {\em arXiv:1810.00069}, 2018.
+
+\bibitem{chakraborty_adversarial_2018}
+Anirban Chakraborty, Manaar Alam, Vishal Dey, Anupam Chattopadhyay, and Debdeep
+  Mukhopadhyay.
+\newblock Adversarial attacks and defences: {A} survey.
+\newblock {\em arXiv:1810.00069 [cs, stat]}, 2018.
+
+\bibitem{hopskipjump}
+Jianbo Chen, Michael~I Jordan, and Martin~J Wainwright.
+\newblock {HopSkipJumpAttack}: A query-efficient decision-based attack.
+\newblock In {\em {IEEE} symposium on security and privacy ({SP})}, pages
+  1277--1294. IEEE, 2020.
+
+\bibitem{choquette2021label}
+Christopher~A Choquette-Choo, Florian Tramer, Nicholas Carlini, and Nicolas
+  Papernot.
+\newblock Label-only membership inference attacks.
+\newblock In {\em International conference on machine learning}, pages
+  1964--1974. PMLR, 2021.
+
+\bibitem{IEC61508}
+International~Electrotechnical Commission.
+\newblock Iec 61508 safety and functional safety, 2010.
+
+\bibitem{croce_reliable_2020}
+Francesco Croce and Matthias Hein.
+\newblock Reliable evaluation of adversarial robustness with an ensemble of
+  diverse parameter-free attacks.
+\newblock In {\em International conference on machine learning}, pages
+  2206--2216. PMLR, 2020.
+
+\bibitem{lifelines}
+Cameron Davidson-Pilon.
+\newblock lifelines: survival analysis in python.
+\newblock {\em Journal of Open Source Software}, 4(40):1317, 2019.
+
+\bibitem{dayarathna2015data}
+Miyuru Dayarathna, Yonggang Wen, and Rui Fan.
+\newblock Data center energy consumption modeling: A survey.
+\newblock {\em IEEE Communications surveys \& tutorials}, 18(1):732--794, 2015.
+
+\bibitem{mnist}
+Li~Deng.
+\newblock The {MNIST} database of handwritten digit images for machine learning
+  research.
+\newblock {\em IEEE Signal Processing Magazine}, 29(6):141--142, 2012.
+
+\bibitem{desislavov2021compute}
+Radosvet Desislavov, Fernando Mart{\'\i}nez-Plumed, and Jos{\'e}
+  Hern{\'a}ndez-Orallo.
+\newblock Compute and energy consumption trends in deep learning inference.
+\newblock {\em arXiv:2109.05472}, 2021.
+
+\bibitem{dohmatob_generalized_2019}
+Elvis Dohmatob.
+\newblock Generalized {No} {Free} {Lunch} {Theorem} for {Adversarial}
+  {Robustness}.
+\newblock In {\em Proceedings of the 36th International Conference on Machine
+  Learning}, volume~97 of {\em PMLR}, 2019.
+
+\bibitem{dvc}
+dvc.org.
+\newblock Dvc- data version control.
+\newblock Github, 2023.
+
+\bibitem{ai_medical_imaging}
+Bradley~J Erickson, Panagiotis Korfiatis, Zeynettin Akkus, and Timothy~L Kline.
+\newblock Machine learning for medical imaging.
+\newblock {\em Radiographics}, 37(2):505--515, 2017.
+
+\bibitem{fgm}
+Ian~J Goodfellow, Jonathon Shlens, and Christian Szegedy.
+\newblock Explaining and harnessing adversarial examples.
+\newblock {\em arXiv:1412.6572}, 2014.
+
+\bibitem{pricing_1}
+Google.
+\newblock Gpu pricing. compute engine: Virtual machines (vms). google cloud.
+
+\bibitem{pricing_2}
+Google.
+\newblock Gpu pricing. compute engine: Virtual machines (vms). google cloud.
+
+\bibitem{hasselbring2017microservice}
+Wilhelm Hasselbring and Guido Steinacker.
+\newblock Microservice architectures for scalability, agility and reliability
+  in e-commerce.
+\newblock In {\em 2017 IEEE International Conference on Software Architecture
+  Workshops (ICSAW)}, pages 243--246. IEEE, 2017.
+
+\bibitem{resnet}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 770--778, 2016.
+
+\bibitem{kagglehub}
+{Kaggle}.
+\newblock {Kaggle} datasets, 2026.
+\newblock Accessed: 2026-04-05.
+
+\bibitem{kamal2017study}
+Parves Kamal.
+\newblock A study on the security of password hashing based on gpu based,
+  password cracking using high-performance cloud computing.
+\newblock Master's thesis, St. Cloud State. St. Cloud, Minnesota, USA., 2017.
+
+\bibitem{kephart2003vision}
+Jeffrey~O. Kephart and David~M. Chess.
+\newblock The vision of autonomic computing.
+\newblock {\em Computer}, 36(1):41--50, 2003.
+
+\bibitem{kleinbaum1996survival}
+David~G Kleinbaum and Mitchel Klein.
+\newblock {\em Survival analysis a self-learning text}.
+\newblock Springer, New York, NY, USA, 2012.
+
+\bibitem{pixelattack}
+Shashank Kotyan and Danilo~Vasconcellos Vargas.
+\newblock Adversarial robustness assessment.
+\newblock {\em PloS one}, 17(4):e0265723, 2022.
+
+\bibitem{cifar}
+Alex Krizhevsky, Geoffrey Hinton, et~al.
+\newblock Learning multiple layers of features from tiny images.
+\newblock Technical report, Toronto, ON, Canada, 2009.
+
+\bibitem{k8s}
+Kubernetes.
+\newblock Kubernetes--an open source system for managing containerized
+  applications.
+\newblock Github, June 2019.
+
+\bibitem{lachin1981introduction}
+John~M Lachin.
+\newblock Introduction to sample size determination and power analysis for
+  clinical trials.
+\newblock {\em Controlled clinical trials}, 2(2):93--113, 1981.
+
+\bibitem{leurent2020sha}
+Ga{\"e}tan Leurent and Thomas Peyrin.
+\newblock {SHA-1} is a shambles: First {Chosen-Prefix} collision on {SHA-1} and
+  application to the {PGP} web of trust.
+\newblock In {\em 29th USENIX security symposium (USENIX security 20)}, pages
+  1839--1856, 2020.
+
+\bibitem{li2021membership}
+Zheng Li and Yang Zhang.
+\newblock Membership leakage in label-only exposures.
+\newblock In {\em Proceedings of the 2021 ACM SIGSAC Conference on Computer and
+  Communications Security}, pages 880--895, 2021.
+
+\bibitem{madry2017towards}
+Aleksander Madry, Aleksandar Makelov, Ludwig Schmidt, Dimitris Tsipras, and
+  Adrian Vladu.
+\newblock Towards deep learning models resistant to adversarial attacks.
+\newblock {\em arXiv:1706.06083}, 2017.
+
+\bibitem{ai_aviation}
+Apoorv Maheshwari, Navindran Davendralingam, and Daniel~A DeLaurentis.
+\newblock A comparative study of machine learning techniques for aviation
+  applications.
+\newblock In {\em 2018 Aviation Technology, Integration, and Operations
+  Conference}, page 3980, 2018.
+
+\bibitem{iso26262}
+\mbox{International~Standards~Organization}.
+\newblock {ISO} 26262-1:2011, road vehicles --- functional safety.
+\newblock
+  \href{https://www.iso.org/standard/43464.html}{https://www.iso.org/standard/43464.html},
+  2018.
+
+\bibitem{ai_luggage}
+Domingo Mery, Erick Svec, Marco Arias, Vladimir Riffo, Jose~M Saavedra, and
+  Sandipan Banerjee.
+\newblock Modern computer vision techniques for x-ray testing in baggage
+  inspection.
+\newblock {\em IEEE Transactions on Systems, Man, and Cybernetics: Systems},
+  47(4):682--692, 2016.
+
+\bibitem{meyers}
+Charles Meyers, Tommy L\"{o}fstedt, and Erik Elmroth.
+\newblock Safety-critical computer vision: An empirical survey of adversarial
+  evasion attacks and defenses on computer vision systems.
+\newblock {\em Artificial Intelligence Review}, 2023.
+
+\bibitem{meyers_aft}
+Charles Meyers, Mohammad Reza, Tommy L\"{o}fstedt, and Erik Elmroth.
+\newblock A systematic approach to robustness modelling.
+\newblock In {\em Accepted for International Conference on Machine Learning and
+  Cybernetics}, 2023.
+
+\bibitem{deepfool}
+Seyed-Mohsen Moosavi-Dezfooli, Alhussein Fawzi, and Pascal Frossard.
+\newblock Deepfool: a simple and accurate method to fool deep neural networks.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 2574--2582, 2016.
+
+\bibitem{art2018}
+Maria~Irina Nicolae, Mathieu Sinn, Minh~Ngoc Tran, Beat Buesser, Ambrish Rawat,
+  Martin Wistuba, Valentina Zantedeschi, Nathalie Baracaldo, Bryant Chen, Heiko
+  Ludwig, Ian Molloy, and Ben Edwards.
+\newblock Adversarial robustness toolbox v1.2.0.
+\newblock {\em CoRR}, 1807.01069, 2018.
+
+\bibitem{orekondy2019knockoff}
+Tribhuvanesh Orekondy, Bernt Schiele, and Mario Fritz.
+\newblock Knockoff nets: Stealing functionality of black-box models.
+\newblock In {\em Proceedings of the IEEE/CVF conference on computer vision and
+  pattern recognition}, pages 4954--4963, 2019.
+
+\bibitem{ozaki2020multiobjective}
+Yoshihiko Ozaki, Yuki Tanigaki, Shuhei Watanabe, and Masaki Onishi.
+\newblock Multiobjective tree-structured parzen estimator for computationally
+  expensive optimization problems.
+\newblock In {\em Proceedings of the 2020 genetic and evolutionary computation
+  conference}, pages 533--541, 2020.
+
+\bibitem{msft_water}
+Matt O’Brien, Hannah Fingerhut, and The~Associated Press.
+\newblock A.i. tools fueled a 34\% spike in microsoft’s water consumption,
+  and one city with its data centers is concerned about the effect on
+  residential supply, Sep 2023.
+
+\bibitem{panchal2024reusable}
+D~Panchal, P~Verma, I~Baran, D~Musgrove, and D~Lu.
+\newblock Reusable mlops: Reusable deployment, reusable infrastructure and
+  hot-swappable machine learning models and services.
+\newblock {\em arXiv preprint arXiv:2403.00787}, 2024.
+
+\bibitem{saha2020hidden}
+Aniruddha Saha, Akshayvarun Subramanya, and Hamed Pirsiavash.
+\newblock Hidden trigger backdoor attacks.
+\newblock In {\em Proceedings of the AAAI conference on artificial
+  intelligence}, volume~34, pages 11957--11965, 2020.
+
+\bibitem{sajid2013cloud}
+Mohammad Sajid and Zahid Raza.
+\newblock Cloud computing: Issues \& challenges.
+\newblock In {\em International conference on cloud, big data and trust},
+  volume~20, pages 13--15, 2013.
+
+\bibitem{schmoor2000sample}
+Claudia Schmoor, Willi Sauerbrei, and Martin Schumacher.
+\newblock Sample size considerations for the evaluation of prognostic factors
+  in survival analysis.
+\newblock {\em Statistics in medicine}, 19(4):441--452, 2000.
+
+\bibitem{sedghpour@ebpf}
+Mohammad Reza~Saleh Sedghpour and Paul Townend.
+\newblock Service mesh and ebpf-powered microservices: A survey and future
+  directions.
+\newblock In {\em 2022 IEEE International Conference on Service-Oriented System
+  Engineering (SOSE)}, pages 176--184, 2022.
+
+\bibitem{shalev2014understanding}
+Shai Shalev-Shwartz and Shai Ben-David.
+\newblock {\em Understanding machine learning: From theory to algorithms}.
+\newblock Cambridge university press, Cambridge, UK, 2014.
+
+\bibitem{vgg}
+Karen Simonyan and Andrew Zisserman.
+\newblock Very deep convolutional networks for large-scale image recognition.
+\newblock {\em arXiv preprint arXiv:1409.1556}, 2014.
+
+\bibitem{singh2023load}
+Neelam Singh, Yasir Hamid, Sapna Juneja, Gautam Srivastava, Gaurav Dhiman,
+  Thippa~Reddy Gadekallu, and Mohd~Asif Shah.
+\newblock Load balancing and service discovery using docker swarm for
+  microservice based big data applications.
+\newblock {\em Journal of Cloud Computing}, 12(1):4, 2023.
+
+\bibitem{sun2017revisiting}
+Chen Sun, Abhinav Shrivastava, Saurabh Singh, and Abhinav Gupta.
+\newblock Revisiting unreasonable effectiveness of data in deep learning era.
+\newblock In {\em Proceedings of the IEEE international conference on computer
+  vision}, pages 843--852, 2017.
+
+\bibitem{svedin2021benchmarking}
+Martin Svedin, Steven~WD Chien, Gibson Chikafa, Niclas Jansson, and Artur
+  Podobas.
+\newblock Benchmarking the nvidia gpu lineage: From early k80 to modern a100
+  with asynchronous memory transfers.
+\newblock In {\em Proceedings of the 11th International Symposium on Highly
+  Efficient Accelerators and Reconfigurable Technologies}, pages 1--6, 2021.
+
+\bibitem{tan2021critical}
+Jimin Tan, Jianan Yang, Sai Wu, Gang Chen, and Jake Zhao.
+\newblock A critical look at the current train/test split in machine learning.
+\newblock {\em arXiv preprint arXiv:2106.04525}, 2021.
+
+\bibitem{ai_prison}
+Guido~Vittorio Travaini, Federico Pacchioni, Silvia Bellumore, Marta Bosia, and
+  Francesco De~Micco.
+\newblock Machine learning and criminal justice: A systematic review of
+  advanced methodology for recidivism risk prediction.
+\newblock {\em International journal of environmental research and public
+  health}, 19(17):10594, 2022.
+
+\bibitem{vcdimension}
+Vladimir~N Vapnik.
+\newblock An overview of statistical learning theory.
+\newblock {\em IEEE transactions on neural networks}, 10(5):988--999, 1999.
+
+\bibitem{mamba}
+Roger Waleffe, Wonmin Byeon, Duncan Riach, Brandon Norick, Vijay Korthikanti,
+  Tri Dao, Albert Gu, Ali Hatamizadeh, Sudhakar Singh, Deepak Narayanan, et~al.
+\newblock An empirical study of mamba-based language models.
+\newblock {\em arXiv preprint arXiv:2406.07887}, 2024.
+
+\bibitem{tpe_params}
+Shuhei Watanabe.
+\newblock Tree-structured parzen estimator: Understanding its algorithm
+  components and their roles for better empirical performance.
+\newblock {\em arXiv preprint arXiv:2304.11127}, 2023.
+
+\bibitem{xu2018deep}
+Rengan Xu, Frank Han, and Quy Ta.
+\newblock Deep learning at scale on nvidia v100 accelerators.
+\newblock In {\em 2018 IEEE/ACM Performance Modeling, Benchmarking and
+  Simulation of High Performance Computer Systems (PMBS)}, pages 23--32. IEEE,
+  2018.
+
+\bibitem{feature_squeezing}
+Weilin Xu, David Evans, and Yanjun Qi.
+\newblock Feature squeezing: Detecting adversarial examples in deep neural
+  networks.
+\newblock {\em arXiv:1704.01155}, 2017.
+
+\bibitem{hydra}
+Omry Yadan.
+\newblock Hydra - a framework for elegantly configuring complex applications.
+\newblock Github, 2019.
+
+\bibitem{zhou2022online}
+Ruiting Zhou, Jinlong Pang, Qin Zhang, Chuan Wu, Lei Jiao, Yi~Zhong, and
+  Zongpeng Li.
+\newblock Online scheduling algorithm for heterogeneous distributed machine
+  learning jobs.
+\newblock {\em IEEE Transactions on Cloud Computing}, 2022.
+
+\bibitem{zitzler2008quality}
+Eckart Zitzler, Joshua Knowles, and Lothar Thiele.
+\newblock Quality assessment of pareto set approximations.
+\newblock {\em Multiobjective optimization: Interactive and evolutionary
+  approaches}, pages 373--404, 2008.
+
+\end{thebibliography}
