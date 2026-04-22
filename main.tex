@@ -30,6 +30,7 @@
 \IEEEauthorblockA{\textit{Responsible AI Practice } \\
 \textit{Northeastern University}\\
 Boston, USA \\
+0000-0002-1277-9811 \\
 cmeyers@cs.umu.se}
 \and
 \IEEEauthorblockN{2\textsuperscript{nd}Mohammad Reza Saleh Sedghpour}
@@ -202,7 +203,7 @@ is the probability of a false classification within a small (half-open) interval
 
 \begin{figure*}
     \centering
-    \includegraphics[width=\textwidth]{plots/experiment.pdf}
+    \includegraphics[width=.8t\textwidth]{plots/experiment.pdf}
     \caption{For each dataset and hardware combination, a state parameter was chosen at random to decide the train and validation sets. 
     Next, model parameters and attack parameters are chosen at random. After 128 random trials, the Tree-Pazen Estimator (TPE) algorithm attempts to maximise both benign and adversarial accuracy while minimising training time by tuning the model batch-size and learning rate. 
     The random seed for the data split and the attack parameters are sampled independently from this optimisation, which is why they are coloured differently. The model tuning (blue-box) is discussed in Section~\ref{optimisation}. 
@@ -382,7 +383,7 @@ This section details the implementation of the methodology in Sections~\ref{aft}
 
 \begin{figure*}
     \centering
-    \includegraphics[width=.9\textwidth]{plots/architecture.pdf}
+    \includegraphics[width=.7\textwidth]{plots/architecture.pdf}
     \caption{
     For our experiments we used four node pools from Google Cloud Platform, each with a particular responsibility.
     The first node pool included three nodes responsible for hosting monitoring services such as Prometheus and Grafana.
@@ -458,7 +459,7 @@ To calculate this, the price per hour from each cloud service pricing page was u
     Cost (USD/hour)         & 2.55   & 1.60   & 0.81  \\
     Power (Watts)           & 250    & 250    & 72    \\
     Memory Bandwidth (GB/s) & 900    & 732    & 300   \\
-    \bottomrule
+    % \bottomrule
     \end{tabular}
     \caption{Hardware specifications for the tested GPUs. The specifications were retrieved from Nvidia's website at the following links:
     \href{https://images.nvidia.com/content/technologies/volta/pdf/volta-v100-datasheet-update-us-1165301-r5.pdf}{V100 Datasheet},
@@ -596,7 +597,8 @@ Figure~\ref{fig:aft} further shows that hardware choice has a relatively small e
 
 \subsection{Why Cost Matters}
 
-In security analysis, it is routine to think in optimistic terms for both the attacker and defender. In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken'').
+In security analysis, it is routine to think in optimistic terms for both the attacker and defender. 
+In cryptography, these ideal attack- and defence-scenarios are used to test the computational feasibility of subverting a particular cryptographic system~\cite{kamal2017study,leurent2020sha} (\textit{e.g.}, whether or not a given cryptographic method should be considered ``broken'').
 By using a whitebox attack to generate the failures, we ensure that our defender operates under the worst-case scenario while the attacker operates under their best-case scenario to yield a worst-case failure rate.
 As such, we centre our analysis on the whitebox Fast Gradient Sign Method (FGSM)~\cite{fgm} (see Eq.~\ref{eq:fgm}), which is both effective and fast~\cite{meyers}.
 If the cost to a model builder is much larger than the cost to an attacker, then it is clear that the model is ``broken'' in this cryptographic sense and can be discarded as ineffective~\cite{meyers_aft}.
@@ -621,10 +623,12 @@ While this work focuses on adversarial robustness, the cost and survival analysi
 
 We have taken much care to conduct all timing measurements as carefully as possible.
 Primarily, to minimise timing jitter and account for GPU parallelisation, we assumed that the time-to-failure during the benign and adversarial accuracy measurements was uniform across the samples in each trial.
-While it is very possible (if not altogether guaranteed) that some classes or samples are easier to attack than others, we assume that this averages out over the 100 samples given to each attack. Further work examining the effect of imbalanced datasets on survival time distributions is outside the scope, though the methodology would remain identical.
+While it is very possible (if not altogether guaranteed) that some classes or samples are easier to attack than others, we assume that this averages out over the 100 samples given to each attack. 
+Further work examining the effect of imbalanced datasets on survival time distributions is outside the scope, though the methodology would remain identical.
 However, given the strong results and uniformity across AFT functions in Table~\ref{tab:aft_summary}, the uniform time assumption appears to be insignificant. However, accounting for the failure rate per sample or class is likely to account for some of the remaining unexplained variance.
 Additionally, we chose a model and set of datasets small enough to fit entirely in GPU memory to minimise the confounding factors around parallelised, distributed, and/or federated learning as well as the complexities around storage hardware, file systems, and various access mechanisms.
-Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth, but the 24GB of VRAM provided by the L4 should be more than sufficient for vision tasks based on 8-bit images standard in the literature (\textit{e.g.}, MNIST, CIFAR10, CIFAR100); indeed, at the time of writing, 98.9\% of publicly available datasets on Kaggle are smaller than 24GB~\cite{kagglehub}. Furthermore, the attack batch size and the training batch size were set to be the same for every trial for each dataset and piece of hardware so that the attack timing would mimic the usage of regular users.
+Larger models acting on larger datasets are likely to perform better on hardware with a higher GPU bandwidth, but the 24GB of VRAM provided by the L4 should be more than sufficient for vision tasks based on 8-bit images standard in the literature (\textit{e.g.}, MNIST, CIFAR10, CIFAR100); indeed, at the time of writing, 98.9\% of publicly available datasets on Kaggle are smaller than 24GB~\cite{kagglehub}. 
+Furthermore, the attack batch size and the training batch size were set to be the same for every trial for each dataset and piece of hardware so that the attack timing would mimic the usage of regular users.
 If anything, the smaller sample size of the attacks means that proportionally more parallelisation overhead is needed per sample, leading to an underestimate of the attack efficacy compared to the benign measurements.
 In general, distributed/federated models were out of scope, but could be evaluated using the same cost and survival analysis techniques.
 The hyper-parameter search was restricted to a single evasion attack (see Eq.~\ref{eq:fgm}) in the interest of time and budget, though this would generalise to evasion, extraction, inversion, or poisoning attacks~\cite{biggio_evasion_2013,biggio_poisoning_2013,choquette2021label,orekondy2019knockoff}.
@@ -637,7 +641,8 @@ The hyper-parameter search was restricted to a single evasion attack (see Eq.~\r
 In this work, we presented an autonomic decision-support framework that applies survival analysis to cloud-native ML, enabling rapid and cost-efficient evaluation of model parameter choices in the presence of adversarial noise.
 Using this technique, adversarial robustness is not substantially affected by reduced run-times from newer and/or larger hardware; the specific choice of attack parameters matters far more than model training time.
 
-The experiments conducted confirm that this methodology is both sound and cost-effective. While 88\% of the cloud budget went to GPU rentals, the data show how cutting that cost by 75\% and using less power-intensive hardware designed for 8-bit image processing would be \textit{more} effective than using the 32-bit data-centre GPUs (V100 and P100) for typical image classification tasks. Using Kepler proved to be cost-effective, as real-time monitoring only used a fraction of the budget (6\%).
+The experiments conducted confirm that this methodology is both sound and cost-effective. While 88\% of the cloud budget went to GPU rentals, the data show how cutting that cost by 75\% and using less power-intensive hardware designed for 8-bit image processing would be \textit{more} effective than using the 32-bit data-centre GPUs (V100 and P100) for typical image classification tasks. 
+Using Kepler proved to be cost-effective, as real-time monitoring only used a fraction of the budget (6\%).
 AFT models fit with concordance $>0.83$ on held-out data confirm that survival analysis is a reliable robustness estimator. Attack cost consistently undercut training cost across all hardware and datasets, and AFT coefficients identify inference latency ($T_i$) --- not training time or epoch count --- as the dominant robustness predictor.
 
 Furthermore, the coefficients again confirm an inverse relationship between validation (benign) accuracy and adversarial robustness (\textit{i.e.}, survival time).
