@@ -34,7 +34,7 @@ stages:
       size: 25679
     - path: main.log
       hash: md5
-      md5: bdc6bcb6cf30ec5cd9d83cccd7c42931
+      md5: 9b0dd34682120af2777875f5021ec4f5
       size: 29352
     - path: main.out
       hash: md5
@@ -52,21 +52,21 @@ stages:
     outs:
     - path: main.pdf
       hash: md5
-      md5: c625f5b7072e8c6131c704a46c2b0fe0
+      md5: 54da07b19f78d7618700536ea654e40c
       size: 684143
   arxiv:
-    cmd: rm -rf tmp/ &&  python arxiv.py  --directories plots/combined plots 
-      --delete_these_dirs generate_plots/ tmp conf bst --extensions py yaml csv  
-      --title "A Cost-Aware Approach to Adversarial Robustness in Neural 
-      Networks" --delete_these_files ".dvcignore" "main.aux" "main.blg" 
-      "main.out"  "main.pdf" "main.log"  "arxiv.log" --temporary_directory tmp
+    cmd: 'rm -rf tmp/ &&  python arxiv.py  --directories plots/combined plots --delete_these_dirs
+      generate_plots/ tmp conf bst --extensions py yaml csv  --title "Survival of
+      the Cheapest: Cost-Aware Hardware Adaptation for Adversarial Robustness" --delete_these_files
+      ".dvcignore" "main.aux" "main.blg" "main.out"  "main.pdf" "main.log"  "arxiv.log"
+      --temporary_directory tmp'
     deps:
     - path: arxiv.py
       md5: 6424cda58e8cdd02be453250908f8df5
       size: 7776
     - path: main.pdf
       hash: md5
-      md5: c625f5b7072e8c6131c704a46c2b0fe0
+      md5: 54da07b19f78d7618700536ea654e40c
       size: 684143
     - path: plots/
       hash: md5
@@ -74,20 +74,20 @@ stages:
       size: 230966926
       nfiles: 90
     outs:
-    - path: A Cost-Aware Approach to Adversarial Robustness in Neural 
-        Networks.zip
+    - path: 'Survival of the Cheapest: Cost-Aware Hardware Adaptation for Adversarial
+        Robustness.zip'
       hash: md5
-      md5: 642f9fd62b50231beb35c96f22f0d4f4
-      size: 605563
+      md5: 9d5e48901ea61d5642dbaa0525d5a28f
+      size: 1210153
     - path: arxiv.log
       hash: md5
-      md5: fc36838dc5f76aba73cd1468e75eff94
+      md5: 1a5dbb31fb1b18a3c0bba45813b947c7
       size: 3822
     - path: tmp/
       hash: md5
-      md5: 722f097c43b02bf1176339ccaa19995f.dir
-      size: 1101218
-      nfiles: 30
+      md5: 5e99c4f3d872dc9413d22c4e3d796581.dir
+      size: 1706781
+      nfiles: 31
   pre-commmit:
     cmd: pre-commit run --all-files  && chktex -q -V main.tex -n 24 -n 8 -n 1 -n
       9 -n 17
