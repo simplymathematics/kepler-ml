@@ -158,7 +158,8 @@ It works by applying noise to a set of samples, $x$, to generate adversarial exa
     x_a = x + \eta \cdot \mathrm{sign}\Big(\nabla_x L\big(y, K(x, \theta)\big)\Big).
 \label{eq:fgm}
 \end{equation}
-Although presented here as a representative example, this attack is used throughout this work. 
+Note that the attack step size $\eta$ in Eq.~\ref{eq:fgm} is the exact dual of the learning rate $\eta$ in SGD\@: training performs gradient \textit{descent} on the loss with respect to the model parameters $\theta$ (minimising $L$), while the attack performs gradient \textit{ascent} on the loss with respect to the input $x$ (maximising $L$); the two operations differ only in the direction of the step and the variable being updated.
+Although presented here as a representative example, this attack is used throughout this work.
 The analysis and conclusions, however, generalize to any adversarial attack that generates perturbed inputs and can induce a failure.
 
 \subsection{Adversarial Analysis}
@@ -433,7 +434,7 @@ Before training, we centered and scaled the data so that the attack distance wou
 The evaluations were restricted to a single model. Primarily, this was done to meet the budgetary constraints since evaluating more models would mean evaluating fewer pieces of hardware. 
 As discussed in Section~\ref{learning_rate}, the relationship between hardware specifications, parameters, and performance is highly complex and hard to predict. 
 So, we sampled learning rates in $[10^{-6}, 1]$, batch sizes in $[1, 10^5]$, and epochs in $[1, 50]$ for MNIST and CIFAR10 on the P100 and V100. For CIFAR100, the range of the tested epochs was increased to be in $[1, 100]$. 
-The Feature Squeezing defence~\cite{feature_squeezing} was used to evaluate the efficacy of different bit-depths on the L4 hardware, as provided by IBM's adversarial robustness toolbox~\cite{art2018} with bit depths in $[4,8,16,32,64]$ which casts the inputs into \texttt{pytorch}-compatible arrays. Model parameters were chosen using the \texttt{optuna} optimisation framework, the configuration was handled by \texttt{hydra}, and \texttt{dvc} was used to ensure reproducibility and aid in collaborative development.
+The Feature Squeezing defence~\cite{feature_squeezing} was used to evaluate the efficacy of different bit-depths on the L4 hardware, as provided by IBM's adversarial robustness toolbox~\cite{art2018} with bit depths in $[4,8,16,32,64]$ which casts the inputs into \texttt{pytorch}-compatible arrays. Feature Squeezing was applied only to the L4 because that GPU's tensor cores natively execute 8-bit operations; applying the same bit-depth reduction to the P100 or V100 would instead emulate 8-bit arithmetic in software on 32-bit silicon, which wastes memory bandwidth and does not reflect those GPUs' actual operating mode. Model parameters were chosen using the \texttt{optuna} optimisation framework, the configuration was handled by \texttt{hydra}, and \texttt{dvc} was used to ensure reproducibility and aid in collaborative development.
 
 
 \subsection{Attacks}
@@ -603,7 +604,7 @@ By using a whitebox attack to generate the failures, we ensure that our defender
 As such, we centre our analysis on the whitebox Fast Gradient Sign Method (FGSM)~\cite{fgm} (see Eq.~\ref{eq:fgm}), which is both effective and fast~\cite{meyers}.
 If the cost to a model builder is much larger than the cost to an attacker, then it is clear that the model is ``broken'' in this cryptographic sense and can be discarded as ineffective~\cite{meyers_aft}.
 Figure~\ref{fig:trash} depicts the TRASH score defined in Equation~\ref{eq:cost}, which quantifies the per-sample ratio of training to attack time.
-Even with the reduced GPU bandwidth (Table~\ref{tab:hardware}), the L4 model is superior in terms of both cost (Table~\ref{tab:hardware}) and robustness (Figure~\ref{fig:aft}), presumably since the extra bit-depth provided by the P100 and V100 ends up being useless noise on 8-bit images like MNIST and CIFAR\@.
+Even with the reduced GPU bandwidth (Table~\ref{tab:hardware}), the L4 model is superior in terms of both cost (Table~\ref{tab:hardware}) and robustness (Figure~\ref{fig:aft}), because the L4's tensor cores natively execute 8-bit operations and the standard image benchmarks used here (MNIST, CIFAR10, CIFAR100) are 8-bit datasets: the additional bit-depth available on the P100 and V100 carries no signal and is processed as noise.
 This finding directly informs the Plan phase of a MAPE-K loop: a self-adaptive system can confidently select the least expensive hardware configuration without sacrificing adversarial robustness.
 
 
