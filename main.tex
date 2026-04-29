@@ -180,7 +180,6 @@ AFT models are statistical models used to analyse multivariate effects on the ob
 Accuracy measures the vulnerability or susceptibility of the model to failures. 
 A larger accuracy indicates a higher rate of true classifications; while this reflects better generalisation on clean data, high benign accuracy does not imply adversarial robustness, as the results in Section~\ref{results} confirm. 
 Throughout, we use the terminology \textit{benign} accuracy to refer to the performance on a data set using unperturbed data and \textit{adversarial} to refer to the performance in the presence of additive adversarial noise that is intended to confuse the model. 
-The subscripts \textit{ben} and \textit{adv} are used respectively. 
 The accuracy, $\lambda$, is defined as
 \begin{equation}
     \lambda:= \mathrm{Accuracy} := 1 - \frac{\mathrm{False~Classifications}}{\mathrm{Total~Classifications}},
@@ -273,7 +272,6 @@ For AIC and BIC, that means choosing the model giving the smallest value.
 Concordance, however, is a number between $0$ and $1$ that quantifies the degree to which the survival time is explained by the model, where a $1$ reflects a perfect explanation~\cite{kleinbaum1996survival}, 0.5 reflects random chance, and 0 reflects a model that is perfectly wrong (a sign error). 
 By evaluating $\mathbb{E}_{S_\theta}[T]$ under extreme perturbations, one can test the model and minimise the number of evaluated samples~\cite{aft_models,kleinbaum1996survival} rather than relying on $> 10^{12}$ validation samples, as required by IEC61508~\cite{IEC61508}.
 While the aforementioned metrics measure goodness-of-fit, one should conduct a \textit{survival probability calibration}, where one fits the AFT model to the data and compares it to a baseline that is meant to capture the un-modelled relationship between failures and time~\cite{ici}, an example of which can be visualized in  Figure~\ref{fig:qq}. 
-These plots can be used to visually inspect the goodness-of-fit of various models, as in Figure~\ref{fig:qq}, and this method is called \textit{survival probability calibration}.
 The integrated calibration index (ICI) as well as the error at the 50th percentile E50~\cite{ici} are then calculated. These are the mean absolute difference between observed and predicted probabilities and the median absolute difference between observed and predicted probabilities, respectively~\cite{ici}.
 Additionally, the data were split into a training set that was used to fit the model (80\%) and an unseen validation set (20\%), and the concordance, ICI, and E50 were measured for both.
 The resulting expected survival time estimates serve as the analytical input to the Analyse and Plan phases of a MAPE-K loop, enabling hardware configurations to be ranked by cost-normalised robustness.
@@ -495,7 +493,7 @@ These accuracy metrics form the Monitor-phase inputs that feed the Analyse phase
 \label{res:cost}
 The power consumption during training, inference, and attack generation for all hardware and datasets is illustrated in Figure~\ref{fig:power}. As expected, it tracks monetary cost (Figure~\ref{fig:cost}) closely: since power is the predominant operating cost for data centres~\cite{dayarathna2015data}, cloud billing and power draw are structurally coupled by design. The non-trivial finding is that the largest dataset (CIFAR100) and the smallest GPU (L4) require the \textit{least} power for prediction, while differences between hardware and datasets are insignificant for the training and attack metrics.
 
-The monetary cost for each dataset and each piece of hardware is shown in Figure~\ref{fig:cost}. For all three datasets across all three pieces of hardware, the cost of training on a single sample often exceeds the cost of attacking a single sample. 
+For all three datasets across all three pieces of hardware, the cost of training on a single sample often exceeds the cost of attacking a single sample. 
 In the best-case scenario, they are comparable, but attacks consistently succeed with only 100 samples (Figure~\ref{fig:acc}) while model training requires orders of magnitude more.
 Together, the power and cost measurements in Figures~\ref{fig:power}--\ref{fig:cost} constitute Monitor-phase observables that a MAPE-K Analyse phase can use to rank hardware configurations by cost-effectiveness.
 %  However, we note that the attacker only needs to be lucky once, whereas the the model builder must be lucky always.
@@ -505,8 +503,6 @@ Together, the power and cost measurements in Figures~\ref{fig:power}--\ref{fig:c
     \caption{Benign and adversarial accuracy across all hardware and datasets for all 1,000 trials using plots that depict the distribution of the first axis values using the width of the plot. Each colour is a different device and the datasets are displayed along the first axis. Outliers are denoted with a white dot.}
     \label{fig:acc}
 \end{figure*}
-
-Figures~\ref{fig:power} and~\ref{fig:cost} show the distributions of power consumption and monetary cost during training, inference, and attack generation across all hardware configurations and datasets.
 
 \begin{figure*}[h]
     \centering
