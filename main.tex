@@ -486,6 +486,7 @@ Figure~\ref{fig:acc} shows the benign (left) and adversarial (right) accuracies 
 It demonstrates little to no change in accuracy or adversarial accuracy, regardless of hardware. The benign accuracy decreases with difficulty (CIFAR10 \textit{vs.}~MNIST) or with the number of classes (CIFAR10 \textit{vs.}~CIFAR100). 
 For all three datasets, the adversarial accuracy becomes the reciprocal of the number of classes (\textit{i.e.}, the accuracy we would expect with random data), demonstrating the efficacy of the attack outlined in Section~\ref{attacks}. 
 These accuracy metrics form the Monitor-phase inputs that feed the Analyse phase of a MAPE-K loop evaluating hardware robustness.
+Statistical significance across variables is evident from the plots: 100 samples were withheld across 10 random splits for 1,000 trials per dataset and hardware configuration, yielding 1,000,000 attacks per hardware/dataset combination.
 
 
 
