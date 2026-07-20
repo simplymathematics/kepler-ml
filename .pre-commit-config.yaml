@@ -15,6 +15,7 @@ repos:
               "--emph=etc.",
               "--regex=hyperparameter=\bhyper-parameter",
               "--regex=hyperparameters=\bhyper-parameters",
+              "--regex=Kepler=\bKEPLER",
               "--regex=dataset=\bdataset",
               "--regex=datasets=\bdata-sets",
               "main.tex",
