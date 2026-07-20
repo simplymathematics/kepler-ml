@@ -95,8 +95,8 @@ Due to model complexity, large-scale ML training typically uses mini-batch stoch
 \end{equation}
 where $\eta^{(i)}$ is the learning rate and the gradient is computed over the mini-batch.
 
-Hardware differences (\textit{e.g.}, VRAM) influence optimal configurations, especially when considering performance and cost. 
-Training and inference may also run on different hardware to optimise efficiency, as some devices are specialised for training (\textit{e.g.}, V100, P100) and others for inference (\textit{e.g.}, L4).
+Hardware differences (\textit{e.g.,} VRAM) influence optimal configurations, especially when considering performance and cost. 
+Training and inference may also run on different hardware to optimise efficiency, as some devices are specialised for training (\textit{e.g.,} V100, P100) and others for inference (\textit{e.g.,} L4).
 An effective learning rate ($\eta$) balances fast convergence and accuracy, but in cloud environments, hardware variability requires empirical tuning.
 Since compute is billed per hour, optimising training time is also cost-critical.
 
@@ -177,7 +177,7 @@ Furthermore, adversarial counter-examples consistently expose the benign accurac
 \label{failure_rate}
 
 The failure rate refers to the percentage or proportion of examples that cause the targeted ML model to misclassify or produce incorrect outputs~\cite{meyers}. 
-To encompass the cost of a particular model or attack, the proposed methodology considers failures to be a function over some time interval (\textit{e.g.}, inference time, attack generation time, training time, with parameters, $\theta$, so that the failure rate is the average time until a failure in a time interval around time, $t$, such that
+To encompass the cost of a particular model or attack, the proposed methodology considers failures to be a function over some time interval (\textit{e.g.,} inference time, attack generation time, training time, with parameters, $\theta$), so that the failure rate is the average time until a failure in a time interval around time, $t$, such that
 
 \[
     h_{\theta}(t) := \lim_{\Delta t \rightarrow 0} \frac{p\big(\textrm{False~Classification~in~} (t, t + \Delta t] \mid \theta\big)}{\Delta t},
@@ -225,7 +225,7 @@ Any attack that produces a measurable degradation in model performance over time
 
 \subsection{Choosing the best AFT Model}
 \label{best-fit}
-To choose a best-fit from a number of possible AFT functions, one should prepare the collected metrics and scores and then compare them using, \textit{e.g.}, Akaike Information Criterion (AIC), Bayesian Information Criterion (BIC), or Concordance, as per the best practices for this methodology~\cite{aft_models,kleinbaum1996survival}.
+To choose a best-fit from a number of possible AFT functions, one should prepare the collected metrics and scores and then compare them using, \textit{e.g.,} Akaike Information Criterion (AIC), Bayesian Information Criterion (BIC), or Concordance, as per the best practices for this methodology~\cite{aft_models,kleinbaum1996survival}.
 For AIC and BIC, that means choosing the model giving the smallest value. 
 Concordance, however, is a number between $0$ and $1$ that quantifies the degree to which the survival time is explained by the model, where a $1$ reflects a perfect explanation~\cite{kleinbaum1996survival}, 0.5 reflects random chance, and 0 reflects a model that is perfectly wrong (a sign error). 
 By evaluating $\mathbb{E}_{S_\theta}[T]$ under extreme perturbations, one can test the model and minimise the number of evaluated samples~\cite{aft_models,kleinbaum1996survival} rather than relying on $> 10^{12}$ validation samples, as required by IEC61508~\cite{IEC61508}.
@@ -307,8 +307,8 @@ where a value larger than one indicates a model that is cheaper to break than it
 \subsection{Monetary Deployment Cost}
 
 Furthermore, we approach the cost of deployment at two scales. 
-Firstly, we consider the cloud-rental scale, where a small business might test and deploy a model using, \textit{e.g.}, the Google Cloud Platform (GCP) compute costs as a measure of total cost. 
-However, at a certain scale or with certain applications, it is more appropriate to talk about cost in terms of power (\textit{e.g.}, to deploy a self-driving car with a useful operating range). 
+Firstly, we consider the cloud-rental scale, where a small business might test and deploy a model using, \textit{e.g.,} the Google Cloud Platform (GCP) compute costs as a measure of total cost. 
+However, at a certain scale or with certain applications, it is more appropriate to talk about cost in terms of power (\textit{e.g.,} to deploy a self-driving car with a useful operating range). 
 
 Finally, we define metrics that provide an efficient way to minimise the latency and cost of deployment, and to maximise the generalised performance of a model. 
 We define the training cost as
@@ -505,7 +505,7 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
 \label{res:aft}
 
 Table~\ref{tab:aft_summary} shows the performance metrics for all three AFT models, as outlined in Section~\ref{survival_time}.
-The concordance is both strong ($>0.5$), similar for all three AFT models , and consistent across both the train and validation sets. 
+The concordance is both strong ($>0.5$), similar for all three AFT models, as well as consistent across both the train and validation sets. 
 We observed no more than 1\% mean absolute error in the probabilities ICI and no error in the median probability E50 across all three AFT models.
 Figure~\ref{fig:aft} shows the log-scale coefficients for the AFT model. It shows that epochs, batch size, and training time have no effect on the survival time.
 However, we can clearly see that inference time is as strong an indicator as the attack noise distance, revealing that model speed is nearly as important as the magnitude of the attack ($\varepsilon$).
@@ -542,7 +542,7 @@ This result directly supports the Analyze phase of a MAPE-K loop by enabling sel
 \subsection{Advantages of the Proposed Methodology}
 \label{advantages}
 
-Unlike conventional train/validation evaluation, whose precision is limited by the number of samples, the precision of survival-time estimates is determined by hardware clock resolution. Demonstrating the failure rates required by safety standards such as IEC~61508 (e.g., one failure in a million) would require millions of validation samples and repeated data collection after each software change~\cite{IEC61508}. In contrast, the proposed AFT model achieves an average error of approximately 1\% using only 10 sets of 100 samples (Table~\ref{tab:aft_summary}).
+Unlike conventional train/validation evaluation, whose precision is limited by the number of samples, the precision of survival-time estimates is determined by hardware clock resolution. Demonstrating the failure rates required by safety standards such as IEC~61508 (\textit{e.g.,} one failure in a million) would require millions of validation samples and repeated data collection after each software change~\cite{IEC61508}. In contrast, the proposed AFT model achieves an average error of approximately 1\% using only 10 sets of 100 samples (Table~\ref{tab:aft_summary}).
 
 Because AFT models require relatively few samples, they can act as lightweight unit tests for ML components, estimating marginal risk per IEC~61508 without full-system integration or deployment~\cite{IEC61508,schmoor2000sample,lachin1981introduction}. Their strong predictive performance on unseen hyper-parameter configurations can also reduce the search space by eliminating candidates unlikely to improve survival time. Finally, the resulting cost and robustness estimates naturally support the planning stage of a MAPE-K control loop~\cite{kephart2003vision}, making the methodology suitable as a quantitative decision-support component for self-adaptive cloud-native ML systems.
 
@@ -555,7 +555,7 @@ Timing measurements were designed to minimise jitter and account for GPU paralle
 
 To minimise confounding factors, we restricted our experiments to models and datasets that fit entirely within GPU memory, isolating the effects of model configuration and hardware from secondary bottlenecks such as storage I/O, PCIe transfers, and distributed communication. 
 While these factors can significantly affect latency and cost in production cloud deployments, they can be incorporated as additional covariates in the proposed survival analysis framework. 
-The 24\,GB VRAM of the L4 is sufficient for standard 8-bit vision benchmarks (e.g., MNIST, CIFAR10, and CIFAR100); indeed, at the time of publication, 98.9\% of publicly available Kaggle datasets are smaller than 24\,GB~\cite{kagglehub}. 
+The 24\,GB VRAM of the L4 is sufficient for standard 8-bit vision benchmarks (\textit{e.g.,} MNIST, CIFAR10, and CIFAR100); indeed, at the time of publication, 98.9\% of publicly available Kaggle datasets are smaller than 24\,GB~\cite{kagglehub}. 
 Extending the methodology to distributed and federated settings remains future work.
 
 The attack and training batch sizes were matched in every trial so that attack timing reflected typical deployment conditions. Since attacks operate on fewer samples than training, the additional parallelisation overhead likely causes attack efficacy to be slightly underestimated relative to benign measurements.
