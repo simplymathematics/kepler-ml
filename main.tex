@@ -474,10 +474,7 @@ Together, the power and cost measurements in Figures~\ref{fig:power}--\ref{fig:c
 \centering
 \caption{
     Comparison of AFT Models across all hardware and datasets.
-    AIC~and~BIC are measures of goodness-of-fit, with a smaller value being preferred.
-    Concordance (Conc) is a value between 0 and 1 that reflects what proportion of events (failures) can be explained by the model.
-    ICI measures the average error between a cubic-spline and the model and E50 measures the median error between the spline and the model.
-    These are measured on both the train and validation sets of the measured data, with the latter being denoted ``Val''.}
+    }
 \label{tab:aft_summary}
 \begin{tabular}{lrrrrrrrr}
 \toprule
@@ -505,6 +502,10 @@ Log Normal   & $-2.25\cdot10^4$ & $-2.25\cdot10^4$ & 0.84 & 0.83 & 0.01 & 0.00 &
 \label{res:aft}
 
 Table~\ref{tab:aft_summary} shows the performance metrics for all three AFT models, as outlined in Section~\ref{survival_time}.
+AIC~and~BIC are measures of goodness-of-fit, with a smaller value being preferred.
+Concordance (Conc) is a value between 0 and 1 that reflects what proportion of events (failures) can be explained by the model.
+ICI measures the average error between a cubic-spline and the model and E50 measures the median error between the spline and the model.
+These are measured on both the train and validation sets of the measured data, with the latter being denoted ``Val''.
 The concordance is both strong ($>0.5$), similar for all three AFT models, as well as consistent across both the train and validation sets. 
 We observed no more than 1\% mean absolute error in the probabilities ICI and no error in the median probability E50 across all three AFT models.
 Figure~\ref{fig:aft} shows the log-scale coefficients for the AFT model. It shows that epochs, batch size, and training time have no effect on the survival time.
