@@ -5,17 +5,17 @@ stages:
     deps:
     - path: main.tex
       hash: md5
-      md5: 122135a9b6651a8831f159e713bf250f
-      size: 46901
+      md5: 87b0917104e8fe4270e8c83a7c027d14
+      size: 46890
     outs:
     - path: main.aux
       hash: md5
-      md5: 150ee4abb13ca1c1edfb04504e5856cc
-      size: 19208
+      md5: 7336b22b2da011c07ba351183222ca5d
+      size: 17950
     - path: main.log
       hash: md5
-      md5: 84a33733f9fe934309be52a93c3e553d
-      size: 39932
+      md5: fd5a5e5a8737071b91ca262511838030
+      size: 39785
     - path: main.out
       hash: md5
       md5: 15bde218778f1f6dfbfea47928790a29
@@ -30,20 +30,20 @@ stages:
       size: 102606
     - path: main.aux
       hash: md5
-      md5: 8711eb9ed225720a0beefed6f713b9c9
-      size: 18879
+      md5: 7336b22b2da011c07ba351183222ca5d
+      size: 17950
     - path: main.log
       hash: md5
-      md5: ac54503fa10ec2911ae738fbe5e996b1
-      size: 27820
+      md5: ed61bc01c0e34de8ebb79ebf1965d0cc
+      size: 27674
     - path: main.out
       hash: md5
       md5: 15bde218778f1f6dfbfea47928790a29
       size: 5129
     - path: main.tex
       hash: md5
-      md5: 122135a9b6651a8831f159e713bf250f
-      size: 46901
+      md5: 87b0917104e8fe4270e8c83a7c027d14
+      size: 46890
     - path: plots/
       hash: md5
       md5: adce451bedd4716b5be77fb2f397b554.dir
@@ -52,8 +52,8 @@ stages:
     outs:
     - path: main.pdf
       hash: md5
-      md5: 020f3cb174fd71729ce39b9a8b96ed4a
-      size: 510512
+      md5: e0cf046710b3753038da124d821c2bee
+      size: 510209
   arxiv:
     cmd: 'rm -rf tmp/ &&  python arxiv.py  --directories plots/combined plots --delete_these_dirs
       generate_plots/ tmp conf bst --extensions py yaml csv  --title "Survival of
@@ -66,8 +66,8 @@ stages:
       size: 7776
     - path: main.pdf
       hash: md5
-      md5: 020f3cb174fd71729ce39b9a8b96ed4a
-      size: 510512
+      md5: e0cf046710b3753038da124d821c2bee
+      size: 510209
     - path: plots/
       hash: md5
       md5: adce451bedd4716b5be77fb2f397b554.dir
@@ -77,16 +77,16 @@ stages:
     - path: 'Survival of the Cheapest: Cost-Aware Hardware Adaptation for Adversarial
         Robustness.zip'
       hash: md5
-      md5: ef10aeeed06bc5d8dbc45810b4c4008b
-      size: 600548
+      md5: de99de425fac08ef475e1e8d503c824c
+      size: 600507
     - path: arxiv.log
       hash: md5
-      md5: 3d3bc7f242a34cf7bcbcf7df1a33b430
+      md5: c57ee848ac471be6bb788401a832689f
       size: 3397
     - path: tmp/
       hash: md5
-      md5: dfd77d3945d7de3f0d388db6705e7fcf.dir
-      size: 1080173
+      md5: 4fb61e419739a3dae09eaa2ef255c9b8.dir
+      size: 1080161
       nfiles: 28
   pre-commmit:
     cmd: pre-commit run --all-files  && chktex -q -V main.tex -n 24 -n 8 -n 1 -n
@@ -125,8 +125,8 @@ stages:
       nfiles: 33
     - path: main.tex
       hash: md5
-      md5: 122135a9b6651a8831f159e713bf250f
-      size: 46901
+      md5: 87b0917104e8fe4270e8c83a7c027d14
+      size: 46890
     - path: plots/
       hash: md5
       md5: adce451bedd4716b5be77fb2f397b554.dir
