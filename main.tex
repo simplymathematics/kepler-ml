@@ -111,7 +111,7 @@ Formally, \textit{adversarial success} or \textit{failure} is one in which
 where $\varepsilon$ is added adversarial noise,  bounded as $0 < \|\varepsilon_i\| \leq \varepsilon^*$.
 Additionally, one can measure the accuracy of the model when tasked with these adversarial samples, $x + \varepsilon$, giving a metric called \textit{adversarial accuracy}, which is Eq.~\ref{eq:acc} calculated on the perturbed samples, \textit{i.e.}, on $x + \varepsilon$. 
 These perturbations may represent malicious evasion attacks or naturally occurring input deviations, but the objective is not to model a specific attacker.
-Instead, these attacks provide an efficient mechanism for measuring how quickly a model fails as input conditions deviate from the training distribution.
+Instead, these attacks provide an efficient mechanism for measuring how quickly a model fails as input conditions deviate from the test distribution.
 
 One of many possible attacks is called the \textit{fast gradient method}~\cite{fgm}. 
 It works by applying noise to a set of samples, $x$, to generate adversarial examples, $x_a$, such that,
@@ -120,7 +120,7 @@ It works by applying noise to a set of samples, $x$, to generate adversarial exa
 \label{eq:fgm}
 \end{equation}
 Although presented here as a representative example, this attack is used throughout this work. 
-The methods and analysis, however, generalize to any adversarial attack that generates perturbed inputs and can induce a failure.
+The methods and analysis, however, generalize to any adversarial attack when there is a multiplicative relationship between explanatory covariates (\textit{e.g.,} magnitude of the noise vector) and probability of failure~\cite{meyers_aft,aft_models,kleinbaum1996survival}.
 
 
 
@@ -128,7 +128,7 @@ The methods and analysis, however, generalize to any adversarial attack that gen
 
 Selecting hyper-parameters for adversarially robust models is considerably more challenging than for conventional training because benign accuracy and adversarial robustness are often competing objectives~\cite{carlini_towards_2017,meyers,dohmatob_generalized_2019}. 
 Duesterwald et al.~\cite{duesterwald2019} demonstrated that adversarial training is highly sensitive to hyper-parameter selection and that no single configuration performs well across datasets or robustness objectives. 
-In particular, robustness verification shown to be NP-hard~\cite{carlini_towards_2017}.
+In particular, robustness verification is shown to be NP-hard~\cite{carlini_towards_2017}.
 
 Our work differs from previous robustness-oriented HPO studies in two important respects. 
 First, rather than optimising solely for benign and adversarial accuracy, we additionally optimise for training efficiency. 
@@ -221,7 +221,7 @@ where $\phi_\theta$ is the acceleration factor, described by the joint effect of
 where $x=(x_0, \ldots, x_n)$ is a vector of covariates, $\theta=(\theta_0, \ldots, \theta_n)$ describe the fitted parameters. 
 That is, as attack strength increases the time-to-failure decreases.
 
-Any attack that produces a measurable degradation in model performance over time can be modelled using an AFT formulation, assuming there is a multiplicative or additive relationship between attack strength and time-to-failure~\cite{meyers_aft}.
+Any attack that produces a measurable degradation in model performance over time can be modelled using an AFT formulation, assuming there is a multiplicative relationship between explanatory covariates (\textit{e.g.,} attack strength) and time-to-failure~\cite{meyers_aft,aft_models,kleinbaum1996survival}.
 
 \subsection{Choosing the best AFT Model}
 \label{best-fit}
@@ -237,7 +237,7 @@ Additionally, the data were split into a training set that was used to fit the m
 \section{Cost and Robustness Metrics for Hardware Adaptation}
 \label{cost}
 
-Building on the survival analysis in Section~\ref{survival_time}, this section defines the cost and robustness metrics that inform the model hyper-parameter selection process. 
+Building on the survival analysis in Section~\ref{aft}, this section defines the cost and robustness metrics that inform the model hyper-parameter selection process. 
 Cost is considered across three dimensions: computational efficiency (TRASH score~\cite{meyers_aft}), monetary deployment cost, and energy consumption. 
 Together these metrics allow us to quantify the cost of training, deployment, and attacking a given model~\cite{IEC61508} on a given hardware configuration: the benign and adversarial accuracies (see Equations~\ref{eq:adv_success}~and~\ref{eq:acc}), the model training time, $t_{t}$, the model inference time or latency, $t_{i}$, the attack generation time, $t_{a}$, the cost per hour for a particular hardware, $C$, as well as the power consumption, $P$, of each tested model and attack.
 
@@ -258,7 +258,7 @@ where $m$ is the number of epochs.
 
 \subsection{Latency}
 
-Latency is the time it takes to respond to a query. We assume that latency per sample is
+Latency is the time it takes to respond to a query. We assume that latency per batch is
 \[
     T_i := t_i \cdot n,
 \]
@@ -348,7 +348,7 @@ Over the course of the evaluations, 6\% of the budget went to storage, 6\% to mo
 
 \subsection{AFT Models}
 
-For each hardware configuration and dataset (see Section~\ref{datasets}), the Tree-Parzen Estimator (TPE) algorithm was used to select the parameters~\cite{ozaki2020multiobjective,zitzler2008quality}, and it was iterated for 1,000 trials.
+For each hardware configuration and dataset (see Section~\ref{datasets}), the Tree-structured Parzen Estimator (TPE) algorithm was used to select the parameters~\cite{ozaki2020multiobjective,zitzler2008quality}, and it was iterated for 1,000 trials.
 We used three optimisation criteria: benign accuracy, training time, and adversarial accuracy, seeking to maximise both benign and adversarial accuracy while minimising training time (and therefore deployment cost). 
 We selected a set of parameters as per the TPE algorithm and trained on 80\% of the samples for each of the MNIST, CIFAR10, and CIFAR100 datasets. 
 Of the remaining samples, 100 were withheld to be attacked and used to evaluate the adversarial accuracy. 
@@ -379,7 +379,7 @@ Model parameters were chosen using the \texttt{optuna} optimisation framework, t
 To examine the effect of model parameters at run-time, evasion attacks, which attack the model at the prediction stage, were examined.
 
 The goal of using these attacks is to model the effect of noise on model performance rather than imagine a hypothetical 
-Prior research~\cite{meyers,meyers_aft} has shown that the Fast Gradient Method (see Eq.~\ref{eq:fgm}) is consistently the most effective at inducing a large number of failures in a small amount of time.
+Prior research~\cite{meyers,meyers_aft} has shown that the fast gradient method (see Eq.~\ref{eq:fgm}) is consistently the most effective at inducing a large number of failures in a small amount of time.
 To evaluate the effect of adversarial noise (or lack thereof) on the samples, the noise levels were varied $0 < \|\varepsilon_i\| \leq 1$, sampled randomly from a uniform distribution.
 This was done using the \texttt{adversarial-robustness-toolbox} package maintained by a team at IBM~\cite{art2018}.
 
@@ -506,9 +506,10 @@ AIC~and~BIC are measures of goodness-of-fit, with a smaller value being preferre
 Concordance (Conc) is a value between 0 and 1 that reflects what proportion of events (failures) can be explained by the model.
 ICI measures the average error between a cubic-spline and the model and E50 measures the median error between the spline and the model.
 These are measured on both the train and validation sets of the measured data, with the latter being denoted ``Val''.
-The concordance is both strong ($>0.5$), similar for all three AFT models, as well as consistent across both the train and validation sets. 
+The concordance is strong ($>0.5$); similar for all three AFT models; and consistent across both the train and validation sets. 
 We observed no more than 1\% mean absolute error in the probabilities ICI and no error in the median probability E50 across all three AFT models.
-Figure~\ref{fig:aft} shows the log-scale coefficients for the AFT model. It shows that epochs, batch size, and training time have no effect on the survival time.
+Figure~\ref{fig:aft} shows the log-scale coefficients for the AFT model. 
+It shows that epochs, batch size, and training time have no effect on the survival time.
 However, we can clearly see that inference time is as strong an indicator as the attack noise distance, revealing that model speed is nearly as important as the magnitude of the attack ($\varepsilon$).
 Furthermore, we see that benign accuracy is negatively correlated with the survival time, confirming previous assertions that robustness ($S_{\theta}(t)$) is inversely related to benign accuracy (which is the standard indicator of generalisation performance)~\cite{carlini_towards_2017}.
 
@@ -537,22 +538,29 @@ In cryptography, these idealised attack and defence models are used to determine
 Likewise, if the cost of training a model greatly exceeds the cost of attacking it, then the model is effectively ``broken'' and should be discarded~\cite{meyers_aft}. 
 Figure~\ref{fig:trash} shows the TRASH score (Eq.~\ref{eq:cost}), which measures the per-sample ratio of training to attack time.
 
-Despite its lower memory bandwidth (Table~\ref{tab:hardware}), the L4 achieves superior cost (Table~\ref{tab:hardware}) and robustness (Figure~\ref{fig:aft}) because its tensor cores natively execute 8-bit operations, matching the 8-bit MNIST, CIFAR10, and CIFAR100 datasets. The additional precision of the P100 and V100 provides no useful information for these workloads. 
+Despite its lower memory bandwidth (Table~\ref{tab:hardware}), the L4 achieves superior cost (Table~\ref{tab:hardware}) and robustness (Figure~\ref{fig:aft}) because its tensor cores natively execute 8-bit operations, matching the 8-bit MNIST, CIFAR10, and CIFAR100 datasets. 
+The additional precision of the P100 and V100 provides no useful information for these workloads. 
 This result directly supports the Analyze phase of a MAPE-K loop by enabling self-adaptive systems to select the least expensive hardware configuration without sacrificing robustness and to discard models that are cheaper to attack than to train.
 
 \subsection{Advantages of the Proposed Methodology}
 \label{advantages}
 
-Unlike conventional train/validation evaluation, whose precision is limited by the number of samples, the precision of survival-time estimates is determined by hardware clock resolution. Demonstrating the failure rates required by safety standards such as IEC~61508 (\textit{e.g.,} one failure in a million) would require millions of validation samples and repeated data collection after each software change~\cite{IEC61508}. In contrast, the proposed AFT model achieves an average error of approximately 1\% using only 10 sets of 100 samples (Table~\ref{tab:aft_summary}).
+Unlike conventional train/validation evaluation, whose precision is limited by the number of samples, the precision of survival-time estimates is determined by hardware clock resolution. 
+Demonstrating the failure rates required by safety standards such as IEC~61508 (\textit{e.g.,} one failure in a million) would require millions of validation samples and repeated data collection after each software change~\cite{IEC61508}. 
+In contrast, the proposed AFT model achieves an average error of approximately 1\% using only 10 sets of 100 samples (Table~\ref{tab:aft_summary}).
 
-Because AFT models require relatively few samples, they can act as lightweight unit tests for ML components, estimating marginal risk per IEC~61508 without full-system integration or deployment~\cite{IEC61508,schmoor2000sample,lachin1981introduction}. Their strong predictive performance on unseen hyper-parameter configurations can also reduce the search space by eliminating candidates unlikely to improve survival time. Finally, the resulting cost and robustness estimates naturally support the planning stage of a MAPE-K control loop~\cite{kephart2003vision}, making the methodology suitable as a quantitative decision-support component for self-adaptive cloud-native ML systems.
+Because AFT models require relatively few samples, they can act as lightweight unit tests for ML components, estimating marginal risk per IEC~61508 without full-system integration or deployment~\cite{IEC61508,schmoor2000sample,lachin1981introduction}. 
+Their strong predictive performance on unseen hyper-parameter configurations can also reduce the search space by eliminating candidates unlikely to improve survival time. Finally, the resulting cost and robustness estimates naturally support the planning stage of a MAPE-K control loop~\cite{kephart2003vision}, making the methodology suitable as a quantitative decision-support component for self-adaptive cloud-native ML systems.
 
 \section{Scope and Limitations}
 \label{considerations}
 
 Although this work focuses on adversarial robustness, the proposed cost and survival analysis framework is general and can be applied whenever there is a multiplicative relationship between attack strength and model failure.
 
-Timing measurements were designed to minimise jitter and account for GPU parallelism by assuming a uniform time-to-failure across samples within each benign or adversarial evaluation. While some samples or classes are likely easier to attack than others, we assume these effects average over the 100 attack samples. Although modelling class- or sample-specific failure rates is outside the scope of this work, it could reduce some of the remaining unexplained variance. Nevertheless, the strong agreement across AFT models (Table~\ref{tab:aft_summary}) suggests that the uniform-time assumption has little practical impact.
+Timing measurements were designed to minimise jitter and account for GPU parallelism by assuming a uniform time-to-failure across samples within each benign or adversarial evaluation. 
+While some samples or classes are likely easier to attack than others, we assume these effects average over the 100 attack samples. 
+Although modelling class- or sample-specific failure rates is outside the scope of this work, it could reduce some of the remaining unexplained variance. 
+Nevertheless, the strong agreement across AFT models (Table~\ref{tab:aft_summary}) suggests that the uniform-time assumption has little practical impact.
 
 To minimise confounding factors, we restricted our experiments to models and datasets that fit entirely within GPU memory, isolating the effects of model configuration and hardware from secondary bottlenecks such as storage I/O, PCIe transfers, and distributed communication. 
 While these factors can significantly affect latency and cost in production cloud deployments, they can be incorporated as additional covariates in the proposed survival analysis framework. 
@@ -561,7 +569,8 @@ Extending the methodology to distributed and federated settings remains future w
 
 The attack and training batch sizes were matched in every trial so that attack timing reflected typical deployment conditions. Since attacks operate on fewer samples than training, the additional parallelisation overhead likely causes attack efficacy to be slightly underestimated relative to benign measurements.
 
-Finally, hyper-parameter optimisation was restricted to a single evasion attack (Eq.~\ref{eq:fgm}) due to computational constraints. However, the proposed AFT-based methodology naturally extends to other attack classes, including evasion, extraction, inversion, and poisoning attacks~\cite{biggio_evasion_2013,biggio_poisoning_2013,choquette2021label,orekondy2019knockoff}.
+Finally, hyper-parameter optimisation was restricted to a single evasion attack (Eq.~\ref{eq:fgm}) due to computational constraints. 
+However, the proposed AFT-based methodology naturally extends to other attack classes, including evasion, extraction, inversion, and poisoning attacks~\cite{carlini_towards_2017,biggio_poisoning_2013,choquette2021label,orekondy2019knockoff}.
 
 
 \section{Conclusions}
