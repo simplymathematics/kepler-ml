@@ -41,7 +41,7 @@ stages:
       --delete_these_dirs generate_plots/ tmp conf bst
       --extensions py yaml csv 
       --title "Survival of the Cheapest: Cost-Aware Hardware Adaptation for Adversarial Robustness"
-      --delete_these_files ".dvcignore" "main.aux" "main.blg" "main.out"  "main.pdf" "main.log"  "arxiv.log" "deckard.log"
+      --delete_these_files ".dvcignore" "main.aux" "main.blg" "main.out"  "main.pdf" "main.log"  "arxiv.log" "deckard.log" 
       --temporary_directory tmp
     deps:
       - arxiv.py
