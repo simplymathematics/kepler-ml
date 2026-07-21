@@ -177,7 +177,7 @@ Furthermore, adversarial counter-examples consistently expose the benign accurac
 \label{failure_rate}
 
 The failure rate refers to the percentage or proportion of examples that cause the targeted ML model to misclassify or produce incorrect outputs~\cite{meyers}. 
-To encompass the cost of a particular model or attack, the proposed methodology considers failures to be a function over some time interval (\textit{e.g.,} inference time, attack generation time, training time, with parameters, $\theta$), so that the failure rate is the average time until a failure in a time interval around time, $t$, such that
+To encompass the cost of a particular model or attack, the proposed methodology considers failures to be a function over some time interval (\textit{e.g.,} attack generation time) with parameters, $\theta$, so that the failure rate is the average time until a failure in a time interval around time, $t$, such that
 
 \[
     h_{\theta}(t) := \lim_{\Delta t \rightarrow 0} \frac{p\big(\textrm{False~Classification~in~} (t, t + \Delta t] \mid \theta\big)}{\Delta t},
